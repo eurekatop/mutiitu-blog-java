@@ -5,9 +5,10 @@ import javax.sql.DataSource;
 import org.seasar.doma.jdbc.Config;
 import org.seasar.doma.jdbc.dialect.Dialect;
 import org.seasar.doma.jdbc.dialect.H2Dialect;
+import org.seasar.doma.jdbc.dialect.SqliteDialect;
 import org.seasar.doma.jdbc.tx.LocalTransactionDataSource;
 import org.seasar.doma.jdbc.tx.LocalTransactionManager;
-import org.seasar.doma.jdbc.tx.TransactionManager;
+
 
 public class SQLiteDB implements Config {
 
@@ -17,19 +18,28 @@ public class SQLiteDB implements Config {
 
     private final LocalTransactionDataSource dataSource;
 
-    private final TransactionManager transactionManager;
+    private final LocalTransactionManager transactionManager;
 
     public SQLiteDB() {
+        
         dialect = new H2Dialect();
-        // dataSource = new LocalTransactionDataSource(
-        //        "jdbc:h2:mem:tutorial;DB_CLOSE_DELAY=-1", "sa", null);
-        
+
         dataSource = new LocalTransactionDataSource(
-               "jdbc:sqlite:sample.db", "sa", null);
-        
+               "jdbc:h2:mem:tutorial;DB_CLOSE_DELAY=-1", "sa", null);
 
         transactionManager = new LocalTransactionManager(
                 dataSource.getLocalTransaction(getJdbcLogger()));
+
+
+//        dialect = new SqliteDialect();
+//
+//        
+//        dataSource = new LocalTransactionDataSource(
+//               "jdbc:sqlite:sample.db", "sa", null);
+//        
+//
+//        transactionManager = new LocalTransactionManager(
+//                dataSource.getLocalTransaction(getJdbcLogger()));
     }
 
     @Override
@@ -42,8 +52,7 @@ public class SQLiteDB implements Config {
         return dataSource;
     }
 
-    @Override
-    public TransactionManager getTransactionManager() {
+    public LocalTransactionManager getTransactionManager() {
         return transactionManager;
     }
 
