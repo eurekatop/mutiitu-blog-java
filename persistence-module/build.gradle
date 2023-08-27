@@ -1,0 +1,56 @@
+plugins {
+    id 'java'
+
+    id "org.domaframework.doma.compile" version "2.0.0" apply true
+
+    id "io.freefair.lombok" version "8.2.2"
+
+}
+
+compileJava {
+   // options.compilerArgs << '-Xplugin:JavaOO' 
+    options.compilerArgs = ['-Adoma.dao.subpackage=impl', '-Adoma.dao.suffix=Impl']
+}
+
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+    mavenLocal() 
+}
+
+
+dependencies {
+    //ORM
+    annotationProcessor 'org.seasar.doma:doma-processor:2.54.0'
+    implementation("org.seasar.doma:doma-core:2.54.0")
+    implementation("org.xerial:sqlite-jdbc:3.42.0.1")
+    implementation("com.h2database:h2:2.2.220")
+
+    // Use JUnit test framework.
+    testImplementation 'junit:junit:4.13.2'
+
+    // This dependency is used by the application.
+    implementation 'com.google.guava:guava:32.1.1-jre'
+
+    implementation 'org.slf4j:slf4j-simple:2.0.7'
+
+
+    // DI   
+    implementation 'com.google.inject:guice:7.0.0'
+}
+
+// Apply a specific Java toolchain to ease working on different environments.
+java {
+    sourceCompatibility = "17"
+    targetCompatibility = "17"
+    
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+
+
+dependencies {
+    // No dependencies in this example
+}

@@ -11,4 +11,4 @@ plugins {
 }
 
 rootProject.name = 'mutiitu-blog-java'
-include('app')
+include 'main-module', 'persistence-module'
