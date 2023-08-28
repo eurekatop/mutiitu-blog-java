@@ -1,4 +1,4 @@
-package mutiitu.blog.core.di;
+package mutiitu.framework.core.di;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -9,10 +9,10 @@ import com.google.inject.Scopes;
 import io.javalin.Javalin;
 import mutiitu.blog.components.HeaderService;
 import mutiitu.blog.components.HeaderServiceImpl;
-import mutiitu.blog.core.ApplicationStarter;
-import mutiitu.blog.core.AutoShutdownPlugin;
-import mutiitu.blog.core.Router;
 import mutiitu.blog.routes.BlogRouter;
+import mutiitu.framework.core.ApplicationStarter;
+import mutiitu.framework.core.AutoShutdownPlugin;
+import mutiitu.framework.core.Router;
 
 public class CoreModule extends AbstractModule {
     @Override
@@ -20,7 +20,7 @@ public class CoreModule extends AbstractModule {
         bind(HeaderService.class).to(HeaderServiceImpl.class);
 
 
-        binder().requireExplicitBindings();
+        //binder().requireExplicitBindings();
         //install(new JavalinModule());
         //install(new MessageModule());
 
@@ -36,19 +36,8 @@ public class CoreModule extends AbstractModule {
             config.plugins.register(autoShutdownPlugin);                
             }
         ));
-        
-        bind(Router.class).to(BlogRouter.class);
-
-
-
-//        bind(Router.class).toInstance(Javalin.create());
-
 
         bind(ApplicationStarter.class).in(Scopes.SINGLETON);
 
-        //bind(ModelCrud.class).to(ModelCrudImpl.class).
-
-
-        //bind(Header.class).to(HeaderImpl.class).in(Scopes.SINGLETON);
     }
 }   

@@ -1,4 +1,4 @@
-package mutiitu.blog.core;
+package mutiitu.framework.core;
 
 import io.javalin.Javalin;
 import io.javalin.plugin.*;
@@ -12,7 +12,6 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.TimeUnit;
-//import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AutoShutdownPlugin implements Plugin {
 

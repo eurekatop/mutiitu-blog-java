@@ -1,4 +1,4 @@
-package mutiitu.blog.core;
+package mutiitu.framework.core;
 
 public interface Router {
 

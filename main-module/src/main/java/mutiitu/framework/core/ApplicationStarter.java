@@ -1,0 +1,121 @@
+package mutiitu.framework.core;
+
+
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.util.Collections;
+import java.util.Set;
+
+import org.reflections.Reflections;
+import org.reflections.scanners.Scanners;
+import org.reflections.util.ClasspathHelper;
+import org.reflections.util.ConfigurationBuilder;
+import org.slf4j.LoggerFactory;
+
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+
+import io.javalin.Javalin;
+import io.javalin.http.Handler;
+import io.javalin.rendering.template.JavalinThymeleaf;
+import mutiitu.blog.routes.HelloWorldRouter;
+import mutiitu.framework.core.annotations.Controller;
+import mutiitu.framework.core.annotations.Path;
+
+public class ApplicationStarter {
+    private final org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
+
+    private final Javalin javalin;
+    private final Router router;
+    private final Injector injector;
+
+    @Inject
+    public ApplicationStarter(Javalin javalin, Router router, Injector injector) {
+        this.javalin = javalin;
+        this.router = router;
+        this.injector = injector;
+    }
+
+
+    public void searchForControllerAnnotatedClasses() {
+        var reflections = new Reflections(new ConfigurationBuilder()
+        .forPackage("mutiitu.blog.routes")
+        .setScanners(
+            Scanners.TypesAnnotated,
+            Scanners.MethodsAnnotated
+            ));
+
+        var controllers = reflections.getTypesAnnotatedWith(Controller.class);
+        var paths = reflections.getMethodsAnnotatedWith(Path.class);
+
+        System.out.println("-- Controllers: -----------------------------");
+        for (Class<?> c : controllers) {
+            System.out.println(c);
+            var instance = injector.getInstance(c);
+            if ( "HelloWorldRouter".equals(c.getSimpleName()) ){
+                HelloWorldRouter  a = (HelloWorldRouter) instance;        
+                a.aa();
+            }
+        }
+
+        System.out.println("-- Methods: -----------------------------");
+        for (Method method : paths) {
+            var isHttpVerb = method.isAnnotationPresent(mutiitu.framework.core.annotations.Method.class);
+            String httpVerb; //TODO: refactor enum
+            var path = method.getAnnotation(Path.class);
+            var route = path.Value();
+
+            var handler = new JavalinHandler(method, injector);
+
+            // get params
+            var parameters = method.getParameters();
+            for (Parameter parameter : parameters) {
+                route = route + "/<" + parameter.getName() + ">";
+            }
+
+
+            logger.info("Route added value:" + route);
+            
+            if ( isHttpVerb ) {
+                var _httpVerb = method.getAnnotation(mutiitu.framework.core.annotations.Method.class);
+                httpVerb = _httpVerb.Value();
+            }
+            else {
+                httpVerb = "GET";
+            }
+
+            switch ( httpVerb ) {
+                case "GET":
+                    javalin.get(route, handler);
+                    break;
+                case "POST":
+                    javalin.post(route, handler);
+                    break;
+            }
+
+
+
+            //javalin.get("hola/:id", ctx -> {
+            //    ctx.req().
+            //    System.out.println(ctx.);
+            //});
+
+
+        }
+
+
+
+    }
+
+
+    public void run(String... args) {
+        
+        JavalinThymeleaf.init();
+
+        // search controllers
+        searchForControllerAnnotatedClasses();
+        
+        router.bind();
+        javalin.start(8080);
+    }
+}
