@@ -2,13 +2,16 @@ package mutiitu.blog.components;
 
 import java.util.UUID;
 
-import org.seasar.doma.jdbc.criteria.Entityql;
+//import org.seasar.doma.jdbc.criteria.Entityql;
 
 import com.mutiitu.domain.FooterModel;
 import com.mutiitu.domain.FooterModel_;
+import com.mutiitu.domain.HeaderModel;
+import com.mutiitu.domain.MigrateDatabaseImpl;
 import com.mutiitu.domain.ModelCrudImpl;
 import com.mutiitu.domain.TranslateModel;
 import com.mutiitu.domain.TranslateModel_;
+import com.mutiitu.persistence.PersistenceFactory;
 import com.mutiitu.persistence.SQLiteDB;
 
 // import mutiitu.blog.core.persistence.SQLiteDB;
@@ -28,7 +31,7 @@ public class HeaderServiceImpl implements HeaderService {
     @Override
     public String render() {
 
-        var dbContext = new SQLiteDB();
+//        var dbContext = new SQLiteDB();
 
 
 //        var dao = new HeaderModelDaoImpl(dbContext);
@@ -95,12 +98,15 @@ public class HeaderServiceImpl implements HeaderService {
         // var model2 = kk.getById(5);
         // System.out.println ( model2 );
 
-        var kk222 = new ModelCrudImpl<FooterModel, FooterModel_>( new FooterModel_() );
-        var model22 = kk222.getById(5);
-        System.out.println ( model22 );
+        //var kk222 = new ModelCrudImpl<FooterModel, FooterModel_>( new FooterModel_() );
+        
+        var kk222 = new PersistenceFactory<FooterModel>().create(FooterModel.class);
+
+        //var model22 = kk222.getById(5);
+        //System.out.println ( model22 );
 
 
-        var crudStr = new ModelCrudImpl<TranslateModel, TranslateModel_>( new TranslateModel_() );
+        // var crudStr = new ModelCrudImpl<TranslateModel, TranslateModel_>( new TranslateModel_() );
         
         var local =new TranslateModel();
 
@@ -111,12 +117,12 @@ public class HeaderServiceImpl implements HeaderService {
         local.setLanguage("ES");
         local.setValue("HOLA");
 
-        crudStr.insert(local);
+        // crudStr.insert(local);
 
-        var model224 = crudStr.getById(uuid);
-        System.out.println ( model224 );
+        /// var model224 = crudStr.getById(uuid);
+        /// System.out.println ( model224 );
 
-        crudStr.delete(uuid);
+        // crudStr.delete(uuid);
 
 
         //try {
@@ -128,6 +134,22 @@ public class HeaderServiceImpl implements HeaderService {
 
 //
 //        db.
+
+
+            // create database
+            var migrate = new MigrateDatabaseImpl();
+            migrate.create();
+
+            var headerCrud = new PersistenceFactory<HeaderModel>().create(HeaderModel.class);
+            var header = new HeaderModel();
+            header.setId(1);
+            header.setTitle("Header");
+            headerCrud.insert(header);
+
+            var hh = headerCrud.getById(1);
+            System.out.println(hh);
+
+
 
         return "hola";
     } 

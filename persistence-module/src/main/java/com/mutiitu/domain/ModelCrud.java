@@ -1,6 +1,6 @@
 package com.mutiitu.domain;
 
-interface  ModelCrud<T> {
+public interface  ModelCrud<T> {
     void insert(T model);
 
     T getById(int id);

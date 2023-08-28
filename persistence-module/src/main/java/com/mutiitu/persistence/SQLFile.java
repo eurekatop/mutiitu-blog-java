@@ -1,4 +1,4 @@
-package mutiitu.blog.core.persistence;
+package com.mutiitu.persistence;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -10,6 +10,7 @@ import org.seasar.doma.jdbc.criteria.declaration.WhereDeclaration;
 import org.seasar.doma.jdbc.criteria.metamodel.EntityMetamodel;
 import org.seasar.doma.jdbc.criteria.metamodel.PropertyMetamodel;
 import org.seasar.doma.jdbc.tx.LocalTransactionManager;
+
 import com.mutiitu.persistence.BaseModel;
 import com.mutiitu.persistence.SQLiteDB;
 
@@ -169,8 +170,6 @@ public class ModelCrudImpl<T extends BaseModel, T1 extends EntityMetamodel<T>> i
             throw ex;
         }
     }
-
-
 
 
 }
