@@ -4,31 +4,27 @@
 package mutiitu.blog.core;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
-
-import org.slf4j.LoggerFactory;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
 import mutiitu.blog.components.Header;
+import mutiitu.blog.core.di.CoreModule;
 
 public class App {
     public String getGreeting() {
         return "Hello World  !";
     }
 
-    public static void main(String[] args) {
+    public static void main_2(String[] args) {
         System.out.println(new App().getGreeting());
 
 
         JavalinThymeleaf.init();
 
-        var module = new AppModule();
+        var module = new CoreModule();
         Injector injector = Guice.createInjector(module);
 
 
@@ -43,7 +39,7 @@ public class App {
 
             config.plugins.register(autoShutdownPlugin);
         })
-            .get("/", ctx -> ctx.result("Hello World 111111"))
+            .get("/", ctx -> ctx.result("Hello World 1AA11111"))
             .get("/jte", ctx -> ctx.render("hello.jte"))
             .get("/thymeleaf", ctx -> {
                     ctx.render("templates/hello.html");

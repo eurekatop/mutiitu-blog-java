@@ -8,7 +8,6 @@ plugins {
 }
 
 compileJava {
-   // options.compilerArgs << '-Xplugin:JavaOO' 
     options.compilerArgs = ['-Adoma.dao.subpackage=impl', '-Adoma.dao.suffix=Impl']
 }
 
@@ -37,6 +36,7 @@ dependencies {
 
     // DI   
     implementation 'com.google.inject:guice:7.0.0'
+    implementation 'com.google.inject.extensions:guice-servlet:7.0.0'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
