@@ -1,11 +1,9 @@
 package com.mutiitu.domain;
 
-import java.lang.annotation.Native;
 import java.util.function.Consumer;
 
 import org.seasar.doma.jdbc.criteria.Entityql;
 import org.seasar.doma.jdbc.criteria.NativeSql;
-import org.seasar.doma.jdbc.criteria.context.SelectContext;
 import org.seasar.doma.jdbc.criteria.declaration.WhereDeclaration;
 import org.seasar.doma.jdbc.criteria.metamodel.EntityMetamodel;
 import org.seasar.doma.jdbc.criteria.metamodel.PropertyMetamodel;

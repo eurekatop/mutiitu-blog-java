@@ -102,6 +102,9 @@ class FileWatcher extends Thread {
     }
 
     private void addWatchDirectory(Path path) throws IOException {
+
+        logger.debug("Add watch path:" + path.toUri());
+
         Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
             @Override
             public FileVisitResult preVisitDirectory(Path p, BasicFileAttributes attr) {

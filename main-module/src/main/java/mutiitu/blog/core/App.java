@@ -3,8 +3,12 @@
  */
 package mutiitu.blog.core;
 
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.slf4j.LoggerFactory;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -15,7 +19,7 @@ import mutiitu.blog.components.Header;
 
 public class App {
     public String getGreeting() {
-        return "Hello World!";
+        return "Hello World  !";
     }
 
     public static void main(String[] args) {
@@ -30,11 +34,16 @@ public class App {
 
         var App = Javalin.create( config -> {
 
-            var autoShutdownPlugin = new AutoShutdownPlugin(List.of(Paths.get("src", "main")));
+            var rootPath = Path.of(System.getProperty("user.dir")).getParent();
+            var paths = new ArrayList<Path>();
+            paths.add( Path.of(rootPath + "/main-module/src"));
+            paths.add( Path.of(rootPath + "/persistence-module/src"));
+
+            var autoShutdownPlugin = new AutoShutdownPlugin(paths);
 
             config.plugins.register(autoShutdownPlugin);
         })
-            .get("/", ctx -> ctx.result("Hello World 2"))
+            .get("/", ctx -> ctx.result("Hello World 111111"))
             .get("/jte", ctx -> ctx.render("hello.jte"))
             .get("/thymeleaf", ctx -> {
                     ctx.render("templates/hello.html");

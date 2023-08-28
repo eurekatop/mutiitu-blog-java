@@ -29,4 +29,6 @@ public class HeaderModel extends BaseModel {
     @Column(name = "TITLE")
     String title;
 
+    @Column(name = "SUBTITLE")
+    String subtitle;
 }
