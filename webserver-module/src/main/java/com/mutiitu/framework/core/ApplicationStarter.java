@@ -18,7 +18,7 @@ import com.google.inject.Injector;
 import io.javalin.Javalin;
 import io.javalin.http.Handler;
 import io.javalin.rendering.template.JavalinThymeleaf;
-import mutiitu.blog.routes.HelloWorldRouter;
+//import mutiitu.blog.routes.HelloWorldRouter;
 import mutiitu.framework.core.annotations.Controller;
 import mutiitu.framework.core.annotations.Path;
 
@@ -48,15 +48,15 @@ public class ApplicationStarter {
         var controllers = reflections.getTypesAnnotatedWith(Controller.class);
         var paths = reflections.getMethodsAnnotatedWith(Path.class);
 
-        System.out.println("-- Controllers: -----------------------------");
-        for (Class<?> c : controllers) {
-            System.out.println(c);
-            var instance = injector.getInstance(c);
-            if ( "HelloWorldRouter".equals(c.getSimpleName()) ){
-                HelloWorldRouter  a = (HelloWorldRouter) instance;        
-                a.aa();
-            }
-        }
+        //System.out.println("-- Controllers: -----------------------------");
+        //for (Class<?> c : controllers) {
+        //    System.out.println(c);
+        //    var instance = injector.getInstance(c);
+        //    if ( "HelloWorldRouter".equals(c.getSimpleName()) ){
+        //        HelloWorldRouter  a = (HelloWorldRouter) instance;        
+        //        a.aa();
+        //    }
+        //}
 
         System.out.println("-- Methods: -----------------------------");
         for (Method method : paths) {

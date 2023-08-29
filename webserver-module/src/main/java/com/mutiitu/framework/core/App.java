@@ -3,21 +3,22 @@
  */
 package mutiitu.framework.core;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
-import io.javalin.Javalin;
-import io.javalin.rendering.template.JavalinThymeleaf;
-import mutiitu.blog.components.Header;
-import mutiitu.framework.core.di.CoreModule;
+// import java.nio.file.Path;
+// import java.util.ArrayList;
+// import com.google.inject.Guice;
+// import com.google.inject.Injector;
+// 
+// import io.javalin.Javalin;
+// import io.javalin.rendering.template.JavalinThymeleaf;
+// import mutiitu.blog.components.Header;
+// import mutiitu.framework.core.di.CoreModule;
 
 public class App {
     public String getGreeting() {
         return "Hello World  !";
     }
 
+/* 
     public static void main_2(String[] args) {
         System.out.println(new App().getGreeting());
 
@@ -53,4 +54,5 @@ public class App {
         System.out.println(App);
 
     }
+    */
 }

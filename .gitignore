@@ -27,4 +27,6 @@ main-module/build/*
 main-module/bin/*
 persistence-module/build/*
 persistence-module/bin/*
+webserver-module/build/*
+webserver-module/bin/*
 .gradle/*

@@ -7,9 +7,9 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
 
 import io.javalin.Javalin;
-import mutiitu.blog.components.HeaderService;
-import mutiitu.blog.components.HeaderServiceImpl;
-import mutiitu.blog.routes.BlogRouter;
+//import mutiitu.blog.components.HeaderService;
+//import mutiitu.blog.components.HeaderServiceImpl;
+//import mutiitu.blog.routes.BlogRouter;
 import mutiitu.framework.core.ApplicationStarter;
 import mutiitu.framework.core.AutoShutdownPlugin;
 import mutiitu.framework.core.Router;
@@ -17,7 +17,7 @@ import mutiitu.framework.core.Router;
 public class CoreModule extends AbstractModule {
     @Override
     protected void configure() {
-        bind(HeaderService.class).to(HeaderServiceImpl.class);
+        //bind(HeaderService.class).to(HeaderServiceImpl.class);
 
 
         //binder().requireExplicitBindings();
@@ -30,6 +30,7 @@ public class CoreModule extends AbstractModule {
             var paths = new ArrayList<Path>();
             paths.add( Path.of(rootPath + "/main-module/src"));
             paths.add( Path.of(rootPath + "/persistence-module/src"));
+            paths.add( Path.of(rootPath + "/webserver-module/src"));
 
             var autoShutdownPlugin = new AutoShutdownPlugin(paths);
 

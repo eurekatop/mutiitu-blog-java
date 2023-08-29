@@ -7,7 +7,7 @@
 
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
-    id 'application'
+    //id 'application'
     id 'java'
     id "io.freefair.lombok" version "8.2.2"
 }
@@ -43,10 +43,8 @@ dependencies {
     implementation 'org.reflections:reflections:0.10.2'
 
     // 
-    implementation project(':persistence-module') 
-    implementation project(':webserver-module') 
-
-    implementation("org.seasar.doma:doma-core:2.54.0")
+    //implementation project(':persistence-module') 
+    //implementation("org.seasar.doma:doma-core:2.54.0")
 
 
 }
@@ -61,10 +59,10 @@ java {
     }
 }
 
-application {
-    // Define the main class for the application.
-    mainClass = 'mutiitu.blog.Application'
-}
+//application {
+//    // Define the main class for the application.
+//    mainClass = 'mutiitu.blog.Application'
+//}
 
 
 
