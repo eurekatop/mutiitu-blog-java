@@ -35,6 +35,7 @@ dependencies {
     // template engine
     implementation 'gg.jte:jte:3.0.3'
     implementation 'org.thymeleaf:thymeleaf:3.1.2.RELEASE'
+    implementation 'io.pebbletemplates:pebble:3.2.1'
 
     // DI   
     implementation 'com.google.inject:guice:7.0.0'
@@ -51,13 +52,29 @@ dependencies {
 
 }
 
+tasks.register('copyAllHtmlTemplates', Copy) {
+    from 'src/main/java/'
+    include '**/*.html'
+    exclude 'resources/*'
+ 
+    into layout.buildDirectory.dir("resources/main")
+}
+
+
+
+
+compileJava {
+    dependsOn copyAllHtmlTemplates
+} 
+
+
 // Apply a specific Java toolchain to ease working on different environments.
 java {
-    sourceCompatibility = "17"
-    targetCompatibility = "17"
+    sourceCompatibility = "20"
+    targetCompatibility = "20"
     
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(20)
     }
 }
 

@@ -137,17 +137,37 @@ public class HeaderServiceImpl implements HeaderService {
 
 
             // create database
-            var migrate = new MigrateDatabaseImpl();
-            migrate.create();
+            // var migrate = new MigrateDatabaseImpl();
+            // migrate.create();
 
             var headerCrud = new PersistenceFactory<HeaderModel>().create(HeaderModel.class);
             var header = new HeaderModel();
             header.setId(1);
             header.setTitle("Header");
+            header.setSubtitle("gradacions");
+
             headerCrud.insert(header);
 
             var hh = headerCrud.getById(1);
             System.out.println(hh);
+
+            // inserts
+            for ( int i=2; i<409; i++){
+                var _header = new HeaderModel();
+                _header.setTitle("Header");
+                _header.setSubtitle("gradacions " + i);
+                headerCrud.insertAsync(_header);
+            }
+
+            // delete
+            // for ( int i=2; i<409; i++){
+            //     headerCrud.delete(i);
+            // }
+
+            // delete sync
+            for ( int i=2; i<409; i++){
+                headerCrud.deleteAsync(i);
+            }
 
 
 

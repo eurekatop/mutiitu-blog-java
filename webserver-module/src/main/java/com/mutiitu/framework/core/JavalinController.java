@@ -1,4 +1,4 @@
-package mutiitu.framework.core;
+package com.mutiitu.framework.core;
 
 import io.javalin.http.Context;
 

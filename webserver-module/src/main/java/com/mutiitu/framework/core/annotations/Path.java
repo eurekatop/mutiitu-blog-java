@@ -1,4 +1,9 @@
-package mutiitu.framework.core.annotations;
+/**
+ * The {@code Path} annotation is used to define a path route for a method in the context of an application.
+ * It allows you to specify a custom path value that is associated with the method.
+ *
+ */
+package com.mutiitu.framework.core.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

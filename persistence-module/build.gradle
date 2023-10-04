@@ -24,6 +24,7 @@ dependencies {
     implementation("org.seasar.doma:doma-core:2.54.0")
     implementation("org.xerial:sqlite-jdbc:3.42.0.1")
     implementation("com.h2database:h2:2.2.220")
+    implementation("mysql:mysql-connector-java:8.0.33")
 
     // Use JUnit test framework.
     testImplementation 'junit:junit:4.13.2'
@@ -41,11 +42,11 @@ dependencies {
 
 // Apply a specific Java toolchain to ease working on different environments.
 java {
-    sourceCompatibility = "17"
-    targetCompatibility = "17"
+    sourceCompatibility = "20"
+    targetCompatibility = "20"
     
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(20)
     }
 }
 

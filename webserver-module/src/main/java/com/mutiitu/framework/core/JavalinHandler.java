@@ -1,4 +1,4 @@
-package mutiitu.framework.core;
+package com.mutiitu.framework.core;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -8,7 +8,11 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Injector;
+import com.mutiitu.framework.core.http.responses.HtmlResponse;
+import com.mutiitu.framework.core.http.responses.HttpResponse;
+import com.mutiitu.framework.core.http.responses.StringResponse;
 
+import io.javalin.http.ContentType;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 
@@ -71,12 +75,16 @@ public class JavalinHandler implements Handler{
         }
 
         // get return type
-        var returnType = method.getReturnType();
-        if ( returnType.equals(String.class) ) {
-            ctx.result((String)resultInvoke);
+        //var returnType = method.getReturnType();
+
+        if (resultInvoke instanceof HttpResponse) {
+            if ( resultInvoke instanceof HtmlResponse ) {
+                ctx.html(((HtmlResponse)resultInvoke).data);
+            }
+            if ( resultInvoke instanceof StringResponse ) {
+                ctx.result(((StringResponse)resultInvoke).data);
+            }
         }
-
-
 
 
     }

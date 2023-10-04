@@ -13,6 +13,11 @@ plugins {
 }
 
 
+compileJava {
+    options.compilerArgs = ['--enable-preview',  '-Xlint:preview' ]
+}
+
+
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
@@ -42,20 +47,22 @@ dependencies {
     // reflection
     implementation 'org.reflections:reflections:0.10.2'
 
-    // 
-    //implementation project(':persistence-module') 
-    //implementation("org.seasar.doma:doma-core:2.54.0")
+    // template engine
+    // implementation 'gg.jte:jte:3.0.3'
+    // implementation 'org.thymeleaf:thymeleaf:3.1.2.RELEASE'
+    implementation 'io.pebbletemplates:pebble:3.2.1'
+
 
 
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
 java {
-    sourceCompatibility = "17"
-    targetCompatibility = "17"
+    sourceCompatibility = "20"
+    targetCompatibility = "20"
     
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(20)
     }
 }
 

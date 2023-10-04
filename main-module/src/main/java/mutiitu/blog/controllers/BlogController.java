@@ -1,22 +1,22 @@
-package mutiitu.blog.routes;
+package mutiitu.blog.controllers;
 
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
 
 import io.javalin.Javalin;
-import mutiitu.framework.core.Router;
-import mutiitu.framework.core.annotations.Controller;
+import com.mutiitu.framework.core.Router;
+import com.mutiitu.framework.core.annotations.Controller;
 
 @Controller
-public class BlogRouter implements Router{
+public class BlogController implements Router{
     private final org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
 
     private final Javalin javalin;
     //private final MessageService service;
 
     @Inject
-    public BlogRouter(Javalin javalin) {
+    public BlogController(Javalin javalin) {
         this.javalin = javalin;
     }
 

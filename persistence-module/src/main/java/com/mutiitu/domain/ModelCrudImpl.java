@@ -1,5 +1,8 @@
 package com.mutiitu.domain;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
 import org.seasar.doma.jdbc.criteria.Entityql;
@@ -8,11 +11,16 @@ import org.seasar.doma.jdbc.criteria.declaration.WhereDeclaration;
 import org.seasar.doma.jdbc.criteria.metamodel.EntityMetamodel;
 import org.seasar.doma.jdbc.criteria.metamodel.PropertyMetamodel;
 import org.seasar.doma.jdbc.tx.LocalTransactionManager;
+import org.slf4j.LoggerFactory;
 
 import com.mutiitu.persistence.BaseModel;
 import com.mutiitu.persistence.SQLiteDB;
 
 public class ModelCrudImpl<T extends BaseModel, T1 extends EntityMetamodel<T>> implements ModelCrud<T> {
+    private final int THREAD_POOL = 40;
+    private final org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
+
+    private ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL); 
 
     Entityql eql;
     NativeSql nql;
@@ -27,17 +35,49 @@ public class ModelCrudImpl<T extends BaseModel, T1 extends EntityMetamodel<T>> i
         t__ = doma_;
     }
 
+
+    public CompletableFuture<Void> insertAsync(T model) {
+        return CompletableFuture.runAsync(() -> {
+            try {
+                insert(model);
+            } catch (Exception ex) {
+                logger.error("Error on insertAsync", ex);
+                throw ex;
+            }
+        }, executor);
+    }
+
     @Override
     public void insert(T model) {
         try {
-            var txx = tx.getTransaction();
-            txx.begin();
-            eql.insert( t__ , model).execute();
-            txx.commit();
+            // var txx = tx.getTransaction();
+            // txx.begin();
+            // eql.insert( t__ , model).execute();
+            // txx.commit();
+
+            tx.required( 
+                () -> {
+                    eql.insert( t__ , model).execute();
+                }
+            );
+
         } catch (Exception e) {
+            logger.error("Error on insert", e);
             throw e;
         }
 
+    }
+
+
+    public CompletableFuture<Void> deleteAsync(int id) {
+        return CompletableFuture.runAsync(() -> {
+            try {
+                delete(id);
+            } catch (Exception ex) {
+                logger.error("Error on deleteAsync", ex);
+                throw ex;
+            }
+        }, executor);
     }
 
     @Override
@@ -56,10 +96,16 @@ public class ModelCrudImpl<T extends BaseModel, T1 extends EntityMetamodel<T>> i
                         whereDeclaration.eq(isId, id);
                     };
 
-                    var txx = tx.getTransaction();
-                    txx.begin();
-                    /*var result =*/ nql.delete(t__).where(cc).execute();
-                    txx.commit();
+                    // var txx = tx.getTransaction();
+                    // txx.begin();
+                    // /*var result =*/ nql.delete(t__).where(cc).execute();
+                    // txx.commit();
+
+                    tx.required(() -> {
+                        nql.delete(t__).where(cc).execute();
+                    });
+
+                    
                 }
             }
         }

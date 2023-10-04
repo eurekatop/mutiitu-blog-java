@@ -1,7 +1,5 @@
 package com.mutiitu.domain;
 
-import java.util.UUID;
-
 import org.seasar.doma.Column;
 import org.seasar.doma.Entity;
 import org.seasar.doma.GeneratedValue;
@@ -14,7 +12,7 @@ import lombok.EqualsAndHashCode;
 import com.mutiitu.persistence.BaseModel;
 
 
-@Table(name = "Header")
+@Table(name = "Header2")
 @Entity(metamodel = @Metamodel)
 @lombok.Data
 @EqualsAndHashCode(callSuper = true)

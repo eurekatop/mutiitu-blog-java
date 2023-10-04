@@ -5,7 +5,7 @@ package mutiitu.blog.java;
 
 import org.junit.Test;
 
-import mutiitu.framework.core.App;
+import com.mutiitu.framework.core.App;
 
 import static org.junit.Assert.*;
 

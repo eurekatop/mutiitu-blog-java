@@ -1,4 +1,4 @@
-package mutiitu.framework.core.di;
+package com.mutiitu.framework.core.di;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -10,9 +10,9 @@ import io.javalin.Javalin;
 //import mutiitu.blog.components.HeaderService;
 //import mutiitu.blog.components.HeaderServiceImpl;
 //import mutiitu.blog.routes.BlogRouter;
-import mutiitu.framework.core.ApplicationStarter;
-import mutiitu.framework.core.AutoShutdownPlugin;
-import mutiitu.framework.core.Router;
+import com.mutiitu.framework.core.ApplicationStarter;
+import com.mutiitu.framework.core.AutoShutdownPlugin;
+//import com.mutiitu.framework.core.Router;
 
 public class CoreModule extends AbstractModule {
     @Override

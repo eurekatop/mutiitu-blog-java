@@ -1,4 +1,4 @@
-package mutiitu.framework.core;
+package com.mutiitu.framework.core;
 
 
 import java.lang.reflect.Method;
@@ -19,8 +19,8 @@ import io.javalin.Javalin;
 import io.javalin.http.Handler;
 import io.javalin.rendering.template.JavalinThymeleaf;
 //import mutiitu.blog.routes.HelloWorldRouter;
-import mutiitu.framework.core.annotations.Controller;
-import mutiitu.framework.core.annotations.Path;
+import com.mutiitu.framework.core.annotations.Controller;
+import com.mutiitu.framework.core.annotations.Path;
 
 public class ApplicationStarter {
     private final org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
@@ -39,7 +39,7 @@ public class ApplicationStarter {
 
     public void searchForControllerAnnotatedClasses() {
         var reflections = new Reflections(new ConfigurationBuilder()
-        .forPackage("mutiitu.blog.routes")
+        .forPackage("mutiitu.blog.controllers") // TODO: refactor
         .setScanners(
             Scanners.TypesAnnotated,
             Scanners.MethodsAnnotated
@@ -60,7 +60,7 @@ public class ApplicationStarter {
 
         System.out.println("-- Methods: -----------------------------");
         for (Method method : paths) {
-            var isHttpVerb = method.isAnnotationPresent(mutiitu.framework.core.annotations.Method.class);
+            var isHttpVerb = method.isAnnotationPresent(com.mutiitu.framework.core.annotations.Method.class);
             String httpVerb; //TODO: refactor enum
             var path = method.getAnnotation(Path.class);
             var route = path.Value();
@@ -77,7 +77,7 @@ public class ApplicationStarter {
             logger.info("Route added value:" + route);
             
             if ( isHttpVerb ) {
-                var _httpVerb = method.getAnnotation(mutiitu.framework.core.annotations.Method.class);
+                var _httpVerb = method.getAnnotation(com.mutiitu.framework.core.annotations.Method.class);
                 httpVerb = _httpVerb.Value();
             }
             else {
@@ -109,7 +109,12 @@ public class ApplicationStarter {
 
 
     public void run(String... args) {
-        
+        // command line
+        for (String arg : args) {
+            logger.info(arg);
+        }
+
+        //
         JavalinThymeleaf.init();
 
         // search controllers
