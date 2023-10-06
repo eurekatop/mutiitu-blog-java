@@ -7,6 +7,7 @@ import mutiitu.blog.components.Header2;
 import mutiitu.blog.components.Header3;
 import mutiitu.blog.components.HeaderService;
 import mutiitu.blog.components.HeaderServiceImpl;
+import mutiitu.blog.components.home.HomePage;
 import mutiitu.blog.controllers.BlogController;
 import com.mutiitu.framework.core.Router;
 import com.mutiitu.framework.core.di.CoreModule;
@@ -32,7 +33,8 @@ public class ApplicationModule  extends AbstractModule {
         bind(Router.class).to(BlogController.class);
         //bind(HelloWorldRouter.class).toInstance(new HelloWorldRouter(null));
 
-        // add template components......
-        UIComponentFactory.AddComponent("Header3", new Header3() );
+        // add template components...... maybe discover with annotations.....
+        //UIComponentFactory.AddComponent("Header3", new Header3() );
+        //UIComponentFactory.AddComponent("HomePage", new HomePage() );
     }
 }   

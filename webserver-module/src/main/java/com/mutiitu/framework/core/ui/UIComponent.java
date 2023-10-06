@@ -25,7 +25,9 @@ public class UIComponent {
     protected UIComponent() {
         this.engine = new PebbleEngine.Builder().build();
         
+
         //TODO:remove /java
+        // get file template 
         var fileTemplate = this.getClass().getCanonicalName();
         fileTemplate =  ""  + fileTemplate.replace('.', '/') + ".html";  //TOdo: file separator
         logger.info ( "fileTemplate ##############3 " + fileTemplate );

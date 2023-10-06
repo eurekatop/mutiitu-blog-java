@@ -5,8 +5,9 @@ import org.slf4j.LoggerFactory;
 import com.mutiitu.framework.core.annotations.Component;
 import com.mutiitu.framework.core.ui.UIComponent;
 
+// TODO: config override convention
 @Component (
-    template = "home2.html"
+    template = "home22222222.html"
 )
 public class Header3 extends UIComponent{
     public String subtitle;

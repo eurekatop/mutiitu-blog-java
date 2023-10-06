@@ -60,11 +60,19 @@ tasks.register('copyAllHtmlTemplates', Copy) {
     into layout.buildDirectory.dir("resources/main")
 }
 
+// TODO: harcoded project name
+tasks.register('copyAllPublicFolder', Copy) {
+    from 'src/main/java/mutiitu/blog/public'
+    include '**/*.*'
+ 
+    into layout.buildDirectory.dir("resources/public")
+}
 
 
 
 compileJava {
     dependsOn copyAllHtmlTemplates
+    dependsOn copyAllPublicFolder
 } 
 
 

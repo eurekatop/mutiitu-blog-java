@@ -114,11 +114,12 @@ public class ApplicationStarter {
             logger.info(arg);
         }
 
-        //
+        // TODO: deprecated
         JavalinThymeleaf.init();
 
         // search controllers
         searchForControllerAnnotatedClasses();
+
         
         router.bind();
         javalin.start(8080);

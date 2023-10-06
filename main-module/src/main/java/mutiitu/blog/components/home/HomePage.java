@@ -17,8 +17,8 @@ public class HomePage extends UIComponent{
     //public Header3 header3 = new Header3();
 
     //public Header3 header3;
-
-    public UIComponentFactory<Header3> header3 = new UIComponentFactory<Header3>(); 
+    // TODO: html template engine
+    public UIComponentFactory<Header3> header3 = new UIComponentFactory<Header3>(Header3.class); 
 
 
     public void init(String subtitle){
