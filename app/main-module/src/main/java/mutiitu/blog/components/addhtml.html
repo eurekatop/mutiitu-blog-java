@@ -1,0 +1,6 @@
+{{ name }}
+
+{% for item in items %}
+	{{ item }}
+    {{ test.build( "#{item}"  ) | raw }}
+{% endfor %}
