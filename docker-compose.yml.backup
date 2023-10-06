@@ -1,0 +1,13 @@
+version: '3'
+services:
+  my-java-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./app:/app
+    working_dir: /app
+    command: ./gradlew run -t --args="-mortadelo -filemon"
+    #command: tail -f /dev/null
+    ports:
+      - "8080:8080"
