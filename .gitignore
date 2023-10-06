@@ -23,14 +23,14 @@
 hs_err_pid*
 replay_pid*
 
-#app/main-module/build/*
-#app/main-module/bin/*
-#app/persistence-module/build/*
-#app/persistence-module/bin/*
-#app/webserver-module/build/*
-#app/webserver-module/bin/*
-#.gradle/*
-#app/.gradle/*
+app/main-module/build/*
+app/main-module/bin/*
+app/persistence-module/build/*
+app/persistence-module/bin/*
+app/webserver-module/build/*
+app/webserver-module/bin/*
+.gradle/*
+app/.gradle/*
 
 
 
