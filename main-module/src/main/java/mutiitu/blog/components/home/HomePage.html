@@ -1,6 +1,7 @@
 <html>
 <head>
 	<title>{% block title %}My Website{% endblock %}</title>
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
 </head>
 <body>
     ostras
@@ -9,7 +10,13 @@
     <!-- TODO: html template engine -->
     {{ header3.init("#{subtitle}")  | raw}}
 
-    <img src="/images/neom-39n8YVSn0d4-unsplash.jpg" />
+    <button hx-get="/header/get/name" hx-swap="outerHTML">
+        Click Me
+    </button>
+
+
+    <!-- img src="/images/neom-39n8YVSn0d4-unsplash.jpg" / -->
+    <img src="/icons/iconmonstr-heart-lined-64.png" />
 
 </body>
 </html>
