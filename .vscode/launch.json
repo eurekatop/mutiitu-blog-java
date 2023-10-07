@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "request": "attach",
+            "name": "Attach by Process ID",
+            "hostName": "localhost",
+            "port": 8081,
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
@@ -15,7 +22,7 @@
             "name": "Application",
             "request": "launch",
             "mainClass": "mutiitu.blog.Application",
-            "projectName": "main-module"
+            "projectName": "main-module",
         }
     ]
 }

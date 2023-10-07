@@ -1,5 +1,8 @@
 package com.mutiitu.persistence;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.mutiitu.domain.FooterModel;
 import com.mutiitu.domain.FooterModel_;
 import com.mutiitu.domain.HeaderModel;
@@ -11,28 +14,25 @@ import com.mutiitu.domain.TranslateModel_;
 
 public class PersistenceFactory<T> {
 
-    public PersistenceFactory(){}
+    private final Map<Class<?>, ModelCrud<?>> modelCrudMap = new HashMap<>();
+
+
+
+    public PersistenceFactory(){
+        // TODO: generate ??
+        modelCrudMap.put(HeaderModel.class, new ModelCrudImpl<>(new HeaderModel_()));
+        modelCrudMap.put(FooterModel.class, new ModelCrudImpl<>(new FooterModel_()));
+        modelCrudMap.put(TranslateModel.class, new ModelCrudImpl<>(new TranslateModel_()));
+    }
 
 
     @SuppressWarnings("unchecked")
     public ModelCrud<T> create(Class<?> clazz){
-        if ( clazz.equals(HeaderModel.class) ){
-            var instance = new ModelCrudImpl<HeaderModel, HeaderModel_>( new HeaderModel_() );
-            return (ModelCrud<T>) (instance);
+        ModelCrud<?> modelCrud = modelCrudMap.get(clazz);
+        if (modelCrud != null) {
+            return (ModelCrud<T>) modelCrud;
+        } else {
+            throw new IllegalArgumentException("No valid implementation was found for the provided class.");
         }
- 
-        if ( clazz.equals(FooterModel.class) ){
-            var instance = new ModelCrudImpl<FooterModel, FooterModel_>( new FooterModel_() );
-            return (ModelCrud<T>) (instance);
-        }
-
-        if ( clazz.equals(TranslateModel.class) ){
-            var instance = new ModelCrudImpl<TranslateModel, TranslateModel_>( new TranslateModel_() );
-            return (ModelCrud<T>) (instance);
-        }
-
-
- 
-        throw new Error();
     }
 }

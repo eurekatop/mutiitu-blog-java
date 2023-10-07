@@ -31,6 +31,3 @@ app/webserver-module/build/*
 app/webserver-module/bin/*
 .gradle/*
 app/.gradle/*
-
-
-

@@ -26,3 +26,6 @@
 - [ ] I want that i can use more that one storage technology ( mysql, flat file, etc... )
 - [ ] I want that i can serve components in front via with ajax ( by example 'htmx' )
 - [ ] I want to show a simple Html page with a body that is a list of components a header, a footer and a menu.
+- [ ] I want to work on vscode with hot reload and easy debugging.
+- [ ] I want that an user can define models in a easy way.
+- [ ] The persistence model can be queried from more than one application.

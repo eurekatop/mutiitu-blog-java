@@ -32,7 +32,26 @@ public interface MigrateDao {
       TITLE VARCHAR(50) NOT NULL,
       SUBTITLE VARCHAR(50) NOT NULL
     );
-   """)
+
+    CREATE TABLE IF NOT EXISTS Footer (
+      customId INT AUTO_INCREMENT PRIMARY KEY,
+      TITLE VARCHAR(50) NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS Author (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      NAME VARCHAR(50) NOT NULL,
+      SURNAME VARCHAR(50) NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS BlogEntry (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      TITLE VARCHAR(50) NOT NULL,
+      SUBTITLE VARCHAR(50) NOT NULL,
+      AUTHOR_ID INT,
+      FOREIGN KEY (AUTHOR_ID) REFERENCES Author(id)
+    );
+    """)
   @Script
   void create();
 }

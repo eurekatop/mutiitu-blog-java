@@ -3,15 +3,17 @@ services:
   my-java-app:
     image: amazoncorretto:20
     volumes:
-      - ./app:/app
-    working_dir: /app
-    command: ./gradlew run -t --args="-mortadelo -filemon"
+      - ./:/app
+    working_dir: /app                                
+    command: ["/bin/bash", "-c", "./gradlew build;./gradlew run -DDEBUG=true -t --args=\"-mortadelo -filemon\""]
+    #command: tail -f /dev/null
     ports:
       - "8080:8080"
+      - "8081:8081"   #TODO: environment vars 8081
   mariadb:
     image: mariadb:latest
     environment:
       MYSQL_ROOT_PASSWORD: mypassword
-      MYSQL_DATABASE: mydatabase
+      MYSQL_DATABASE: test_mu
     ports:
       - "3306:3306"

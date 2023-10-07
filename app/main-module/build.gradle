@@ -73,6 +73,7 @@ tasks.register('copyAllPublicFolder', Copy) {
 compileJava {
     dependsOn copyAllHtmlTemplates
     dependsOn copyAllPublicFolder
+    options.debug = true /// todo
 } 
 
 
@@ -92,5 +93,9 @@ application {
 }
 
 
-
+tasks.withType(JavaExec) {
+    if (System.getProperty('DEBUG', 'false') == 'true') {
+        jvmArgs '-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=*:8081'
+    }
+}
 

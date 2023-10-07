@@ -137,8 +137,8 @@ public class HeaderServiceImpl implements HeaderService {
 
 
             // create database
-            // var migrate = new MigrateDatabaseImpl();
-            // migrate.create();
+            var migrate = new MigrateDatabaseImpl();
+            migrate.create();
 
             var headerCrud = new PersistenceFactory<HeaderModel>().create(HeaderModel.class);
             var header = new HeaderModel();

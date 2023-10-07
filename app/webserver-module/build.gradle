@@ -15,6 +15,7 @@ plugins {
 
 compileJava {
     options.compilerArgs = ['--enable-preview',  '-Xlint:preview' ]
+    options.debug = true /// todo
 }
 
 
@@ -70,7 +71,6 @@ java {
 //    // Define the main class for the application.
 //    mainClass = 'mutiitu.blog.Application'
 //}
-
 
 
 

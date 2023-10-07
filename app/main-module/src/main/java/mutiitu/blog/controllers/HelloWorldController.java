@@ -63,7 +63,7 @@ public class HelloWorldController extends JavalinController {
 
     @Path(Value = "/home")
     public void aa () {
-        logger.info("me estan llamando desde core");
+        logger.info("me estan llamando desde corejodas");
         logger.info(javalin.toString());
     }
 
