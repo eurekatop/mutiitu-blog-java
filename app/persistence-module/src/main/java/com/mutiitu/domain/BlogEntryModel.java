@@ -1,8 +1,5 @@
 package com.mutiitu.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.seasar.doma.Column;
 import org.seasar.doma.Entity;
 import org.seasar.doma.GeneratedValue;
@@ -16,26 +13,27 @@ import org.seasar.doma.Transient;
 import lombok.EqualsAndHashCode;
 import com.mutiitu.persistence.BaseModel;
 
-
-@Table(name = "Footer")
+@Table(name = "BlogEntry")
 @Entity(metamodel = @Metamodel)
 @lombok.Data
-public class Author {
+@EqualsAndHashCode(callSuper = true)
+public class BlogEntryModel extends BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer customId;
+    Integer id;
 
-    @Column(name = "NAME")
-    String name;
+    @Column(name = "TITLE")
+    String title;
 
-    @Column(name = "SURNAME")
-    String surname;
+    @Column(name = "SUBTITLE")
+    String subtitle;
 
     @Column(name = "AUTHOR_ID")
     Integer authorId;
 
-    @Transient List<BlogEntry> blogEntries = new ArrayList<>();
+    @Transient
+    AuthorModel author;
 
-    @OriginalStates Author originalStates;
+    @OriginalStates
+    BlogEntryModel originalStates;
 }
-

@@ -2,13 +2,14 @@ package mutiitu.blog.components;
 
 import java.util.UUID;
 
+import com.mutiitu.dao.MigrateDatabaseImpl;
+import com.mutiitu.dao.ModelCrudDaoImpl;
+
 //import org.seasar.doma.jdbc.criteria.Entityql;
 
 import com.mutiitu.domain.FooterModel;
 import com.mutiitu.domain.FooterModel_;
 import com.mutiitu.domain.HeaderModel;
-import com.mutiitu.domain.MigrateDatabaseImpl;
-import com.mutiitu.domain.ModelCrudImpl;
 import com.mutiitu.domain.TranslateModel;
 import com.mutiitu.domain.TranslateModel_;
 import com.mutiitu.persistence.PersistenceFactory;

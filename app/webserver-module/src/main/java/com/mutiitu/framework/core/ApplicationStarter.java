@@ -1,6 +1,5 @@
 package com.mutiitu.framework.core;
 
-
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.Collections;
@@ -18,6 +17,8 @@ import com.google.inject.Injector;
 import io.javalin.Javalin;
 import io.javalin.http.Handler;
 import io.javalin.rendering.template.JavalinThymeleaf;
+import jakarta.servlet.FilterChain;
+
 //import mutiitu.blog.routes.HelloWorldRouter;
 import com.mutiitu.framework.core.annotations.Controller;
 import com.mutiitu.framework.core.annotations.Path;
@@ -36,32 +37,30 @@ public class ApplicationStarter {
         this.injector = injector;
     }
 
-
     public void searchForControllerAnnotatedClasses() {
         var reflections = new Reflections(new ConfigurationBuilder()
-        .forPackage("mutiitu.blog.controllers") // TODO: refactor
-        .setScanners(
-            Scanners.TypesAnnotated,
-            Scanners.MethodsAnnotated
-            ));
+                .forPackage("mutiitu.blog.controllers") // TODO: refactor
+                .setScanners(
+                        Scanners.TypesAnnotated,
+                        Scanners.MethodsAnnotated));
 
         var controllers = reflections.getTypesAnnotatedWith(Controller.class);
         var paths = reflections.getMethodsAnnotatedWith(Path.class);
 
-        //System.out.println("-- Controllers: -----------------------------");
-        //for (Class<?> c : controllers) {
-        //    System.out.println(c);
-        //    var instance = injector.getInstance(c);
-        //    if ( "HelloWorldRouter".equals(c.getSimpleName()) ){
-        //        HelloWorldRouter  a = (HelloWorldRouter) instance;        
-        //        a.aa();
-        //    }
-        //}
+        // System.out.println("-- Controllers: -----------------------------");
+        // for (Class<?> c : controllers) {
+        // System.out.println(c);
+        // var instance = injector.getInstance(c);
+        // if ( "HelloWorldRouter".equals(c.getSimpleName()) ){
+        // HelloWorldRouter a = (HelloWorldRouter) instance;
+        // a.aa();
+        // }
+        // }
 
         System.out.println("-- Methods: -----------------------------");
         for (Method method : paths) {
             var isHttpVerb = method.isAnnotationPresent(com.mutiitu.framework.core.annotations.Method.class);
-            String httpVerb; //TODO: refactor enum
+            String httpVerb; // TODO: refactor enum
             var path = method.getAnnotation(Path.class);
             var route = path.Value();
 
@@ -73,18 +72,16 @@ public class ApplicationStarter {
                 route = route + "/<" + parameter.getName() + ">";
             }
 
-
             logger.info("Route added value:" + route);
-            
-            if ( isHttpVerb ) {
+
+            if (isHttpVerb) {
                 var _httpVerb = method.getAnnotation(com.mutiitu.framework.core.annotations.Method.class);
                 httpVerb = _httpVerb.Value();
-            }
-            else {
+            } else {
                 httpVerb = "GET";
             }
 
-            switch ( httpVerb ) {
+            switch (httpVerb) {
                 case "GET":
                     javalin.get(route, handler);
                     break;
@@ -93,20 +90,14 @@ public class ApplicationStarter {
                     break;
             }
 
-
-
-            //javalin.get("hola/:id", ctx -> {
-            //    ctx.req().
-            //    System.out.println(ctx.);
-            //});
-
+            // javalin.get("hola/:id", ctx -> {
+            // ctx.req().
+            // System.out.println(ctx.);
+            // });
 
         }
 
-
-
     }
-
 
     public void run(String... args) {
         // command line
@@ -120,8 +111,30 @@ public class ApplicationStarter {
         // search controllers
         searchForControllerAnnotatedClasses();
 
-        
+        // try to guice request scoped
+        javalin.before("/*", ctx -> {
+
+            logger.info("BEFOR HANDLER " + Thread.currentThread());
+
+            // var a = new com.google.inject.servlet.GuiceFilter();
+            // javalin.javalinServlet().getServletContext().addFilter("guiceFilter",
+            // a.getClass());
+
+        });
+
         router.bind();
         javalin.start(8080);
+
+        var a = new com.google.inject.servlet.GuiceFilter();
+        // a.doFilter(ctx.req(), ctx.res(), null);
+
+        try {
+            Thread.sleep(2);
+            javalin.javalinServlet().getServletContext().addFilter("guiceFilter",
+                    a.getClass());
+        } catch (Exception ex) {
+            logger.error(null, ex);
+        }
+
     }
 }

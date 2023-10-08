@@ -39,6 +39,8 @@ dependencies {
 
     // DI   
     implementation 'com.google.inject:guice:7.0.0'
+    implementation 'com.google.inject.extensions:guice-servlet:7.0.0'
+
 
     // reflection
     implementation 'org.reflections:reflections:0.10.2'
@@ -79,11 +81,11 @@ compileJava {
 
 // Apply a specific Java toolchain to ease working on different environments.
 java {
-    sourceCompatibility = "20"
-    targetCompatibility = "20"
+    sourceCompatibility = "21"
+    targetCompatibility = "21"
     
     toolchain {
-        languageVersion = JavaLanguageVersion.of(20)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 

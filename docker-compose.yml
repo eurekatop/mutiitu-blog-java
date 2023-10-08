@@ -1,15 +1,19 @@
 version: '3'
 services:
   my-java-app:
-    image: amazoncorretto:20
+    build:
+      context: .
+      dockerfile: Dockerfile-development-java
     volumes:
       - ./:/app
-    working_dir: /app                                
-    command: ["/bin/bash", "-c", "./gradlew build;./gradlew run -DDEBUG=true -t --args=\"-mortadelo -filemon\""]
-    #command: tail -f /dev/null
+      - /app/.gradle
+      - /app/gradle
+    working_dir: /app
+    user: developer
+    entrypoint: sh /app/entrypoint.sh
     ports:
       - "8080:8080"
-      - "8081:8081"   #TODO: environment vars 8081
+      - "8081:8081" #TODO: environment vars debug port
   mariadb:
     image: mariadb:latest
     environment:

@@ -1,4 +1,4 @@
-package com.mutiitu.domain;
+package com.mutiitu.dao;
 
 import org.seasar.doma.Dao;
 import org.seasar.doma.Script;

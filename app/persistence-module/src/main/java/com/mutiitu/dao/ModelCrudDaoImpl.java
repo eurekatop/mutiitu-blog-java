@@ -1,4 +1,4 @@
-package com.mutiitu.domain;
+package com.mutiitu.dao;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
@@ -13,28 +13,37 @@ import org.seasar.doma.jdbc.criteria.metamodel.PropertyMetamodel;
 import org.seasar.doma.jdbc.tx.LocalTransactionManager;
 import org.slf4j.LoggerFactory;
 
+import com.google.inject.Inject;
 import com.mutiitu.persistence.BaseModel;
 import com.mutiitu.persistence.SQLiteDB;
 
-public class ModelCrudImpl<T extends BaseModel, T1 extends EntityMetamodel<T>> implements ModelCrud<T> {
+public class ModelCrudDaoImpl<T extends BaseModel, T1 extends EntityMetamodel<T>> implements ModelCrudDao<T> {
     private final int THREAD_POOL = 40;
     private final org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
 
-    private ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL); 
+    private ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL);
 
-    Entityql eql;
+    SQLiteDB SQLiteDB;
+
+    protected Entityql eql;
     NativeSql nql;
-    LocalTransactionManager tx;
-    T1 t__ ;
+    protected LocalTransactionManager tx;
+    protected T1 t__; // TODO: model
 
-
-    public ModelCrudImpl(T1 doma_ ){
-        tx = SQLiteDB.singleton().getTransactionManager();
-        eql = new Entityql(SQLiteDB.singleton());
-        nql = new NativeSql(SQLiteDB.singleton());
+    public ModelCrudDaoImpl(T1 doma_, SQLiteDB SQLiteDB) {
+        tx = SQLiteDB.getTransactionManager();
+        eql = new Entityql(SQLiteDB);
+        nql = new NativeSql(SQLiteDB);
         t__ = doma_;
+        this.SQLiteDB = SQLiteDB;
     }
 
+    public ModelCrudDaoImpl(T1 doma_) {
+        tx = SQLiteDB.getTransactionManager();
+        eql = new Entityql(SQLiteDB);
+        nql = new NativeSql(SQLiteDB);
+        t__ = doma_;
+    }
 
     public CompletableFuture<Void> insertAsync(T model) {
         return CompletableFuture.runAsync(() -> {
@@ -47,6 +56,10 @@ public class ModelCrudImpl<T extends BaseModel, T1 extends EntityMetamodel<T>> i
         }, executor);
     }
 
+    protected void txBegin() {
+        tx.getTransaction().begin();
+    }
+
     @Override
     public void insert(T model) {
         try {
@@ -55,19 +68,16 @@ public class ModelCrudImpl<T extends BaseModel, T1 extends EntityMetamodel<T>> i
             // eql.insert( t__ , model).execute();
             // txx.commit();
 
-            tx.required( 
-                () -> {
-                    eql.insert( t__ , model).execute();
-                }
-            );
+            tx.required(
+                    () -> {
+                        eql.insert(t__, model).execute();
+                    });
 
         } catch (Exception e) {
             logger.error("Error on insert", e);
             throw e;
         }
-
     }
-
 
     public CompletableFuture<Void> deleteAsync(int id) {
         return CompletableFuture.runAsync(() -> {
@@ -87,7 +97,7 @@ public class ModelCrudImpl<T extends BaseModel, T1 extends EntityMetamodel<T>> i
             var properties = t__.allPropertyMetamodels();
 
             for (PropertyMetamodel<?> prop : properties) {
-                if ( prop.asType().isId() && prop.asClass().equals( Integer.class) ) {
+                if (prop.asType().isId() && prop.asClass().equals(Integer.class)) {
                     PropertyMetamodel<Integer> isId;
 
                     isId = (PropertyMetamodel<Integer>) prop;
@@ -105,13 +115,11 @@ public class ModelCrudImpl<T extends BaseModel, T1 extends EntityMetamodel<T>> i
                         nql.delete(t__).where(cc).execute();
                     });
 
-                    
                 }
             }
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             throw ex;
-        }    
+        }
     }
 
     @Override
@@ -121,7 +129,7 @@ public class ModelCrudImpl<T extends BaseModel, T1 extends EntityMetamodel<T>> i
             var properties = t__.allPropertyMetamodels();
 
             for (PropertyMetamodel<?> prop : properties) {
-                if ( prop.asType().isId() && prop.asClass().equals( String.class) ) {
+                if (prop.asType().isId() && prop.asClass().equals(String.class)) {
                     PropertyMetamodel<String> isId;
 
                     isId = (PropertyMetamodel<String>) prop;
@@ -132,16 +140,14 @@ public class ModelCrudImpl<T extends BaseModel, T1 extends EntityMetamodel<T>> i
 
                     var txx = tx.getTransaction();
                     txx.begin();
-                    /*var result =*/ nql.delete(t__).where(cc).execute();
+                    /* var result = */ nql.delete(t__).where(cc).execute();
                     txx.commit();
                 }
             }
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             throw ex;
-        }    
+        }
     }
-
 
     @Override
     @SuppressWarnings("unchecked")
@@ -151,9 +157,8 @@ public class ModelCrudImpl<T extends BaseModel, T1 extends EntityMetamodel<T>> i
         try {
             var properties = t__.allPropertyMetamodels();
 
-
             for (PropertyMetamodel<?> prop : properties) {
-                if ( prop.asType().isId() && prop.asClass().equals( Integer.class) ) {
+                if (prop.asType().isId() && prop.asClass().equals(Integer.class)) {
                     PropertyMetamodel<Integer> isId;
 
                     isId = (PropertyMetamodel<Integer>) prop;
@@ -165,16 +170,15 @@ public class ModelCrudImpl<T extends BaseModel, T1 extends EntityMetamodel<T>> i
                     var txx = tx.getTransaction();
                     txx.begin();
                     var result = eql.from(t__)
-                    .where( cc )
-                    .fetchOne();
+                            .where(cc)
+                            .fetchOne();
                     txx.commit();
                     return result;
                 }
             }
 
             throw new UnsupportedOperationException("Unimplemented method 'getById'");
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             throw ex;
         }
     }
@@ -187,9 +191,8 @@ public class ModelCrudImpl<T extends BaseModel, T1 extends EntityMetamodel<T>> i
         try {
             var properties = t__.allPropertyMetamodels();
 
-
             for (PropertyMetamodel<?> prop : properties) {
-                if ( prop.asType().isId() && prop.asClass().equals( String.class) ) {
+                if (prop.asType().isId() && prop.asClass().equals(String.class)) {
                     PropertyMetamodel<String> isId;
 
                     isId = (PropertyMetamodel<String>) prop;
@@ -201,19 +204,17 @@ public class ModelCrudImpl<T extends BaseModel, T1 extends EntityMetamodel<T>> i
                     var txx = tx.getTransaction();
                     txx.begin();
                     var result = eql.from(t__)
-                    .where( cc )
-                    .fetchOne();
+                            .where(cc)
+                            .fetchOne();
                     txx.commit();
                     return result;
                 }
             }
 
             throw new UnsupportedOperationException("Unimplemented method 'getById'");
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             throw ex;
         }
     }
-
 
 }
