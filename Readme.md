@@ -1,5 +1,48 @@
 Proof of Concept (POC) 
 
+# Este proyecto es un experimento usando el framework de Javalin. La intención era usar su mínima infraestrucutura para implementar las mismas funcionalidaes con otros "web frameworks"
+
+* El frontal de aa aplicación muestra una frontal con scroll infinito de entradas de blog.
+* El backoffice deberé permitir dar de alta un blog /admin/add/blog 
+
+La intención es a medida desarrollemos ser conscientes de todas las técnicas necesarias  que disponemos normalmente de forma más fácil en otros web frameworks. Enumeremos algunas de ellas.
+    * Rutas y gestion de rutas, soporte de métodos.
+    * Validación de la entrada.
+    * Serializacion
+    * Object mapping
+      * Serialización y deserialización
+    * Autenticación
+    * Inyeccion de dependencias
+    * Middlewares
+    * Soporte de plantillas
+    * Integracion con SPA
+    * Persistencia de datos
+      * Orm
+      * SQL
+      * ...
+    * Entorno transaccional
+      * AOP
+    * Inyección de dependencias
+    * Facilidad de desarrollo
+      * Hot reloading
+      * Depuración
+      * Mínimo código de infraestructura
+      * ...
+    * Rendimiento
+      * Numeros de peticiones concurrentes
+      * Velocidad
+      * ...
+    * Gestion de errores
+    * Soporte para distintos tipos de transferencia
+      * json
+      * xml
+      * binary
+    * WebSockets
+    * Versiones de Http/3
+    * Https
+
+    * ...
+
 # Serie de Implementación de Blogs con Diferentes Tecnologías
 
 Esta serie de artículos técnicos tiene como objetivo explorar y comparar diversas tecnologías para la implementación de un blog. A lo largo de esta serie, demostraremos cómo crear un blog funcional utilizando diferentes lenguajes de programación, frameworks y herramientas populares en el mundo del desarrollo web.

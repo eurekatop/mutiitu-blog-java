@@ -6,7 +6,8 @@ import mutiitu.blog.components.Header2;
 import mutiitu.blog.components.Header3;
 import mutiitu.blog.components.HeaderService;
 import mutiitu.blog.components.HeaderServiceImpl;
-import mutiitu.blog.controllers.BlogController;
+//import mutiitu.blog.controllers.BlogController;
+import mutiitu.blog.services.BlogEntryService;
 import mutiitu.blog.services.TestService;
 
 import com.mutiitu.di.PersistenceModule;
@@ -27,15 +28,19 @@ public class ApplicationModule extends AbstractModule {
 
         bind(HeaderService.class).to(HeaderServiceImpl.class);
 
-        bind(TestService.class).in(PersistenceModule.SQLiteDBScope);
         // bind(TestService.class).in(Scopes.SINGLETON);
 
         // TODO: discover with anotation
-        bind(Router.class).to(BlogController.class);
+        // bind(Router.class).to(BlogController.class);
         // bind(HelloWorldRouter.class).toInstance(new HelloWorldRouter(null));
 
         // add template components...... maybe discover with annotations.....
         // UIComponentFactory.AddComponent("Header3", new Header3() );
         // UIComponentFactory.AddComponent("HomePage", new HomePage() );
+
+        // TODO: automatic binding application services
+        bind(TestService.class).in(PersistenceModule.SQLiteDBScope);
+        bind(BlogEntryService.class).in(PersistenceModule.SQLiteDBScope);
+
     }
 }

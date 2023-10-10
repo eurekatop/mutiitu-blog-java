@@ -39,10 +39,12 @@ dependencies {
 
     implementation 'org.slf4j:slf4j-simple:2.0.7'
 
-
     // DI   
     implementation 'com.google.inject:guice:7.0.0'
     implementation 'com.google.inject.extensions:guice-servlet:7.0.0'
+
+    // serialization
+    implementation 'com.google.code.gson:gson:2.10.1'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

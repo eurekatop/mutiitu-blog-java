@@ -13,6 +13,7 @@ import org.seasar.doma.OriginalStates;
 import org.seasar.doma.Table;
 import org.seasar.doma.Transient;
 
+import com.google.gson.annotations.Expose;
 import com.mutiitu.persistence.BaseModel;
 
 import lombok.EqualsAndHashCode;
@@ -26,12 +27,15 @@ public class AuthorModel extends BaseModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
+    @Expose
     @Column(name = "NAME")
     String name;
 
+    @Expose
     @Column(name = "SURNAME")
     String surname;
 
+    @Expose
     @Transient
     List<BlogEntryModel> blogEntries = new ArrayList<>();
 

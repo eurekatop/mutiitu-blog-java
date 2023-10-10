@@ -62,7 +62,7 @@ public class JavalinHandler implements Handler {
             params.add("Mortadelo");
             params.add("Filemon");
 
-            instance.ctx = ctx;
+            instance.ctx = ctx; // ??
             if (parameterValues.size() > 0) {
                 resultInvoke = method.invoke(instance, parameterValues.toArray());
             } else {
@@ -83,7 +83,8 @@ public class JavalinHandler implements Handler {
                 ctx.result(((StringResponse) resultInvoke).data);
             }
             if (resultInvoke instanceof JsonResponse) {
-                var data = ((JsonResponse) resultInvoke).data;
+                var data = ((JsonResponse) resultInvoke).toJsonString();
+
                 ctx.json(data, JsonResponse.class);
             }
         }

@@ -15,13 +15,16 @@ import io.pebbletemplates.pebble.template.PebbleTemplate;
 import mutiitu.blog.components.Header;
 import mutiitu.blog.components.Header2;
 import mutiitu.blog.components.HeaderService;
+import mutiitu.blog.services.BlogEntryService;
 
+import com.mutiitu.annotations.Transactional;
 import com.mutiitu.framework.core.JavalinController;
 import com.mutiitu.framework.core.annotations.Controller;
 import com.mutiitu.framework.core.annotations.Method;
 import com.mutiitu.framework.core.annotations.Path;
 import com.mutiitu.framework.core.http.responses.HtmlResponse;
 import com.mutiitu.framework.core.http.responses.HttpResponse;
+import com.mutiitu.framework.core.http.responses.JsonResponse;
 import com.mutiitu.framework.core.http.responses.StringResponse;
 
 @Controller
@@ -36,39 +39,43 @@ public class HelloWorldController extends JavalinController {
     @Inject
     private Header2 header2;
 
-
     @Inject
     private HeaderService headerService;
 
+    @Inject
+    private BlogEntryService blogEntryService;
 
     private String template = """
-        <html>
-        <head>
-            <title>{% block title %}My kakita2 Website{% endblock %}</title>
-        </head>
-        <body>
-            {{ name }}
-            {{ test.render() }}
-            <div id="content">
-                {% block content %}{% endblock %}
-            </div>
-            <div id="footer">
-                {% block footer %}
-                    Copyright 2018
-                {% endblock %}
-            </div>
-        </body>
-        </html>
-            """;
+            <html>
+            <head>
+                <title>{% block title %}My kakita2 Website{% endblock %}</title>
+            </head>
+            <body>
+                {{ name }}
+                {{ test.render() }}
+                <div id="content">
+                    {% block content %}{% endblock %}
+                </div>
+                <div id="footer">
+                    {% block footer %}
+                        Copyright 2018
+                    {% endblock %}
+                </div>
+            </body>
+            </html>
+                """;
 
+    @Transactional
     @Path(Value = "/home")
-    public void aa () {
-        logger.info("me estan llamando desde corejodas");
-        logger.info(javalin.toString());
+    public JsonResponse aa(int id) {
+
+        var result = blogEntryService.GetBydId(id);
+
+        return new JsonResponse(result);
     }
 
     @Path(Value = "/about")
-    public void about (String name, String lastName, int age) {
+    public void about(String name, String lastName, int age) {
         logger.info("Que me dices tu? " + name + " , " + lastName + "años: " + age);
         logger.info(javalin.toString());
         logger.info(headerService.toString());
@@ -78,43 +85,42 @@ public class HelloWorldController extends JavalinController {
     }
 
     @Path(Value = "/add")
-    @Method(Value = "POST" ) //TODO: refactor
-    public StringResponse add (String name) {
-        logger.info("Que me dices? " + name );
+    @Method(Value = "POST") // TODO: refactor
+    public StringResponse add(String name) {
+        logger.info("Que me dices? " + name);
         logger.info(javalin.toString());
 
         return new StringResponse("Hello World 1AA11111");
     }
 
     @Path(Value = "/addhtml")
-    @Method(Value = "POST" ) //TODO: refactor
-    public HttpResponse addhtml (String name)  {
-        logger.info("Que me dices? " + name );
+    @Method(Value = "POST") // TODO: refactor
+    public HttpResponse addhtml(String name) {
+        logger.info("Que me dices? " + name);
         logger.info(javalin.toString());
 
         // templ, engine
         try {
-        PebbleEngine engine = new PebbleEngine.Builder().build();
-        //PebbleTemplate compiledTemplate = engine.getTemplate("templates/home2.html");
-        //PebbleTemplate compiledTemplate = engine.getLiteralTemplate(template);
+            PebbleEngine engine = new PebbleEngine.Builder().build();
+            // PebbleTemplate compiledTemplate = engine.getTemplate("templates/home2.html");
+            // PebbleTemplate compiledTemplate = engine.getLiteralTemplate(template);
 
-        PebbleTemplate compiledTemplate = engine.getTemplate("java/mutiitu/blog/components/addhtml.html");
-        
+            PebbleTemplate compiledTemplate = engine.getTemplate("java/mutiitu/blog/components/addhtml.html");
 
-        Map<String, Object> context = new HashMap<>();
+            Map<String, Object> context = new HashMap<>();
 
-        var items = new ArrayList<String>();
-        items.add( "a ");
-        items.add( "b ");
-        items.add( "bfdjfdslfjldf  ");
+            var items = new ArrayList<String>();
+            items.add("a ");
+            items.add("b ");
+            items.add("bfdjfdslfjldf  ");
 
-        context.put("name", "Mitchell");
-        
-        context.put("items", items);
-        context.put("test", header2 );
+            context.put("name", "Mitchell");
 
-        Writer writer = new StringWriter();
-        
+            context.put("items", items);
+            context.put("test", header2);
+
+            Writer writer = new StringWriter();
+
             compiledTemplate.evaluate(writer, context);
             String output = writer.toString();
             return new HtmlResponse(output);
@@ -122,20 +128,16 @@ public class HelloWorldController extends JavalinController {
             // TODO Auto-generated catch block
             logger.error("name", e);
         }
-        
-           return new HtmlResponse("kkk");
- 
+
+        return new HtmlResponse("kkk");
 
     }
 
     // @Override
     // public void bind() {
-    //     javalin.get("/hello-world", ctx -> {
-    //         ctx.render("templates/hello.html");
-    //     });
+    // javalin.get("/hello-world", ctx -> {
+    // ctx.render("templates/hello.html");
+    // });
     // }
 
-
-
 }
-    

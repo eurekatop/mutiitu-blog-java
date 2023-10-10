@@ -1,22 +1,250 @@
 <html>
+
 <head>
-	<title>{% block title %}My Website{% endblock %}</title>
+    <title>{% block title %}My Website{% endblock %}</title>
     <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    <script src="https://unpkg.com/lighterhtml"></script>
+
+    <style>
+        my-custom-element {
+            display: block;
+            width: 100%;
+            margin-bottom: 400px;
+            border: 1px dashed black;
+        }
+
+        my-custom-element.div {
+            display: block;
+            width: 80%;
+            margin: auto;
+            border: 10px solid black;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border: 10px solid black;
+        }
+    </style>
+
+    <script>
+        const { render, html, svg } = lighterhtml
+
+        function uniqueId() {
+            return 'id-' + Math.random().toString(36).substr(2, 10);
+        }
+
+        const mu = {
+            lh: { render, html, svg },
+            uniqueId: () => {
+                return 'id-' + Math.random().toString(36).substr(2, 10);
+            },
+            //  ref: https://usefulangle.com/post/113/javascript-detecting-element-visible-during-scroll
+            observe: (entries) => {
+                const intersectionObserver = new IntersectionObserver(function (entries) {
+                    entries.forEach((entry) => {
+                        const target = entry.target;
+
+                        if (entry['isIntersecting'] === true) {
+                            if (entry['intersectionRatio'] === 1) {
+                                console.log('Target is fully visible in screen');
+                                target.load()
+
+                            }
+                            else if (entry['intersectionRatio'] > 0.5) {
+                                target.load()
+                                console.log('More than 50% of target is visible in screen');
+                            }
+                            else {
+                                target.load()
+                                console.log('Less than 50% of target is visible in screen');
+                            }
+                        }
+                        else {
+                            target.abort()
+
+                            console.log('Target is not visible in screen');
+                            // unload target.load()
+                        }
+                    })
+                }, { threshold: [0, 0.5, 1] });
+
+                entries.forEach((e) => {
+                    intersectionObserver.observe(e)
+                })
+            }
+
+        }
+
+        // Define el elemento personalizado
+        class MyCustomElement extends HTMLElement {
+
+            div = undefined
+            id = undefined
+            name = undefined
+            content = undefined
+            loaded = false;
+            loading = false;
+            abortController = undefined;
+
+            constructor() {
+                super();
+            }
+
+            connectedCallback() {
+                const uniqueId = mu.uniqueId();
+                console.log(uniqueId)
+
+                this.id = uniqueId
+                this.name = this.getAttribute("name")
+                this.content = this.getAttribute("content")
+
+
+                const _childElement = document.createElement('div');
+                const childElement = mu.lh.html.node`<p>loader .... ${name}!</p>`;
+                this.appendChild(childElement);
+                this.div = childElement
+                this.setAttribute('id', uniqueId)
+                this.div.setAttribute('id', `div-${uniqueId}`)
+
+                // get space on screen
+                this.div.style.cssText = `
+    border: 1px dashed grey; 
+    height:60%;
+    font-size:4em;
+`;
+
+
+
+            }
+
+            abort() {
+                if (this.controller) {
+                    this.controller.abort();
+                    this.loaded = false;
+
+                    // refactor rollback
+                    const uniqueId = mu.uniqueId();
+                    const childElement = mu.lh.html.node`<p>loader .... ${name}!</p>`;
+                    //this.div.innerHTML = ''
+                    this.div.remove()
+                    this.appendChild(childElement);
+                    this.div = childElement
+                    this.div.setAttribute('id', `div-${uniqueId}`)
+                    // get space on screen
+                    this.div.style.cssText = `
+    border: 1px dashed grey; 
+    height:60%;
+    font-size:4em;
+`;
+
+
+
+
+
+
+                    console.log("Download aborted");
+                }
+            }
+
+            load() {
+                if (this.loaded || this.loading)
+                    return;
+
+                // Configura el controlador de aborto y la señal
+                this.controller = new AbortController();
+                const signal = this.controller.signal;
+
+                const urlContent = this.content
+                const _this = this;
+
+                this.loading = true;
+                var responsePromise = fetch(urlContent, { signal })
+                    .then(function (respuesta) {
+                        if (!respuesta.ok) {
+                            throw new Error('La respuesta no fue exitosa.');
+                        }
+                        return respuesta.text();
+                    })
+                    .then(function (datos) {
+                        _this.loaded = true;
+                        _this.replace(datos)
+                        _this.div.style.cssText = 'display:none'
+                    })
+                    .catch(function (error) {
+                        console.error('Error:', error);
+                    })
+                    .finally(function () {
+                        // Este código se ejecutará en todos los casos
+                        _this.loading = false;
+                    });
+
+            }
+
+            replace(data) {
+                //this.div.innerHTML = data
+                //const elementData = mu.lh.html.node`<p>a:=${data}</p>`;
+                //mu.lh.render(document.body, elementData)
+                //this.appendChild(element)
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data, "text/html");
+                this.appendChild(doc.documentElement)
+
+            }
+        }
+
+        window.onload = function () {
+            const myElements = []
+
+
+            customElements.define('my-custom-element', MyCustomElement);
+            const elementosPersonalizados = document.querySelectorAll('my-custom-element');
+            elementosPersonalizados.forEach(function (elemento) {
+                myElements.push(elemento)
+            });
+            // observer in scroll
+            mu.observe(myElements);
+        };
+    </script>
+
 </head>
+
 <body>
-    ostras tu ! hh gg ii
-    {{ subtitle }}
+
 
     <!-- TODO: html template engine -->
-    {{ header3.init("#{subtitle}")  | raw}}
+    {{ header.init("#{subtitle}") | raw}}
+
+
+    <!-- TODO: html template engine -->
+    {{ header.init("#{subtitle}") | raw}}
 
     <button hx-get="/header/get/name" hx-swap="outerHTML">
         Click Me
     </button>
 
 
+    <!-- static  render 
+    {% for blog in blogEntries %}
+    {{ blogEntryComponent.init(blog) | raw}}
+    {% endfor %}
+    -->
+
+
+    <!-- dynamic loac-->
+    {% for blogId in blogIds %}
+    <my-custom-element name="header {{ blogId }}" content="/blog/get/{{ blogId }}"></my-custom-element>
+    {% endfor %}
+
+
     <!-- img src="/images/neom-39n8YVSn0d4-unsplash.jpg" / -->
     <img src="/icons/iconmonstr-heart-lined-64.png" />
 
+
+
+
+
 </body>
+
 </html>

@@ -29,3 +29,5 @@
 - [ ] I want to work on vscode with hot reload and easy debugging.
 - [ ] I want that an user can define models in a easy way.
 - [ ] The persistence model can be queried from more than one application.
+- [ ] Frontend editor admin / page.
+- [ ] 

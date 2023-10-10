@@ -1,19 +1,39 @@
 package com.mutiitu.framework.core.http.responses;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.lang.reflect.Constructor;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class JsonResponse extends HttpResponse {
     public Object data;
+    private Boolean expose = false;
 
     public JsonResponse(Object data) {
         super(HttpResponseType.Json);
         this.data = data;
     }
 
+    public JsonResponse(Object data, Boolean expose) {
+        super(HttpResponseType.Json);
+        this.data = data;
+        this.expose = expose;
+    }
+
     public String toJsonString() {
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.writeValueAsString(this);
+
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            if (expose) {
+                gsonBuilder = gsonBuilder.excludeFieldsWithoutExposeAnnotation();
+            }
+
+            Gson gson = gsonBuilder.create();
+
+            var json = gson.toJson(data);
+
+            return json;
+
         } catch (Exception e) {
             e.printStackTrace();
             return "{}";

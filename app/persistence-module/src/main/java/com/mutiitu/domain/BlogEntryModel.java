@@ -9,8 +9,9 @@ import org.seasar.doma.Metamodel;
 import org.seasar.doma.OriginalStates;
 import org.seasar.doma.Table;
 import org.seasar.doma.Transient;
-
 import lombok.EqualsAndHashCode;
+
+import com.google.gson.annotations.Expose;
 import com.mutiitu.persistence.BaseModel;
 
 @Table(name = "BlogEntry")
@@ -22,15 +23,22 @@ public class BlogEntryModel extends BaseModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
+    @Expose
     @Column(name = "TITLE")
     String title;
 
+    @Expose
     @Column(name = "SUBTITLE")
     String subtitle;
+
+    @Expose
+    @Column(name = "CONTENT")
+    String content;
 
     @Column(name = "AUTHOR_ID")
     Integer authorId;
 
+    @Expose
     @Transient
     AuthorModel author;
 

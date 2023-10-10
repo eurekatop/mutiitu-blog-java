@@ -1,28 +1,31 @@
 package mutiitu.blog.components.home;
 
-//import com.google.inject.Inject;
+import java.util.List;
+import com.google.inject.Inject;
+import com.mutiitu.domain.BlogEntryModel;
 import com.mutiitu.framework.core.annotations.Component;
 import com.mutiitu.framework.core.ui.UIComponent;
-import com.mutiitu.framework.core.ui.UIComponentFactory;
 
+import mutiitu.blog.components.BlogEntryComponent;
 import mutiitu.blog.components.Header3;
 
-@Component (
-    template = "homepage.html"
-)
-public class HomePage extends UIComponent{
+@Component(template = "homepage.html")
+public class HomePage extends UIComponent {
     public String subtitle;
 
-    //@Inject
-    //public Header3 header3 = new Header3();
+    @Inject
+    public Header3 header;
 
-    //public Header3 header3;
-    // TODO: html template engine
-    public UIComponentFactory<Header3> header3 = new UIComponentFactory<Header3>(Header3.class); 
+    @Inject
+    public BlogEntryComponent blogEntryComponent;
 
+    public List<Integer> blogIds;
+    public List<BlogEntryModel> blogEntries;
 
-    public void init(String subtitle){
+    public void init(String subtitle, List<Integer> blogIds, List<BlogEntryModel> blogEntries) {
         this.subtitle = subtitle;
+        this.blogIds = blogIds;
+        this.blogEntries = blogEntries;
     }
 
 }

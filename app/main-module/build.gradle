@@ -45,6 +45,10 @@ dependencies {
     // reflection
     implementation 'org.reflections:reflections:0.10.2'
 
+    // serialization
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+
     // 
     implementation project(':persistence-module') 
     implementation project(':webserver-module') 

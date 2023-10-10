@@ -1,23 +1,30 @@
 package com.mutiitu.framework.core.di;
 
+import java.lang.reflect.Type;
 import java.nio.file.Path;
 import java.util.ArrayList;
+
+import org.jetbrains.annotations.NotNull;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
+import io.javalin.json.JsonMapper;
+
 import com.mutiitu.framework.core.ApplicationStarter;
 import com.mutiitu.framework.core.AutoShutdownPlugin;
+import com.mutiitu.framework.core.Router;
+import com.mutiitu.framework.core.ui.RouterImpl;
 
 public class CoreModule extends AbstractModule {
     @Override
     protected void configure() {
-        // bind(HeaderService.class).to(HeaderServiceImpl.class);
+        bind(Router.class).to(RouterImpl.class);
 
-        // binder().requireExplicitBindings();
-        // install(new JavalinModule());
-        // install(new MessageModule());
-
+        // TODO : extract function to another place
         bind(Javalin.class).toInstance(Javalin.create(
                 config -> {
 
@@ -38,6 +45,21 @@ public class CoreModule extends AbstractModule {
                     String executionPath = System.getProperty("user.dir");
                     config.staticFiles.add(String.format("%s/build/resources/public", executionPath),
                             Location.EXTERNAL);
+
+                    // json mapper
+                    // Gson gson = new GsonBuilder().create();
+                    // JsonMapper gsonMapper = new JsonMapper() {
+                    // @Override
+                    // public String toJsonString(@NotNull Object obj, @NotNull Type type) {
+                    // return gson.toJson(obj, type);
+                    // }
+                    //
+                    // @Override
+                    // public <T> T fromJsonString(@NotNull String json, @NotNull Type targetType) {
+                    // return gson.fromJson(json, targetType);
+                    // }
+                    // };
+                    // config.jsonMapper(gsonMapper);
 
                 }));
 
