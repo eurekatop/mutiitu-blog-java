@@ -61,6 +61,7 @@ dependencies {
 tasks.register('copyAllHtmlTemplates', Copy) {
     from 'src/main/java/'
     include '**/*.html'
+    include '**/*.sass'
     exclude 'resources/*'
  
     into layout.buildDirectory.dir("resources/main")
@@ -68,10 +69,22 @@ tasks.register('copyAllHtmlTemplates', Copy) {
 
 // TODO: harcoded project name
 tasks.register('copyAllPublicFolder', Copy) {
+    // static public folder application global level
     from 'src/main/java/mutiitu/blog/public'
     include '**/*.*'
- 
     into layout.buildDirectory.dir("resources/public")
+}
+
+tasks.register('copyAllComponentsFolder', Copy) {
+    // copy non global static resources components 
+    from 'src/main/java/mutiitu/blog/components'
+    include '**/*.js'
+    //exclude '**/*.java'
+    include '**/*.html' // ??
+    include '**/*.css'
+    include '**/*.sass'
+    include '**/*.png'
+    into layout.buildDirectory.dir("resources/public/components")
 }
 
 
@@ -79,6 +92,7 @@ tasks.register('copyAllPublicFolder', Copy) {
 compileJava {
     dependsOn copyAllHtmlTemplates
     dependsOn copyAllPublicFolder
+    dependsOn copyAllComponentsFolder
     options.debug = true /// todo
 } 
 

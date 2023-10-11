@@ -47,7 +47,7 @@ public class BlogEntryDao extends ModelCrudDaoImpl<BlogEntryModel, BlogEntryMode
     public List<BlogEntryModel> getBlogs(int count) {
         return eql
                 .from(t__)
-                .where(c -> c.lt(t__.id, 421))
+                .where(c -> c.lt(t__.id, 200))
                 .fetch();
     }
 

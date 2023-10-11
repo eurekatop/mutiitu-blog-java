@@ -13,26 +13,25 @@ import io.pebbletemplates.pebble.PebbleEngine;
 import io.pebbletemplates.pebble.template.PebbleTemplate;
 
 public class UIComponent {
-    private final org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
+    public String UUID;
 
+    private final org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
 
     private PebbleEngine engine;
     private PebbleTemplate compiledTemplate;
 
     private Map<String, Object> context = new HashMap<>();
 
-
     protected UIComponent() {
         this.engine = new PebbleEngine.Builder().build();
-        
 
-        //TODO:remove /java
-        // get file template 
+        // TODO:remove /java
+        // get file template
         var fileTemplate = this.getClass().getCanonicalName();
-        fileTemplate =  ""  + fileTemplate.replace('.', '/') + ".html";  //TOdo: file separator
-        logger.info ( "fileTemplate ##############3 " + fileTemplate );
+        fileTemplate = "" + fileTemplate.replace('.', '/') + ".html"; // TOdo: file separator
+        logger.info("fileTemplate ##############3 " + fileTemplate);
 
-        //this.compiledTemplate = engine.getTemplate("templates/home2.html");
+        // this.compiledTemplate = engine.getTemplate("templates/home2.html");
         this.compiledTemplate = engine.getTemplate(fileTemplate);
     }
 
@@ -45,50 +44,52 @@ public class UIComponent {
 
         // populate template with public variables
         var c = this.getClass();
-        logger.info ("--------------- render template -------------");
-        logger.info (c.getCanonicalName());
+        logger.info("--------------- render template -------------");
+        logger.info(c.getCanonicalName());
         logger.info(c.getPackageName());
         var fields = c.getDeclaredFields();
         for (Field field : fields) {
-            logger.info ( field.getName() );
-            logger.info ( field.getModifiers() + "" );
-            var className = field.getType().getSimpleName(); 
+            logger.info(field.getName());
+            logger.info(field.getModifiers() + "");
+            var className = field.getType().getSimpleName();
 
-            if (  className != "UIComponentFactory" && field.getModifiers() == 1 || field.getModifiers() == 17 ) /* public , public final */ {
+            if (className != "UIComponentFactory" && field.getModifiers() == 1 || field.getModifiers() == 17) /*
+                                                                                                               * public
+                                                                                                               * ,
+                                                                                                               * public
+                                                                                                               * final
+                                                                                                               */ {
                 try {
                     var fieldName = field.getName();
                     var fieldValue = field.get(this);
-                    logger.info ( fieldName + " / " + fieldValue);
+                    logger.info(fieldName + " / " + fieldValue);
                     this.context.put(fieldName, fieldValue);
-                }
-                catch ( Exception e ) {
+                } catch (Exception e) {
                     //
                     logger.error("null", e);
                 }
 
             }
 
-            if (className.equals("UIComponentFactory")){
+            if (className.equals("UIComponentFactory")) {
                 try {
-                    logger.info ( "########### UIComponentFactory" );
+                    logger.info("########### UIComponentFactory");
                     var fieldValue = field.get(this);
-                    logger.info (fieldValue.toString() );
-                    UiComopnentFactoryInterfaca aa = (UiComopnentFactoryInterfaca)field.get(this);
-                    logger.info (aa.toString() );
+                    logger.info(fieldValue.toString());
+                    UiComopnentFactoryInterfaca aa = (UiComopnentFactoryInterfaca) field.get(this);
+                    logger.info(aa.toString());
                     var uiComponent = aa.inst();
 
                     var fieldName = field.getName();
-                    logger.info (fieldName );
-                    logger.info (uiComponent.getClass().getCanonicalName() );
-                    //var inst = (UiComopnentFactoryInterfaca) field.get(this);
-                    //var uiComponent = inst.inst();
+                    logger.info(fieldName);
+                    logger.info(uiComponent.getClass().getCanonicalName());
+                    // var inst = (UiComopnentFactoryInterfaca) field.get(this);
+                    // var uiComponent = inst.inst();
 
-                    //logger.info (uiComponent.toString() );
-
+                    // logger.info (uiComponent.toString() );
 
                     this.context.put(fieldName, uiComponent);
-                }
-                catch ( Exception e){
+                } catch (Exception e) {
                     //
                     logger.error("null", e);
                 }
@@ -97,8 +98,13 @@ public class UIComponent {
 
         }
 
-        this.compiledTemplate.evaluate(writer, this.context);
-        return writer.toString();
+        try {
+            this.compiledTemplate.evaluate(writer, this.context);
+            return writer.toString();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw ex;
+        }
     }
 
     @Override

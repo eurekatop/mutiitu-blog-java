@@ -8,8 +8,7 @@ import com.google.inject.Inject;
 import com.mutiitu.dao.BlogEntryDao;
 import com.mutiitu.domain.BlogEntryModel;
 
-import mutiitu.blog.models.dto.BlogEntryInputDto;
-
+//TODO: this is a repository
 public class BlogEntryService {
     private final org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
 
