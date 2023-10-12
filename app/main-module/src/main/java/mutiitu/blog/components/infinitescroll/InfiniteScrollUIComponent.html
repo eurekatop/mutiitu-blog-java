@@ -3,11 +3,21 @@
 <head>
     <script type="module">
         import { InfiniteScroll } from "./components/infinitescroll/scripts/infinite-scroll.js"
+        import { MuCard } from "./components/card/scripts/card.js"
     </script>
 
 </head>
 
 <body>
-    <mu-infinite-scroll title="{{blog.title}}" subtitle="{{blog.subtitle}}"
-        content="{{blog.content}}"></mu-infinite-scroll>
+    <mu-infinite-scroll title="{{blog.title}}" subtitle="{{blog.subtitle}}" content="{{blog.content}}">
+        <my-card title="card.title" subtitle="{{card.subtitle}}" content="{{card.content}}"></my-card>
+    </mu-infinite-scroll>
+
+
+
+    falta el editor de entrades, algo facil posa el ACE
+    i el live preview y palante
+    https://github.com/ryanflorence/render-markdown-javascript/blob/master/index.js
+
+
 </body>

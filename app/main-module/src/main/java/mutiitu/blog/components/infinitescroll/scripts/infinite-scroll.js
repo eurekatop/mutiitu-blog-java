@@ -23,6 +23,7 @@ export class InfiniteScroll extends HTMLElement {
           <h2 class="title">${this.title}</h2>
           <h2 class="subtitle">${this.subtitle}</h2>
           <div class="content">${this.content}</div>
+          <slot></slot>
         </div>`;
       }
   }

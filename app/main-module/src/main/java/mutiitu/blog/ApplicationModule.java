@@ -6,6 +6,9 @@ import mutiitu.blog.components.Header2;
 import mutiitu.blog.components.Header3;
 import mutiitu.blog.components.HeaderService;
 import mutiitu.blog.components.HeaderServiceImpl;
+import mutiitu.blog.components.card.CardUIComponent;
+import mutiitu.blog.components.markdown.MarkdownUIComponent;
+import mutiitu.blog.layouts.home.HomeLayout;
 //import mutiitu.blog.controllers.BlogController;
 import mutiitu.blog.services.BlogEntryService;
 import mutiitu.blog.services.TestService;
@@ -22,11 +25,17 @@ public class ApplicationModule extends AbstractModule {
         install(new CoreModule());
         install(new PersistenceModule());
 
+        // components
         bind(Header.class).asEagerSingleton();
         bind(Header2.class).asEagerSingleton();
         bind(Header3.class).asEagerSingleton();
+        bind(CardUIComponent.class).asEagerSingleton();
+        bind(MarkdownUIComponent.class).asEagerSingleton();
 
         bind(HeaderService.class).to(HeaderServiceImpl.class);
+
+        // layouts
+        bind(HomeLayout.class).asEagerSingleton();
 
         // bind(TestService.class).in(Scopes.SINGLETON);
 

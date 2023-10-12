@@ -10,14 +10,18 @@ import com.mutiitu.framework.core.annotations.Path;
 import com.mutiitu.framework.core.http.responses.HtmlResponse;
 import com.mutiitu.framework.core.http.responses.HttpResponse;
 import com.mutiitu.framework.core.http.responses.JsonResponse;
+import com.mutiitu.framework.core.http.responses.StringResponse;
 
 import mutiitu.blog.components._model.AuthorUIModel;
 import mutiitu.blog.components._model.BlogPostUIModel;
 import mutiitu.blog.components._model.CardUIModel;
 import mutiitu.blog.components.blogpost.BlogPostUIComponent;
 import mutiitu.blog.components.card.CardUIComponent;
+import mutiitu.blog.components.editor.EditorUIComponent;
 import mutiitu.blog.components.home.HomePage;
 import mutiitu.blog.components.infinitescroll.InfiniteScrollUIComponent;
+import mutiitu.blog.components.markdown.MarkdownUIComponent;
+import mutiitu.blog.layouts.home.HomeLayout;
 import mutiitu.blog.services.BlogEntryService;
 
 @Controller
@@ -33,6 +37,22 @@ public class HomePageController extends JavalinController {
 
     @Inject
     private BlogEntryService blogEntryService;
+
+    @Inject
+    HomeLayout homeLayout;
+
+    @Path(Value = "/")
+    @Method(Value = "GET")
+    public HttpResponse Home() {
+
+        try {
+            return homeLayout.render();
+
+        } catch (Exception ex) {
+            logger.error(null, ex);
+            return new JsonResponse(ex);
+        }
+    }
 
     @Transactional
     @Path(Value = "/homepage")
@@ -106,6 +126,36 @@ public class HomePageController extends JavalinController {
             // infiniteScroll.init(blog, author);
 
             return new HtmlResponse(infiniteScroll);
+        } catch (Exception ex) {
+            logger.error(null, ex);
+            return new JsonResponse(ex);
+        }
+    }
+
+    @Path(Value = "/markdown")
+    @Method(Value = "GET")
+    public HttpResponse Markdown() {
+        try {
+
+            var uic = new MarkdownUIComponent();
+            uic.init("dfsfdsjffsjfs fs");
+
+            return new HtmlResponse(uic);
+        } catch (Exception ex) {
+            logger.error(null, ex);
+            return new JsonResponse(ex);
+        }
+    }
+
+    @Path(Value = "/editor")
+    @Method(Value = "GET")
+    public HttpResponse Editor() {
+        try {
+
+            var uic = new EditorUIComponent();
+            uic.init("Hola melón");
+
+            return new HtmlResponse(uic);
         } catch (Exception ex) {
             logger.error(null, ex);
             return new JsonResponse(ex);

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/basscss@8.1.0/css/basscss.min.css">
+    <script type="module">
+        import * as card from "./components/card/scripts/card.js"
+    </script>
+
+    <style>
+        :root {
+            --dark-primary-color: #FFA000;
+            --light-primary-color: #FFECB3;
+            --primary-color: #FFC107;
+            --text-icons: #212121;
+            --accent-color: #9E9E9E;
+            --primary-text: #212121;
+            --secondary-text: #757575;
+            --divider-color: #BDBDBD;
+
+            --background-primary: #F5F5F5;
+            /* Gris claro para el fondo */
+            --background-secondary: #E0E0E0;
+            /* Otro tono de gris para fondos secundarios */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-primary-color);
+        }
+
+        .header {
+            background-color: var(--dark-primary-color);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .menu {
+            background-color: var(--ligth-primary-color);
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .description {
+            background-color: var(--background-primary);
+            padding: 20px;
+        }
+
+        .posts {
+            background-color: var(--background-secondary);
+            padding: 20px;
+        }
+
+        .footer {
+            background-color: var(--dark-primary-color);
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Mi Web Personal</h1>
+    </div>
+
+    <div class="menu">
+        <ul class="list-reset">
+            <li class="inline-block mr1">Half-Smoke</li>
+            <li class="inline-block mr1">Kielbasa</li>
+            <li class="inline-block mr1">Bologna</li>
+            <li class="inline-block mr1">Prosciutto</li>
+        </ul>
+    </div>
+
+    <div class="fixed top-0 left-0 right-0 p2 white bg-black">
+        <!-- { card | raw } -->
+        <my-card title="{{card.title}}" subtitle="{{card.subtitle}}" content="{{card.content}}"></my-card>
+
+
+    </div>
+
+    <div class="description">
+        <h2>Bienvenido a mi sitio web personal</h2>
+        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
+            interesante y útil!.</p>
+        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
+            interesante y útil!.</p>
+        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
+            interesante y útil!.</p>
+        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
+            interesante y útil!.</p>
+        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
+            interesante y útil!.</p>
+        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
+            interesante y útil!.</p>
+        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
+            interesante y útil!.</p>
+        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
+            interesante y útil!.</p>
+        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
+            interesante y útil!.</p>
+        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
+            interesante y útil!.</p>
+        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
+            interesante y útil!.</p>
+        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
+            interesante y útil!.</p>
+        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
+            interesante y útil!.</p>
+        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
+            interesante y útil!.</p>
+        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
+            interesante y útil!.</p>
+        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
+            interesante y útil!.</p>
+        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
+            interesante y útil!.</p>
+        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
+            interesante y útil!.</p>
+
+    </div>
+
+    <div class="posts">
+        <!-- Aquí puedes agregar tus publicaciones o contenido de blog -->
+        <h3>Últimas Publicaciones</h3>
+        <ul>
+            <li><a href="#">Título de la Publicación 1</a></li>
+            <li><a href="#">Título de la Publicación 2</a></li>
+            <li><a href="#">Título de la Publicación 3</a></li>
+        </ul>
+    </div>
+
+    <div class="menu">
+        <!-- Menú adicional, si es necesario -->
+    </div>
+
+    <div class="footer">
+        <p>Derechos de autor © 2023 - Mi Web Personal</p>
+    </div>
+</body>
+
+</html>

@@ -27,5 +27,4 @@ public class HomePage extends UIComponent {
         this.blogIds = blogIds;
         this.blogEntries = blogEntries;
     }
-
 }

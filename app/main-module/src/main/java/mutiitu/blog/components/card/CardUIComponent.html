@@ -5,8 +5,80 @@
         import * as card from "./components/card/scripts/card.js"
     </script>
 
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .border-animation {
+            /* border: 1px dashed black; */
+            position: relative;
+            width: 200px;
+            height: 100px;
+            overflow: hidden;
+        }
+
+        .dot {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ff6600;
+            border-radius: 0;
+            animation: moveDots 2s linear infinite;
+        }
+
+        .dot1 {
+            top: 0;
+            left: 0;
+        }
+
+        .dot2 {
+            top: 0px;
+            left: 10px;
+        }
+
+        .dot3 {
+            top: 0px;
+            left: 20px;
+        }
+
+        .dot4 {
+            top: 0px;
+            left: 30px;
+        }
+
+        .dot5 {
+            top: 0px;
+            left: -10px;
+        }
+
+
+
+        @keyframes moveDots {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(+100px);
+            }
+        }
+    </style>
+
 </head>
 
 <body>
     <my-card title="{{card.title}}" subtitle="{{card.subtitle}}" content="{{card.content}}"></my-card>
+
+    <div class="border-animation">
+        <div class="dot dot1"></div>
+        <div class="dot dot2"></div>
+        <div class="dot dot3"></div>
+        <div class="dot dot4"></div>
+        <div class="dot dot5"></div>
+    </div>
 </body>

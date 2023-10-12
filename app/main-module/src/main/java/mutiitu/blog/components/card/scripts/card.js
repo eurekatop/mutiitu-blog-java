@@ -3,7 +3,7 @@ import global_stylesheet from "/css/global-style.css" assert { type: "css" }
 import card_stylesheet from "/components/card/css/card.css" assert { type: "css" }
 
 
-export class MyCard extends HTMLElement { 
+export class MuCard extends HTMLElement { 
     constructor() {
         super();
         this.attachShadow({ mode: 'open' }).adoptedStyleSheets = [global_stylesheet, card_stylesheet]
@@ -28,4 +28,4 @@ export class MyCard extends HTMLElement {
       }
   }
   
-customElements.define('my-card', MyCard);
+customElements.define('my-card', MuCard);

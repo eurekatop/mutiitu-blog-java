@@ -1,3 +1,7 @@
+body {
+    background-color: burlywood;
+}
+
 my-card .title {
     color: red;
 }
