@@ -9,8 +9,9 @@ import com.mutiitu.framework.core.annotations.Method;
 import com.mutiitu.framework.core.annotations.Path;
 import com.mutiitu.framework.core.http.responses.HtmlResponse;
 import com.mutiitu.framework.core.http.responses.HttpResponse;
-import com.mutiitu.framework.core.http.responses.JsonResponse;
 import com.mutiitu.framework.core.http.responses.StringResponse;
+import com.mutiitu.framework.core.http.responses.JsonResponse;
+
 
 import mutiitu.blog.components._model.AuthorUIModel;
 import mutiitu.blog.components._model.BlogPostUIModel;
@@ -47,7 +48,6 @@ public class HomePageController extends JavalinController {
 
         try {
             return homeLayout.render();
-
         } catch (Exception ex) {
             logger.error(null, ex);
             return new JsonResponse(ex);

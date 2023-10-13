@@ -5,6 +5,8 @@
         "ms-azuretools.vscode-docker",
         "vscjava.vscode-java-debug",
         "redhat.java",
-        "tobermory.es6-string-html"
+        "tobermory.es6-string-html",
+        "vscjava.vscode-java-pack",
+        "rvest.vs-code-prettier-eslint"
     ]
 }

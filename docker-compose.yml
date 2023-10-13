@@ -5,12 +5,12 @@ services:
       context: .
       dockerfile: Dockerfile-development-java
     volumes:
-      - ./:/app
-      - /app/.gradle
-      - /app/gradle
-    working_dir: /app
+      - ./:/_dev/app
+      #- /_dev/app/.gradle
+      #- /_dev/app/gradle
+    working_dir: /_dev
     user: developer
-    entrypoint: sh /app/entrypoint.sh
+    entrypoint: sh /_dev/app/entrypoint.sh
     ports:
       - "8080:8080"
       - "8081:8081" #TODO: environment vars debug port

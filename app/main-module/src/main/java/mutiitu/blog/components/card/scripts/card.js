@@ -1,6 +1,6 @@
 import { getAttributes } from '/components/_framework/framework.js';
-import global_stylesheet from "/css/global-style.css" assert { type: "css" }
-import card_stylesheet from "/components/card/css/card.css" assert { type: "css" }
+import global_stylesheet from "/css/global-style.css" assert { type: "css" };
+import card_stylesheet from "/components/card/css/card.css" assert { type: "css" };
 
 
 export class MuCard extends HTMLElement { 

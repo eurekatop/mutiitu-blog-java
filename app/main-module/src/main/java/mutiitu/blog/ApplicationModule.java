@@ -29,8 +29,8 @@ public class ApplicationModule extends AbstractModule {
         bind(Header.class).asEagerSingleton();
         bind(Header2.class).asEagerSingleton();
         bind(Header3.class).asEagerSingleton();
-        bind(CardUIComponent.class).asEagerSingleton();
-        bind(MarkdownUIComponent.class).asEagerSingleton();
+        bind(CardUIComponent.class);
+        bind(MarkdownUIComponent.class);
 
         bind(HeaderService.class).to(HeaderServiceImpl.class);
 

@@ -1,7 +1,4 @@
 package com.mutiitu.framework.core.http.responses;
-
-import java.lang.reflect.Constructor;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

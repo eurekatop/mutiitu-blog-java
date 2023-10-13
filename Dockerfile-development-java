@@ -1,4 +1,3 @@
-# Utiliza una imagen base de Ubuntu
 FROM amazoncorretto:21
 
 
@@ -8,15 +7,25 @@ RUN yum install zip -y
 RUN yum install shadow-utils -y
 
 RUN useradd -u 1000 -m -d /home/developer developer
+
+# folder to store gradle build environment private container
+RUN mkdir -p /_dev/app
+RUN chown -R 1000:1000 /_dev
+RUN chown -R 1000:1000 /_dev/app
+
 USER developer
-
-WORKDIR /app
-
+WORKDIR /dev
 RUN curl -s "https://get.sdkman.io" | sh
 RUN /bin/bash -c "source /home/developer/.sdkman/bin/sdkman-init.sh && sdk install gradle"
 
 # Inicia el wrapper de gradle
-#COPY settings.gradle /app/settings.gradle
+COPY settings.gradle /_dev/settings.gradle
+# Realiza la sustitución en el archivo settings.gradle
+RUN sed -i 's/''app\//''app\/app\//g' /_dev/settings.gradle
+RUN /bin/bash -c "cat /_dev/settings.gradle"
+RUN /bin/bash -c "ls -lart /_dev"
+
+
 #RUN /bin/bash -c "source /home/developer/.sdkman/bin/sdkman-init.sh && gradle wrapper"
 #
 ## Asigna permisos de ejecución al script

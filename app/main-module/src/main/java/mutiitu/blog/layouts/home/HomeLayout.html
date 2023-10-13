@@ -2,9 +2,13 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.41, maximum-scale=1" />
     <link rel="stylesheet" href="https://unpkg.com/basscss@8.1.0/css/basscss.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css" type="text/css">
     <script type="module">
-        import * as card from "./components/card/scripts/card.js"
+        import { MuCard } from "./components/card/scripts/card.js"
+        import { MuMarkdown } from "./components/markdown/scripts/markdown.js"
     </script>
 
     <style>
@@ -22,51 +26,75 @@
             /* Gris claro para el fondo */
             --background-secondary: #E0E0E0;
             /* Otro tono de gris para fondos secundarios */
+
+            --body-max-width: 80%;
         }
 
+        @media (max-width: 600px) {
+            :root {
+            --light-primary-color: black;
+
+            --body-max-width: 100%;
+            }
+        }
+
+
         body {
+            max-width: var(--body-max-width);
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: var(--light-primary-color);
+            background-repeat: repeat; 
+            background-size: 400px auto;
+            background-color: var(--background-primary);
         }
 
         .header {
-            background-color: var(--dark-primary-color);
-            color: #fff;
+            /*background-color: var(--dark-primary-color);*/
+            color: var(--primary-text);
             padding: 20px;
             text-align: center;
+            background-image: url('images/background.svg');
+            background-size: 350px;
         }
 
         .menu {
-            background-color: var(--ligth-primary-color);
-            color: #fff;
+            background-color: var(--light-primary-color);
+            color:var(--primary-text);
             padding: 10px;
             text-align: center;
         }
 
         .description {
-            background-color: var(--background-primary);
-            padding: 20px;
-        }
-
-        .posts {
+            margin-top:5em;
+            margin-bottom:5em;
             background-color: var(--background-secondary);
             padding: 20px;
         }
 
+        .posts {
+            margin-top:5em;
+            margin-bottom:5em;
+            background-color: var(--background-primary);
+            color:var(--primary-text);
+            padding: 20px;
+            border: var(--dark-primary-color) solid 2px;
+        }
+
         .footer {
             background-color: var(--dark-primary-color);
-            color: #fff;
+            color: var(--secondary-text);
             text-align: center;
             padding: 10px;
         }
     </style>
 </head>
 
-<body>
+<body class="max-width-8 mx-auto">
     <div class="header">
-        <h1>Mi Web Personal</h1>
+        <h5>Francesc López</h5>
+        <h5>Full stack developer</h5>
     </div>
 
     <div class="menu">
@@ -79,62 +107,41 @@
     </div>
 
     <div class="fixed top-0 left-0 right-0 p2 white bg-black">
-        <!-- { card | raw } -->
-        <my-card title="{{card.title}}" subtitle="{{card.subtitle}}" content="{{card.content}}"></my-card>
-
-
-    </div>
-
-    <div class="description">
-        <h2>Bienvenido a mi sitio web personal</h2>
-        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
-            interesante y útil!.</p>
-        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
-            interesante y útil!.</p>
-        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
-            interesante y útil!.</p>
-        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
-            interesante y útil!.</p>
-        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
-            interesante y útil!.</p>
-        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
-            interesante y útil!.</p>
-        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
-            interesante y útil!.</p>
-        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
-            interesante y útil!.</p>
-        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
-            interesante y útil!.</p>
-        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
-            interesante y útil!.</p>
-        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
-            interesante y útil!.</p>
-        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
-            interesante y útil!.</p>
-        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
-            interesante y útil!.</p>
-        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
-            interesante y útil!.</p>
-        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
-            interesante y útil!.</p>
-        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
-            interesante y útil!.</p>
-        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
-            interesante y útil!.</p>
-        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos. ¡Espero que encuentres contenido
-            interesante y útil!.</p>
-
-    </div>
-
-    <div class="posts">
-        <!-- Aquí puedes agregar tus publicaciones o contenido de blog -->
-        <h3>Últimas Publicaciones</h3>
+        {{ card1 | raw }}
+        <my-card title="Estadísticas del Servidor helsinki-01" subtitle="Información de CPU y Ancho de Banda" content="
         <ul>
-            <li><a href="#">Título de la Publicación 1</a></li>
-            <li><a href="#">Título de la Publicación 2</a></li>
-            <li><a href="#">Título de la Publicación 3</a></li>
+            <li>Uso actual de la CPU: 45%</li>
+            <li>Carga promedio: 2.5</li>
+            <li>Ancho de banda utilizado: 350 Mbps</li>
+            <li>Ancho de banda disponible: 650 Mbps</li>
         </ul>
+    "></my-card>    </div>
+
+    <div class="description align-middle max-width-4 mx-auto rounded-right">
+        <h2 class="center">Bienvenido a mi sitio web personal</h2>
+        <p>¡Bienvenido a mi sitio web! Soy un desarrollador Full Stack apasionado por la creación de soluciones web de alto rendimiento y funcionalidad. Aquí encontrarás un portafolio de mis proyectos, artículos sobre tecnologías actuales, y detalles sobre mi experiencia en el desarrollo web. Estoy comprometido en crear aplicaciones innovadoras que satisfagan las necesidades de mis clientes. ¡Explora mi trabajo y descubre cómo puedo ayudarte a llevar tu idea al siguiente nivel en línea!"</p>
+        <p>En este espacio, compartiré mis pensamientos, experiencias y conocimientos</p>
+        <p>¡Espero que encuentres contenido interesante y útil!.</p>
     </div>
+
+    <div class="posts align-middle max-width-4 mx-auto rounded-right">
+        {{ markdown | raw }}
+    </div>
+
+    <div class="posts align-middle max-width-4 mx-auto rounded-right">
+        {{ markdown2 | raw }}
+    </div>
+
+
+    <!-- div class="posts2 align-middle max-width-4 mx-auto">
+        < -- Aquí puedes agregar tus publicaciones o contenido de blog -- >
+
+        <div class="posts align-middle max-width-4 mx-auto">
+            <my-card title="{{card.title}}" subtitle="{{card.subtitle}}" content="{{card.content}}"></my-card>
+        </div>
+
+        <my-card title="{{card.title}}" subtitle="{{card.subtitle}}" content="{{card.content}}"></my-card>
+    </div -->
 
     <div class="menu">
         <!-- Menú adicional, si es necesario -->
