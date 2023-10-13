@@ -1,7 +1,4 @@
 import { getAttributes } from '/components/_framework/framework.js';
-import global_stylesheet from "/css/global-style.css" assert { type: "css" }
-import card_stylesheet from "/components/blogpost/css/blog-post.css" assert { type: "css" }
-
 
 export class BlogPost extends HTMLElement { 
     title = undefined;
@@ -10,7 +7,8 @@ export class BlogPost extends HTMLElement {
 
     constructor() {
         super();
-        this.attachShadow({ mode: 'open' }).adoptedStyleSheets = [global_stylesheet, card_stylesheet]
+        this.attachShadow({ mode: 'open' })
+        loadCSSFrom(['/css/global-style.css', '/components/blogpost/css/blog-post.css'], this.shadowRoot)
       }
     
       connectedCallback() {

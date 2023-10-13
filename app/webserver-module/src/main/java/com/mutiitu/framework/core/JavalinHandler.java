@@ -43,7 +43,7 @@ public class JavalinHandler implements Handler {
             logger.info("Parameter name:" + parameterName);
             logger.info("Parameter value:" + parameterValue);
 
-            // TODO: refactor
+            // TODO: refactor 
             if (parameterType.equals(String.class)) {
                 parameterValues.add(parameterValue);
             } else if (parameterType.equals(int.class)) {

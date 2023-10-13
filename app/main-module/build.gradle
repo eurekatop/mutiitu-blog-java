@@ -5,16 +5,28 @@
  * For more details on building Java & JVM projects, please refer to https://docs.gradle.org/8.3/userguide/building_java_projects.html in the Gradle documentation.
  */
 
+import org.gradle.api.DefaultTask
+import org.gradle.api.file.FileCollection
+import org.gradle.api.file.FileTree
+import org.gradle.api.file.RegularFile
+import org.gradle.api.provider.Provider
+import org.gradle.api.tasks.*
+
+
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
     id 'java'
     id "io.freefair.lombok" version "8.2.2"
+    id "com.github.node-gradle.node" version "7.0.1"
 }
 
+node {
+    version = '14.16.0'  // Define la versión de Node.js que deseas utilizar
+    npmVersion = '6.14.0'  // Define la versión de npm que deseas utilizar
+}
 
 repositories {
-    // Use Maven Central for resolving dependencies.
     mavenCentral()
     mavenLocal() 
 }
@@ -54,11 +66,84 @@ dependencies {
     implementation project(':webserver-module') 
 
     implementation("org.seasar.doma:doma-core:2.54.0")
-
-
 }
 
+abstract class GreetingTask extends DefaultTask {
+    @TaskAction
+    def greet() {
+        println 'hello from GreetingTask'
+    }
+}
+
+// Watch for modified files with extension X
+abstract class FileModifiedTask extends DefaultTask {
+
+    // Define an input directory property that represents the directory to monitor
+    @InputDirectory
+    abstract DirectoryProperty getInputDir()
+
+    // Define an output directory property (optional) if you want to create output files
+    @Optional
+    @OutputDirectory
+    abstract DirectoryProperty getOutputDir()
+
+    // Define a property to specify the file extension to filter (e.g., 'js')
+    @Input
+    abstract Property<String> getFileExtension()
+
+    // Define a method to generate a FileTree for the input directory with filtered file extension
+    @PathSensitive(PathSensitivity.RELATIVE)
+    @InputFiles
+    FileTree getGenerateFileTree() {
+        return getInputDir().getAsFileTree().matching {
+            include "**/*.${fileExtension.get()}"
+        }
+    }
+
+    // Define the task action to be executed when files are modified
+    @TaskAction
+    void onFilesModified() {
+        FileTree inputFiles = getGenerateFileTree()
+
+//TODO: info what file is changed
+//        // Perform actions based on modified files
+//        inputFiles.files.each { inputFile ->
+//            println "File modified: ${inputFile}"
+//            // You can add your logic here to process the modified file
+//        }
+//
+//        //Optionally, create output files for each modified file
+//        Provider<Directory> outputDir = getOutputDir()
+//        if (outputDir.isPresent()) {
+//            inputFiles.files.each { inputFile ->
+//                //def relativePath = inputFile.relativePath
+//                //def outputFile = outputDir.get().file(relativePath)
+//                //println "Creating or updating output file: ${outputFile}"
+//                println inputFile
+//                println outputDir.get()
+//                println outputDir.get().getAsFileTree()
+//            }
+//        }
+    }
+}
+
+
+// Create a task using the task type
+tasks.register('hello', GreetingTask)
+
+tasks.register('javascriptFileIsModified', FileModifiedTask) {
+    inputDir = file('src/main/java/mutiitu/blog/components') // Specify the directory to monitor
+    //outputDir = file('/tmp/outputs') // Optional: Specify an output directory
+    fileExtension = 'js' // Specify the file extension to filter (e.g., 'js')
+}
+
+
+///////////////////////////////////////////////////////////////////////
+
+
 tasks.register('copyAllHtmlTemplates', Copy) {
+    println "Ejecutando copyAllPublicFolder..."
+
     from 'src/main/java/'
     include '**/*.html'
     include '**/*.sass'
@@ -69,30 +154,71 @@ tasks.register('copyAllHtmlTemplates', Copy) {
 
 // TODO: harcoded project name
 tasks.register('copyAllPublicFolder', Copy) {
-    // static public folder application global level
+    println "Ejecutando copyAllPublicFolder..."
+
     from 'src/main/java/mutiitu/blog/public'
     include '**/*.*'
     into layout.buildDirectory.dir("resources/public")
 }
 
 tasks.register('copyAllComponentsFolder', Copy) {
+    println "Ejecutando copyAllComponentsFolder..."
+
     // copy non global static resources components 
     from 'src/main/java/mutiitu/blog/components'
-    include '**/*.js'
+    // include '**/*.js' // babel task copy this files
     //exclude '**/*.java'
-    include '**/*.html' // ??
+    include '**/*.html' 
     include '**/*.css'
     include '**/*.sass'
     include '**/*.png'
     into layout.buildDirectory.dir("resources/public/components")
 }
 
+tasks.register('copyAllLayoutsFolder', Copy) {
+    println "Ejecutando copyAllLayoutsFolder..."
+
+    // copy non global static resources components 
+    from 'src/main/java/mutiitu/blog/layouts'
+    include '**/*.js' // NO polyfill
+    exclude '**/*.java'
+    include '**/*.html' // ??
+    include '**/*.css'
+    include '**/*.sass'
+    include '**/*.png'
+    into layout.buildDirectory.dir("resources/public/layouts")
+}
+
+tasks.register('babelComponents', NodeTask) {
+    script = file('node_modules/@babel/cli/bin/babel.js')    
+    args = ['src/main/java/mutiitu/blog/components', 
+    '--out-dir', 'build/resources/public/components' 
+    //,'--verbose'
+    ]
+}
+
+// TODO; INTSALL TASK
+/// npm install @babel/core @babel/cli @babel/preset-env @babel/plugin-syntax-import-attributes --save-dev
+//babel {
+//    dependsOn npmInstall
+//    dependsOn build
+//}
+//
 
 
 compileJava {
-    dependsOn copyAllHtmlTemplates
-    dependsOn copyAllPublicFolder
+    println "Ejecutando compileJava..."
+
+    dependsOn hello
+    dependsOn javascriptFileIsModified
+
+    dependsOn babelComponents
+    
     dependsOn copyAllComponentsFolder
+    dependsOn copyAllHtmlTemplates
+    dependsOn copyAllPublicFolder   
+    dependsOn copyAllLayoutsFolder
+
     options.debug = true /// todo
 } 
 

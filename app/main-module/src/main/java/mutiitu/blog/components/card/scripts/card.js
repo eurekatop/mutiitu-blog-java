@@ -1,19 +1,17 @@
-import { getAttributes } from '/components/_framework/framework.js';
-import global_stylesheet from "/css/global-style.css" assert { type: "css" };
-import card_stylesheet from "/components/card/css/card.css" assert { type: "css" };
+import { getAttributes, loadCSSFrom } from '/components/_framework/framework.js';
 
-
-export class MuCard extends HTMLElement { 
+export class MuCard extends HTMLElement {
     constructor() {
         super();
-        this.attachShadow({ mode: 'open' }).adoptedStyleSheets = [global_stylesheet, card_stylesheet]
+        this.attachShadow({ mode: 'open' })
+        loadCSSFrom(['/css/global-style.css', '/components/card/css/card.css'], this.shadowRoot)
       }
-    
+
       connectedCallback() {
         const { title, subtitle, content } = getAttributes(this, 'title', 'subtitle', 'content');
-    
 
-        this.shadowRoot.innerHTML = 
+
+        this.shadowRoot.innerHTML =
         /*html*/
       `<div class="card">
         <div class="card-image">
@@ -27,5 +25,5 @@ export class MuCard extends HTMLElement {
        </div>`;
       }
   }
-  
-customElements.define('my-card', MuCard);
+
+ customElements.define('my-card', MuCard); 

@@ -1,0 +1,13 @@
+{
+  "presets": [
+    ["@babel/preset-env",
+      {
+        "useBuiltIns": "entry",
+        "corejs": "3.33.0",
+        "modules": "amd" 
+      }]
+  ],
+  "plugins": [
+    ["@babel/plugin-syntax-import-assertions"]
+  ]
+}  
