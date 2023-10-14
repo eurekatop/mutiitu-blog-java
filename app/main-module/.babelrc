@@ -9,5 +9,9 @@
   ],
   "plugins": [
     ["@babel/plugin-syntax-import-assertions"]
+  ],
+  "ignore": [
+    "**/node_modules/**",
+    "**/font-awesome/**"
   ]
 }  

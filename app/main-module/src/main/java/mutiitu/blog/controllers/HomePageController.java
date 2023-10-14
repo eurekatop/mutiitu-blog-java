@@ -22,6 +22,7 @@ import mutiitu.blog.components.editor.EditorUIComponent;
 import mutiitu.blog.components.home.HomePage;
 import mutiitu.blog.components.infinitescroll.InfiniteScrollUIComponent;
 import mutiitu.blog.components.markdown.MarkdownUIComponent;
+import mutiitu.blog.layouts.components.ComponentsLayout;
 import mutiitu.blog.layouts.home.HomeLayout;
 import mutiitu.blog.services.BlogEntryService;
 
@@ -42,6 +43,10 @@ public class HomePageController extends JavalinController {
     @Inject
     HomeLayout homeLayout;
 
+    @Inject
+    ComponentsLayout componentsLayout;
+
+
     @Path(Value = "/")
     @Method(Value = "GET")
     public HttpResponse Home() {
@@ -53,6 +58,20 @@ public class HomePageController extends JavalinController {
             return new JsonResponse(ex);
         }
     }
+
+
+    @Path(Value = "/components")
+    @Method(Value = "GET")
+    public HttpResponse Components() {
+
+        try {
+            return componentsLayout.render();
+        } catch (Exception ex) {
+            logger.error(null, ex);
+            return new JsonResponse(ex);
+        }
+    }
+
 
     @Transactional
     @Path(Value = "/homepage")

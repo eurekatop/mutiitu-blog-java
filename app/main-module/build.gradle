@@ -172,6 +172,8 @@ tasks.register('copyAllComponentsFolder', Copy) {
     include '**/*.css'
     include '**/*.sass'
     include '**/*.png'
+    include '**/*.svg'
+    include '**/*.ttf'
     into layout.buildDirectory.dir("resources/public/components")
 }
 
@@ -199,6 +201,7 @@ tasks.register('babelComponents', NodeTask) {
 
 // TODO; INTSALL TASK
 /// npm install @babel/core @babel/cli @babel/preset-env @babel/plugin-syntax-import-attributes --save-dev
+/// add @babel/plugin-transform-modules-systemjs
 //babel {
 //    dependsOn npmInstall
 //    dependsOn build

@@ -32,6 +32,7 @@ function loadCSSFrom(cssUrls, shadowRoot) {
   })
   .catch(error => {
     console.error('Error al cargar hojas de estilo:', error);
+    console.error('Error al cargar hojas de estilo:', cssUrls);
   });
 
 }
