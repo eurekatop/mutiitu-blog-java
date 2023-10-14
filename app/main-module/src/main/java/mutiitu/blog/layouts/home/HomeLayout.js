@@ -1,2 +1,2 @@
-require(['components/card/scripts/card.js']);
-require(['components/markdown/scripts/markdown.js'])  
+System.import('/components/card/scripts/card.js');
+System.import('/components/markdown/scripts/markdown.js')  

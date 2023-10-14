@@ -1,1 +1,5 @@
-{}
+{
+  "devDependencies": {
+    "@babel/plugin-transform-modules-systemjs": "^7.23.0"
+  }
+}
