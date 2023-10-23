@@ -31,6 +31,41 @@ public class HomeLayout {
     public HttpResponse render() {
         try {
 
+            // "/mutiitu/blog/layouts/home/HomeLayout.html"
+            // TODO: GC
+            PebbleEngine engine = new PebbleEngine.Builder().build();
+            PebbleTemplate compiledTemplate = engine.getTemplate("mutiitu/blog/layouts/home/index.html");
+            Map<String, Object> context = new HashMap<>();
+
+            var items = new ArrayList<String>();
+            items.add("a ");
+            items.add("b ");
+            items.add("bfdjfdslfjldf  ");
+
+            context.put("name", "Mitchell");
+
+            context.put("items", items);
+            context.put("card", cardUIComponent);
+            context.put("markdown", markdownUIComponent);
+            context.put("markdown2", markdownUIComponent2);
+            context.put("document", content);
+
+            Writer writer = new StringWriter();
+
+            compiledTemplate.evaluate(writer, context);
+            String output = writer.toString();
+            return new HtmlResponse(output);
+
+        } catch (Exception ex) {
+            // TODO: errors
+            ex.printStackTrace();
+            return new StringResponse("output");
+        }
+    }
+
+    public HttpResponse render2() {
+        try {
+
             markdownUIComponent.init(content);
             markdownUIComponent2.init(content2);
             
