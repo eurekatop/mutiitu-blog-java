@@ -19,7 +19,7 @@ const nodes = [];
 const nodeTransition = document.getElementById("transition01");
 
 function DEBUG(value) {
-  document.getElementById("DEBUG").innerHTML = value + "\n";
+  document.getElementById("DEBUG").innerHTML += value + "\n";
 }
 
 async function fetchResume(url) {
@@ -234,9 +234,8 @@ async function showKeyWordDescription(keyWord) {
 
 function take01_01() {
   // showw content scene
-  screen01 = document.getElementById("screen01");
+  const screen01 = document.getElementById("screen01");
   screen01.style.visibility = "visible";
-
   delay(() => take01(), 2000);
 }
 
@@ -388,7 +387,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     // wait to finish "loader"
     let _local = false;
     if (_loaderElementsPromises.length > 65) {
-      DEBUG("pull");
+      DEBUG("pull2");
+      DEBUG(_loaderElementsPromises.length)
       Promise.all(_loaderElementsPromises)
         .then(() => {
           delay(() => take01_01(), 1000); // TODO: fix promises
