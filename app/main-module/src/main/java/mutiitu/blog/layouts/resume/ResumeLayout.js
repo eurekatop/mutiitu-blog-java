@@ -207,6 +207,10 @@ function loader(desc) {
   });
 }
 
+function getCodeKeyWordDescriptions( keyword ) {
+    return codeKeyWordDescriptionsData[keyWord]
+}
+
 async function showKeyWordDescription(keyWord) {
   if ( codeKeyWordDescriptionsData[keyWord]) {
   const popup = new Popup({
@@ -376,6 +380,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     "/layouts/resume/tech-skills-descriptions.json"
   );
   replaceCodeKeyWords();
+  document.showKeyWordDescription = showKeyWordDescription
   //}, 0);
 
   setTimeout(function () {
