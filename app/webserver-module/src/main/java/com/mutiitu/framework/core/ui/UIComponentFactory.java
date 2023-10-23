@@ -1,10 +1,5 @@
 package com.mutiitu.framework.core.ui;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.HashMap;
-
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Injector;

@@ -188,6 +188,7 @@ tasks.register('copyAllLayoutsFolder', Copy) {
     include '**/*.css'
     include '**/*.sass'
     include '**/*.png'
+    include '**/*.json'
     into layout.buildDirectory.dir("resources/public/layouts")
 }
 

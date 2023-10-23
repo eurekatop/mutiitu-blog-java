@@ -1,350 +1,190 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta
+    charset="UTF-8"
+    name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <!-- style motion-->
+    <style>
+      :root {
+        --width-box-1: 10px;
+        --x-box-1: 0px;
+        --y-box-1: 0px;
+        --screen01-width: 100vw;
+        --screen01-height: 80vh;
 
-<head> 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.41, maximum-scale=1" />
-    
-    <script src="https://unpkg.com/systemjs@6.14.2/dist/extras/amd.js"></script>
-    <script src="https://unpkg.com/systemjs@6.14.2/dist/system.js"></script>
+        --color-line-box-1: #ccd;
+        --color-fill-box-1: white;
+      }
+      html {
+        font-size: 8px; /* TODO MEDIA QUERIE */
+      }
+      body {
+        background-color: black;
+        font-size: 16px;
+        margin: 0px;
+      }
+      .box1 {
+        border-right: 1px solid;
+        border-bottom: 1px solid dashed;
+        border-color: var(--color-line-box-1);
+        width: 0px;
+        height: 5rem;
+        transform-origin: top left;
+        margin-bottom: 10px;
+        position: absolute;
+        text-align: center;
+        color: white;
+        background-color: var(--color-fill-box-1);
+        opacity: 1;
+        overflow: hidden;
+      }
 
+      .screen01 {
+        width: var(--screen01-width);
+        height: var(--screen01-height);
+        border-bottom: 1px dotted white;
+        background-color: #0f0f0f;
+        text-align: center;
+        line-height: var(--screen01-height);
+        position: absolute;
+        overflow: hidden;
+        transition: height 1s;
+        visibility: hidden;
+        color: white;
+        /* background-image: radial-gradient(rgba(0, 150, 0, 0.75), black 120%); */
+      }
 
-    <link rel="stylesheet" href="https://unpkg.com/basscss@8.1.0/css/basscss.min.css">
-    <!-- link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css" type="text/css" -->
-    
-    <script src="./layouts/resume/ResumeLayout.js"></script> 
+      .transition01 {
+        width: var(--screen01-width);
+        height: var(--screen01-height);
+        /*border: 10px solid blue;*/
+        color: white;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+      }
 
-    <style> 
-        :root {
-            --dark-primary-color: #FFA000;
-            --light-primary-color: #FFECB3;
-            --primary-color: #FFC107;
-            --text-icons: #212121;
-            --accent-color: #9E9E9E;
-            --primary-text: #212121;
-            --secondary-text: #757575;
-            --divider-color: #BDBDBD;
+      .content {
+        color: white;
+        position: relative;
+        top: var(--screen01-height);
+        left: 0px;
+        overflow: visible;
+        transition: top 1s;
+        visibility: hidden;
+      }
 
-            --background-primary: #F5F5F5;
-            /* Gris claro para el fondo */
-            --background-secondary: #E0E0E0;
-            /* Otro tono de gris para fondos secundarios */
+      .lipsum {
+        background-color: black;
+        color: white;
+      }
 
-            --body-max-width: 80%;
+      .screen01_title h1 {
+        font-size: 4rem;
+      }
+
+      @media (max-width: 400px) {
+        .lipsum {
+          font-size: 12px;
+          padding-left: 1rem;
+          padding-right: 1rem;
+          margin-left: 0rem;
+          margin-right: 0rem;
         }
-
-        @media (max-width: 600px) {
-            :root {
-            --light-primary-color: black;
-
-            --body-max-width: 100%;
-            }
+      }
+      @media (min-width: 401px) and (max-width: 600px) {
+        .lipsum {
+          font-size: 14px;
+          padding-left: 1rem;
+          padding-right: 1rem;
+          margin-left: 1rem;
+          margin-right: 1rem;
         }
-
-
-        body {
-            max-width: var(--body-max-width);
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--light-primary-color);
-            background-repeat: repeat; 
-            background-size: 400px auto;
-            background-color: var(--background-primary);
+      }
+      @media (min-width: 601px) and (max-width: 900px) {
+        .lipsum {
+          font-size: 15px;
+          padding-left: 3rem;
+          padding-right: 3rem;
+          margin-left: 10rem;
+          margin-right: 10rem;
         }
-
-        .header {
-            /*background-color: var(--dark-primary-color);*/
-            color: var(--primary-text);
-            padding: 20px;
-            text-align: center;
-            background-image: url('images/background.svg');
-            background-size: 350px;
+      }
+      @media (min-width: 901px) and (max-width: 1800px) {
+        .lipsum {
+          font-size: 17px;
+          padding-left: 5rem;
+          padding-right: 5rem;
+          margin-left: 20rem;
+          margin-right: 20rem;
         }
-
-        .menu {
-            background-color: var(--light-primary-color);
-            color:var(--primary-text);
-            padding: 10px;
-            text-align: center;
+      }
+      @media (min-width: 1801px) {
+        .screen01 {
+          width: 70vw;
+          margin-left: 15vw;
         }
+        .lipsum {
+          font-size: 18px;
+          padding-left: 10rem;
+          padding-right: 10rem;
+          margin-left: 40rem;
+          margin-right: 40rem;
 
-        .description {
-            margin-top:5em;
-            margin-bottom:5em;
-            background-color: var(--background-secondary);
-            padding: 20px;
+          /*margin-left: 20%;
+          margin-right: 20%;
+          margin-top: 30px;
+          margin-bottom: 25px;*/
+          max-width: 1000px;
         }
+      }
 
-        .posts {
-            margin-top:5em;
-            margin-bottom:5em;
-            background-color: var(--background-primary);
-            color:var(--primary-text);
-            padding: 20px;
-            border: var(--dark-primary-color) solid 2px;
-        }
-
-        .footer {
-            background-color: var(--dark-primary-color);
-            color: var(--secondary-text);
-            text-align: center;
-            padding: 10px;
-        }
+      h1 {
+        font-size: 240%;
+      }
     </style>
 
-    <!-- grid -->
+    <!-- content -->
+    <link rel="stylesheet" href="/layouts/resume/b.enjam.ino_panam_stylyng.css" />
+    <!-- end style content -->
 
-    <style>
-        .angry-grid {
-           display: grid; 
-        
-           grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-           grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-           
-           gap: 0px;
-           height: 100%;
-           
-        }
-          
-        #item-0 {
-        
-           background-color: #5AFDC6; 
-           grid-row-start: 1;
-           grid-column-start: 1;
-        
-           grid-row-end: 2;
-           grid-column-end: 2;
-           
-        }
-        #item-1 {
-        
-           background-color: #97D7B6; 
-           grid-row-start: 1;
-           grid-column-start: 2;
-        
-           grid-row-end: 5;
-           grid-column-end: 3;
-           
-        }
-        #item-2 {
-        
-           background-color: #9EBB6F; 
-           grid-row-start: 1;
-           grid-column-start: 3;
-        
-           grid-row-end: 3;
-           grid-column-end: 4;
-           
-        }
-        #item-3 {
-        
-           background-color: #6795B6; 
-           grid-row-start: 1;
-           grid-column-start: 4;
-        
-           grid-row-end: 4;
-           grid-column-end: 5;
-           
-        }
-        #item-4 {
-        
-           background-color: #577B95; 
-           grid-row-start: 1;
-           grid-column-start: 5;
-        
-           grid-row-end: 6;
-           grid-column-end: 6;
-           
-        }
-        #item-5 {
-        
-           background-color: #68FE58; 
-           grid-row-start: 1;
-           grid-column-start: 6;
-        
-           grid-row-end: 8;
-           grid-column-end: 8;
-           
-        }
-        #item-6 {
-        
-           background-color: #899BE6; 
-           grid-row-start: 1;
-           grid-column-start: 8;
-        
-           grid-row-end: 2;
-           grid-column-end: 9;
-           
-        }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/13.0.2/markdown-it.min.js" integrity="sha512-ohlWmsCxOu0bph1om5eDL0jm/83eH09fvqLDhiEdiqfDeJbEvz4FSbeY0gLJSVJwQAp0laRhTXbUQG+ZUuifUQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@simondmc/popup-js@1.4.2/popup.min.js"></script>
 
-        .p2 {
-            min-width: 10rem;
-            max-width: 10rem;
-        }
-
-        hr {
-            border: 1px dashed black;
-            margin:2rem;
-        }
-
-        </style>
-
-
-</head>
-
-<body class="max-width-8 mx-auto">
-    <div class="header">
-        <h5>Francesc López</h5>
-        <h5>Full stack developer</h5>
+    <script type="module" defer src="/layouts/resume/ResumeLayout.min.js"></script>
+  </head>
+  <body>
+    <div style="background-color: white; color: black; display: none">
+      <pre id="DEBUG"></pre>
+      debug console::::::
+    </div>
+    <!-- header -->
+    <!-- scene area-->
+    <div style="position: relative; top: 0px; left: 0px; overflow: visible">
+      <!-- layer 01-->
+      <div id="screen01" class="screen01">
+        <div id="screen01_title" class="screen01_title">
+          <h1>Francesc López</h1>
+        </div>
+      </div>
+      <!-- transition01 -->
+      <div style="position: relative; top: 0px; left: 0px; overflow: visible">
+        <!-- layer 02-->
+        <div
+          id="transition01"
+          class="transition01"
+          style="overflow: hidden"
+        ></div>
+      </div>
     </div>
 
-    <div class="menu">
-        <ul class="list-reset">
-            <li class="inline-block mr1">Half-Smoke</li>
-            <li class="inline-block mr1">Kielbasa</li>
-            <li class="inline-block mr1">Bologna</li>
-            <li class="inline-block mr1">Prosciutto</li>
-        </ul>
+    <div id="content" class="content">
+      <!-- CV main content-->
+      <div id="lipsum" class="lipsum"></div>
     </div>
 
-    <div class="border rounded-right align-middle" style="margin: auto";>
-      <!-- grid -->  
-      <div class="angry-grid" style="width: min-content;margin: auto;";>
-            <div id="item-0">
-              <div class="p2 bg-white border rounded">
-                <mu-game-of-life></mu-game-of-life>
-                
-                <!-- card exp -->  
-                <h1>...</h1>
-                  <div class="p1 m1 border-top">
-                    Junior Developer
-                  </div>
-                  <div class="m1 border-right h4">
-                    Programación en basic mi amstrad cpc (unicode love) i atari 1024
-                  </div>
-                  <div class="m1 border-left h6">
-                    Basic, C, Pascal
-                  </div>
-
-                  <hr/>
-                  <div class="p1 m1 border-top">
-                    Junior Developer
-                  </div>
-                  <div class="m1 border-right h4">
-                    Programación en basic mi Atari assemble
-                  </div>
-                  <div class="m1 border-left h6">
-                    Basic
-                  </div>
-
-                  <hr/>
-                  <div class="p1 m1 border-top">
-                    Junior Developer
-                  </div>
-                  <div class="m1 border-right h4">
-                    Programación en basic mi Atari 1024 
-                  </div>
-                  <div class="m1 border-left h6">
-                    Assembler
-                  </div>
-
-
-
-                  <!-- card exp -->  
-            </div>
-            </div>
-            <div id="item-1">
-              <div class="p2 bg-white border rounded">
-                    <!-- card exp -->  
-                    <h1>1994</h1>
-                    <div class="p1 m1 border-top">
-                        Formación
-                    </div>
-                    <div class="m1 border-right h4">
-                        TÉCNICO SUPERIOR EN DESARROLLO DE APLICACIONES INFORMÁTICAS
-                    </div>
-                    <!-- card exp -->    
-              </div>
-              <div class="p2 bg-white border rounded">
-                <!-- card exp -->  
-                <h1>1997</h1>
-                  <div class="p1 m1 border-top">
-                    Game Developer
-                  </div>
-                  <div class="m1 border-right h4">
-                    Arquitectura y desarrollo de máquinas de videojuegos recreativos y de azar.
-                  </div>
-                  <div class="m1 border-left h6">
-                    C/C++, DirectX, Win95, CalderaOs
-                  </div>
-                <!-- card exp -->  
-            </div>
-
-
-              <div class="p2 bg-white border rounded">
-                  A simple box
-              </div>
-              <div class="p2 bg-white border rounded">
-                  A simple box
-              </div>
-            </div>
-            <div id="item-2">
-              <div class="p2 bg-white border rounded">
-                  A simple box
-              </div>
-              <div class="p2 bg-white border rounded">
-                  A simple box
-              </div>
-            </div>
-            <div id="item-3">
-              <div class="p2 bg-white border rounded">
-                  A simple box
-              </div>
-              <div class="p2 bg-white border rounded">
-                  A simple box
-              </div>
-              <div class="p2 bg-white border rounded">
-                  A simple box
-              </div>
-            </div>
-            <div id="item-4">
-              <div class="p2 bg-white border rounded">
-                  A simple box
-              </div>
-              <div class="p2 bg-white border rounded">
-                  A simple box
-              </div>
-              <div class="p2 bg-white border rounded">
-                  A simple box
-              </div>
-              <div class="p2 bg-white border rounded">
-                  A simple box
-              </div>
-              <div class="p2 bg-white border rounded">
-                  A simple box
-              </div>
-              <div class="p2 bg-white border rounded">
-                  A simple box
-              </div>
-            </div>
-            <div id="item-5">
-              <div class="p2 bg-white border rounded">
-                  A simple box
-              </div>            
-            </div>
-            <div id="item-6">
-              <div class="p2 bg-white border rounded">
-                  A simple box
-              </div>            
-            </div>
-          </div>
-    </div>
-
-
-    <div class="footer">
-        <p>Derechos de autor © 2023 - Mi Web Personal</p>
-    </div>
-</body>
-
+  </body>
 </html>

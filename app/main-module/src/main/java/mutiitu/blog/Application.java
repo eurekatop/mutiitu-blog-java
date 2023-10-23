@@ -2,7 +2,6 @@ package mutiitu.blog;
 
 import static com.google.inject.Guice.createInjector;
 
-import com.google.inject.Injector;
 import com.mutiitu.framework.core.ApplicationStarter;
 import com.mutiitu.framework.core.ui.UIComponentFactory;
 

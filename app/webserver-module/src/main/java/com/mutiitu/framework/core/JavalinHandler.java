@@ -12,8 +12,6 @@ import com.mutiitu.framework.core.http.responses.HtmlResponse;
 import com.mutiitu.framework.core.http.responses.HttpResponse;
 import com.mutiitu.framework.core.http.responses.JsonResponse;
 import com.mutiitu.framework.core.http.responses.StringResponse;
-
-import io.javalin.http.ContentType;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 
