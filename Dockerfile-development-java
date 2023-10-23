@@ -6,6 +6,15 @@ RUN yum install unzip -y
 RUN yum install zip -y
 RUN yum install shadow-utils -y
 
+# Instala las dependencias necesarias
+RUN yum install -y curl && yum clean all
+
+# Descarga e instala Node.js
+RUN  yum install https://rpm.nodesource.com/pub_16.x/nodistro/repo/nodesource-release-nodistro-1.noarch.rpm -y
+RUN yum install nodejs -y --setopt=nodesource-nodejs.module_hotfixes=1# Verifica la instalación de Node.js y npm
+RUN node -v
+RUN npm -v
+
 RUN useradd -u 1000 -m -d /home/developer developer
 
 # folder to store gradle build environment private container
@@ -25,8 +34,15 @@ RUN sed -i 's/''app\//''app\/app\//g' /_dev/settings.gradle
 RUN /bin/bash -c "cat /_dev/settings.gradle"
 RUN /bin/bash -c "ls -lart /_dev"
 
+# copia pacakge.json
+COPY package.json /_dev/package.json
 
 #RUN /bin/bash -c "source /home/developer/.sdkman/bin/sdkman-init.sh && gradle wrapper"
 #
 ## Asigna permisos de ejecución al script
 #RUN chown -R 1000:1000 /app/.gradle/
+
+USER root
+WORKDIR /_dev
+RUN ls -lart
+RUN npm install
