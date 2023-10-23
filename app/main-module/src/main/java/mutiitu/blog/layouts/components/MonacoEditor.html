@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+        <script src="https://unpkg.com/systemjs@6.14.2/dist/extras/amd.js"></script>
+        <script src="https://unpkg.com/systemjs@6.14.2/dist/system.js"></script>
+        <script src="https://unpkg.com/systemjs@6.14.2/dist/extras/named-register.js"></script>
+
+        
+
+        <script type="systemjs-importmap">
+            {
+              "imports": {
+                "vs/": "https://unpkg.com/monaco-editor@0.44.0/min/vs/"
+              }
+            }
+
+          </script>
+
+    </head>
+	<body>
+		<div id="container" style="width:800px;height:600px;border:1px solid grey"></div>
+		<script>
+			//require.config({ paths: { vs: 'monaco-editor/min/vs' } });
+            System.import ( "vs/loader.js")
+			System.import('vs/editor/editor.main')
+            .then (  (monaco) => {
+
+                window.monaco = monaco
+                 console.log ( monaco )
+
+				var editor = monaco.editor.create(document.getElementById('container'), {
+					value: ['function x() {', '\tconsole.log("Hello world!");', '}'].join('\n'),
+					language: 'javascript'
+				});
+			})
+            .catch ( (error) => console.log (error))
+		</script>
+
+        <div id="container">
+
+        </div>
+	</body>
+</html>

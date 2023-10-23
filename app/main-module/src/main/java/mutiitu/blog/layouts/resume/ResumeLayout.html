@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.41, maximum-scale=1" />
+    
+    <script src="https://unpkg.com/systemjs@6.14.2/dist/extras/amd.js"></script>
+    <script src="https://unpkg.com/systemjs@6.14.2/dist/system.js"></script>
+
+
+    <link rel="stylesheet" href="https://unpkg.com/basscss@8.1.0/css/basscss.min.css">
+    <!-- link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css" type="text/css" -->
+    
+    <script src="./layouts/resume/ResumeLayout.js"></script> 
+
+    <style> 
+        :root {
+            --dark-primary-color: #FFA000;
+            --light-primary-color: #FFECB3;
+            --primary-color: #FFC107;
+            --text-icons: #212121;
+            --accent-color: #9E9E9E;
+            --primary-text: #212121;
+            --secondary-text: #757575;
+            --divider-color: #BDBDBD;
+
+            --background-primary: #F5F5F5;
+            /* Gris claro para el fondo */
+            --background-secondary: #E0E0E0;
+            /* Otro tono de gris para fondos secundarios */
+
+            --body-max-width: 80%;
+        }
+
+        @media (max-width: 600px) {
+            :root {
+            --light-primary-color: black;
+
+            --body-max-width: 100%;
+            }
+        }
+
+
+        body {
+            max-width: var(--body-max-width);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-primary-color);
+            background-repeat: repeat; 
+            background-size: 400px auto;
+            background-color: var(--background-primary);
+        }
+
+        .header {
+            /*background-color: var(--dark-primary-color);*/
+            color: var(--primary-text);
+            padding: 20px;
+            text-align: center;
+            background-image: url('images/background.svg');
+            background-size: 350px;
+        }
+
+        .menu {
+            background-color: var(--light-primary-color);
+            color:var(--primary-text);
+            padding: 10px;
+            text-align: center;
+        }
+
+        .description {
+            margin-top:5em;
+            margin-bottom:5em;
+            background-color: var(--background-secondary);
+            padding: 20px;
+        }
+
+        .posts {
+            margin-top:5em;
+            margin-bottom:5em;
+            background-color: var(--background-primary);
+            color:var(--primary-text);
+            padding: 20px;
+            border: var(--dark-primary-color) solid 2px;
+        }
+
+        .footer {
+            background-color: var(--dark-primary-color);
+            color: var(--secondary-text);
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+
+    <!-- grid -->
+
+    <style>
+        .angry-grid {
+           display: grid; 
+        
+           grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+           grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+           
+           gap: 0px;
+           height: 100%;
+           
+        }
+          
+        #item-0 {
+        
+           background-color: #5AFDC6; 
+           grid-row-start: 1;
+           grid-column-start: 1;
+        
+           grid-row-end: 2;
+           grid-column-end: 2;
+           
+        }
+        #item-1 {
+        
+           background-color: #97D7B6; 
+           grid-row-start: 1;
+           grid-column-start: 2;
+        
+           grid-row-end: 5;
+           grid-column-end: 3;
+           
+        }
+        #item-2 {
+        
+           background-color: #9EBB6F; 
+           grid-row-start: 1;
+           grid-column-start: 3;
+        
+           grid-row-end: 3;
+           grid-column-end: 4;
+           
+        }
+        #item-3 {
+        
+           background-color: #6795B6; 
+           grid-row-start: 1;
+           grid-column-start: 4;
+        
+           grid-row-end: 4;
+           grid-column-end: 5;
+           
+        }
+        #item-4 {
+        
+           background-color: #577B95; 
+           grid-row-start: 1;
+           grid-column-start: 5;
+        
+           grid-row-end: 6;
+           grid-column-end: 6;
+           
+        }
+        #item-5 {
+        
+           background-color: #68FE58; 
+           grid-row-start: 1;
+           grid-column-start: 6;
+        
+           grid-row-end: 8;
+           grid-column-end: 8;
+           
+        }
+        #item-6 {
+        
+           background-color: #899BE6; 
+           grid-row-start: 1;
+           grid-column-start: 8;
+        
+           grid-row-end: 2;
+           grid-column-end: 9;
+           
+        }
+
+        .p2 {
+            min-width: 10rem;
+            max-width: 10rem;
+        }
+
+        hr {
+            border: 1px dashed black;
+            margin:2rem;
+        }
+
+        </style>
+
+
+</head>
+
+<body class="max-width-8 mx-auto">
+    <div class="header">
+        <h5>Francesc López</h5>
+        <h5>Full stack developer</h5>
+    </div>
+
+    <div class="menu">
+        <ul class="list-reset">
+            <li class="inline-block mr1">Half-Smoke</li>
+            <li class="inline-block mr1">Kielbasa</li>
+            <li class="inline-block mr1">Bologna</li>
+            <li class="inline-block mr1">Prosciutto</li>
+        </ul>
+    </div>
+
+    <div class="border rounded-right align-middle" style="margin: auto";>
+      <!-- grid -->  
+      <div class="angry-grid" style="width: min-content;margin: auto;";>
+            <div id="item-0">
+              <div class="p2 bg-white border rounded">
+                <mu-game-of-life></mu-game-of-life>
+                
+                <!-- card exp -->  
+                <h1>...</h1>
+                  <div class="p1 m1 border-top">
+                    Junior Developer
+                  </div>
+                  <div class="m1 border-right h4">
+                    Programación en basic mi amstrad cpc (unicode love) i atari 1024
+                  </div>
+                  <div class="m1 border-left h6">
+                    Basic, C, Pascal
+                  </div>
+
+                  <hr/>
+                  <div class="p1 m1 border-top">
+                    Junior Developer
+                  </div>
+                  <div class="m1 border-right h4">
+                    Programación en basic mi Atari assemble
+                  </div>
+                  <div class="m1 border-left h6">
+                    Basic
+                  </div>
+
+                  <hr/>
+                  <div class="p1 m1 border-top">
+                    Junior Developer
+                  </div>
+                  <div class="m1 border-right h4">
+                    Programación en basic mi Atari 1024 
+                  </div>
+                  <div class="m1 border-left h6">
+                    Assembler
+                  </div>
+
+
+
+                  <!-- card exp -->  
+            </div>
+            </div>
+            <div id="item-1">
+              <div class="p2 bg-white border rounded">
+                    <!-- card exp -->  
+                    <h1>1994</h1>
+                    <div class="p1 m1 border-top">
+                        Formación
+                    </div>
+                    <div class="m1 border-right h4">
+                        TÉCNICO SUPERIOR EN DESARROLLO DE APLICACIONES INFORMÁTICAS
+                    </div>
+                    <!-- card exp -->    
+              </div>
+              <div class="p2 bg-white border rounded">
+                <!-- card exp -->  
+                <h1>1997</h1>
+                  <div class="p1 m1 border-top">
+                    Game Developer
+                  </div>
+                  <div class="m1 border-right h4">
+                    Arquitectura y desarrollo de máquinas de videojuegos recreativos y de azar.
+                  </div>
+                  <div class="m1 border-left h6">
+                    C/C++, DirectX, Win95, CalderaOs
+                  </div>
+                <!-- card exp -->  
+            </div>
+
+
+              <div class="p2 bg-white border rounded">
+                  A simple box
+              </div>
+              <div class="p2 bg-white border rounded">
+                  A simple box
+              </div>
+            </div>
+            <div id="item-2">
+              <div class="p2 bg-white border rounded">
+                  A simple box
+              </div>
+              <div class="p2 bg-white border rounded">
+                  A simple box
+              </div>
+            </div>
+            <div id="item-3">
+              <div class="p2 bg-white border rounded">
+                  A simple box
+              </div>
+              <div class="p2 bg-white border rounded">
+                  A simple box
+              </div>
+              <div class="p2 bg-white border rounded">
+                  A simple box
+              </div>
+            </div>
+            <div id="item-4">
+              <div class="p2 bg-white border rounded">
+                  A simple box
+              </div>
+              <div class="p2 bg-white border rounded">
+                  A simple box
+              </div>
+              <div class="p2 bg-white border rounded">
+                  A simple box
+              </div>
+              <div class="p2 bg-white border rounded">
+                  A simple box
+              </div>
+              <div class="p2 bg-white border rounded">
+                  A simple box
+              </div>
+              <div class="p2 bg-white border rounded">
+                  A simple box
+              </div>
+            </div>
+            <div id="item-5">
+              <div class="p2 bg-white border rounded">
+                  A simple box
+              </div>            
+            </div>
+            <div id="item-6">
+              <div class="p2 bg-white border rounded">
+                  A simple box
+              </div>            
+            </div>
+          </div>
+    </div>
+
+
+    <div class="footer">
+        <p>Derechos de autor © 2023 - Mi Web Personal</p>
+    </div>
+</body>
+
+</html>

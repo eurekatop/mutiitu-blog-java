@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.41, maximum-scale=1" />
+    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.0/dist/system.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/basscss@8.1.0/css/basscss.min.css">
+    <!-- link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css" type="text/css" -->
+    
+    <script src="/layouts/components/ComponentsLayout.js"></script> 
+
+</head>
+    <body class="max-width-8 mx-auto">
+        <div>
+            <my-card title="Estadísticas del Servidor helsinki-01" subtitle="Información de CPU y Ancho de Banda" content="Foobar"></my-card>
+        </div>
+
+        <div class="border">
+            <mu-markdown 
+            document="# foo bar
+| **Email**         | **Teléfono**    | **Ubicación** | **Github**                 |
+|:------------------|:----------------|:--------------|:--------------------------|
+| xxxxxxxxx@xxxxx.com  | +34xxxxxxxxx    | Barcelona     | [https://github.com/rfranr](https://github.com/rfranr) |
+
+# Experiencia Profesional
+      
+"></mu-markdown>
+        </div>
+
+    <textarea id="editor" is="mu-markdown-editor"></textarea>
+
+    </body>
+</html>
