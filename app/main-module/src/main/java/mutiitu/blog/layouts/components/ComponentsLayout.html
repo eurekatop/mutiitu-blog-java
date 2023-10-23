@@ -4,32 +4,64 @@
 <head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.41, maximum-scale=1" />
-    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.0/dist/system.js"></script>
-
-    <link rel="stylesheet" href="https://unpkg.com/basscss@8.1.0/css/basscss.min.css">
-    <!-- link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css" type="text/css" -->
+    <link href="https://unpkg.com/@bndynet/dialog/dist/dialog.css" rel="stylesheet" type="text/css" />    
+    <!-- script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.0/dist/system.js"></script -->
     
-    <script src="/layouts/components/ComponentsLayout.js"></script> 
+    <script src="https://unpkg.com/systemjs@6.14.2/dist/extras/amd.js"></script>
+    <script src="https://unpkg.com/systemjs@6.14.2/dist/system.js"></script>
+
+    
 
 </head>
     <body class="max-width-8 mx-auto">
-        <div>
-            <my-card title="Estadísticas del Servidor helsinki-01" subtitle="Información de CPU y Ancho de Banda" content="Foobar"></my-card>
-        </div>
+        HOLA
+    <script>
+        System.import('/components/card/scripts/card.js');
+        System.import('/components/reactComponent/scripts/reactcomponent.js');
 
-        <div class="border">
-            <mu-markdown 
-            document="# foo bar
-| **Email**         | **Teléfono**    | **Ubicación** | **Github**                 |
-|:------------------|:----------------|:--------------|:--------------------------|
-| xxxxxxxxx@xxxxx.com  | +34xxxxxxxxx    | Barcelona     | [https://github.com/rfranr](https://github.com/rfranr) |
+        System.import('https://unpkg.com/@bndynet/dialog@2.9.1/dist/dialog.umd.js').then(function(dialog) {
+            dialog.setup({
+        theme: "your-theme",    // will be appended the `class` attribute of `body` tag, more themes please see https://github.com/bndynet/dialog-themes
+        labelOK: "OK",
+        labelCancel: "Cancel",
+        animate: true,
+        notificationAutoClose: true,
+        notificationClickClose: true,
+        notificationCloseDelay: 3000,
+        notificationTheme: "default",
+        notificationPlacement: "bottom right",
+        notificationMaxItems: 3,
+        notificationSquare: false
+    });
 
-# Experiencia Profesional
-      
-"></mu-markdown>
-        </div>
+    dialog.setTheme("theme");
 
-    <textarea id="editor" is="mu-markdown-editor"></textarea>
+    dialog.alert("content", function() {});
+    dialog.alert("title", "content", function() {});
+
+    dialog.confirm("content", function() {});   // same as `dialog.confirm("content").then(function() { })`
+    dialog.confirm("title", "content", function() {});  // same as `dialog.confirm("title", "content").then(function() { })`
+
+    dialog.notify({message: "message", theme: "success"});
+
+    dialog.loading();
+    dialog.loading(false);  // hide the global loading box
+    dialog.loading({text: "Loading"});
+
+
+    // loading box for element
+    var elLoading = dialog.loadingFor("#id", "Loading...", "#00ff00");
+    elLoading.hide();
+        }).catch(function(error) {
+            console.error('Error al cargar el módulo:', error);
+        });
+
+
+
+    </script>
+
+    <my-card id="card01" title="Estadísticas del Servidor helsinki-01" subtitle="Información de CPU y Ancho de Banda" content="Foobar"></my-card>
+    <mu-react-component></mu-react-component>
 
     </body>
 </html>

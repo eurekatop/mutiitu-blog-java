@@ -3,3 +3,6 @@ System.import('/components/markdown/scripts/markdown.js');
 System.import('/components/markdownEditor/scripts/markdowneditor.js');
 
 
+//System.import('/components/reactComponent/scripts/reactcomponent.js');
+
+

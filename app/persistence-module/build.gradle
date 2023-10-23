@@ -1,15 +1,15 @@
 plugins {
     id 'java'
-
     id "org.domaframework.doma.compile" version "2.0.0" apply true
-
     id "io.freefair.lombok" version "8.2.2"
 
 }
 
+
 compileJava {
     options.compilerArgs = ['-Adoma.dao.subpackage=impl', '-Adoma.dao.suffix=Impl']
     options.debug = true /// todo
+    exclude 'app/spa/*'
 }
 
 repositories {

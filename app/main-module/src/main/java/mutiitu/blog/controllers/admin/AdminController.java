@@ -10,6 +10,7 @@ import com.google.inject.Inject;
 import io.javalin.Javalin;
 import mutiitu.blog.components.HeaderService;
 import mutiitu.blog.models.dto.BlogEntryInputDto;
+import mutiitu.blog.models.dto.ResumeInputDto;
 import mutiitu.blog.services.BlogEntryService;
 import mutiitu.blog.services.TestService;
 
@@ -91,5 +92,35 @@ public class AdminController extends JavalinController {
 
         }
     }
+
+    @Transactional
+    @Path(Value = "/admin/resume/add")
+    @Method(Value = "POST") // TODO: refactor
+    public HttpResponse ResumeAdd(String id) throws Exception {
+        Gson gson = new GsonBuilder()
+                .create();
+
+        System.out.println(ctx.body());        
+        ResumeInputDto data = null;
+        try {
+            data = gson.fromJson(ctx.body(), ResumeInputDto.class);
+        }
+        catch ( Exception ex ) {
+            ex.printStackTrace();
+        }
+
+        
+        return new JsonResponse(data);
+    }
+
+    @Transactional
+    @Path(Value = "/admin/resume/get")
+    @Method(Value = "GET") // TODO: refactor
+    public HttpResponse ResumeGet(int id) throws Exception {
+        
+        throw new Exception();
+
+    }
+
 
 }

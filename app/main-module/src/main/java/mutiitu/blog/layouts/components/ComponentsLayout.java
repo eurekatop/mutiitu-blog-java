@@ -32,7 +32,9 @@ public class ComponentsLayout {
             // "/mutiitu/blog/layouts/home/HomeLayout.html"
             // TODO: GC
             PebbleEngine engine = new PebbleEngine.Builder().build();
-            PebbleTemplate compiledTemplate = engine.getTemplate("mutiitu/blog/layouts/components/ComponentsLayout.html");
+            PebbleTemplate compiledTemplate = 
+            //engine.getTemplate("mutiitu/blog/layouts/components/ComponentsLayout.html");
+            engine.getTemplate("mutiitu/blog/layouts/components/ComponentsLayout.html");
             Map<String, Object> context = new HashMap<>();
             Writer writer = new StringWriter();
 

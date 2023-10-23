@@ -1,5 +1,7 @@
 import { getAttributes } from '/components/_framework/framework.js';
-import * as monacoEditor from 'https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/+esm'
+//import monacoEditor from 'https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/+esm'
+import * as monacoEditor from '/libs/systemJS/monaco-editor@0.44.0.js'
+
 
 
 export class MuEditor extends HTMLElement { 
@@ -20,7 +22,8 @@ export class MuEditor extends HTMLElement {
         const attr = getAttributes(this, 'document');
         Object.assign(this, attr);
 
-        console.log ( document.getElementById("uniqueID") )
+        console.log ( monacoEditor )
+        debugger;
 
         // editor
         var editor = monacoEditor.editor.create(this.div, 

@@ -3,8 +3,12 @@
 <head> 
     <link rel="stylesheet" type="text/css" href="/css/global-style.css">
 
-    <script type="module">
-        import { MuEditor } from "./components/editor/scripts/editor.js"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.14.2/system.min.js"></script>
+
+
+    <script>
+        //import { MuEditor } from "./components/editor/scripts/editor.js"
+        System.import('/components/editor/scripts/editor.js')
     </script>
 
 </head>
