@@ -209,4 +209,11 @@
 
 		}
 
+		const slides = ['ascii-art.txt', 'ascii-art-01.txt']
+		let slidesCount = 0;
+		$('#jumplink_01').click ( () => {
+			const file = slides[(++slidesCount)%slides.length]
+			$('#iframe_01').attr('src', `/layouts/home/ascii-art/public?f=${file}`);
+		})
+
 })(jQuery);

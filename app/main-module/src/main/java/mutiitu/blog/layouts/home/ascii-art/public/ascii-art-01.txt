@@ -1,0 +1,41 @@
+Strapi CMS,      | XML,             | PL/SQL,          
+Vue3,            | Python,          | Java,       
+SCSS,            | CPP,             | MVNForum,    
+Docker,          | DirectX,         | Html,          
+Azure Devops,    | Win95,           | CSS,              
+Net Core,        | CalderaOs,       | RiotJS,              
+Vue,             | SQL,             | JQuery,    
+MongoDb,         | XSL,             | Sql,        
+MySql,           | Linux,           | Php,           
+WebComponents,   | API Rest,        | Python,                   
+Node.js,         | Api Soap,        | .Net,             
+SOA,             | Javascript,      | Groovy,           
+REST,            | WinApi,          | Bash,       
+Net 4.8,         | Jquery,          | OpenMarket CMS,           
+Net Core,        | Oracle DB,       | Gradle,              
+Quasar Framework | GIT,             | Maven,                
+Sql Server,      | FacturaE,        | Ant,                
+SqlServer,       | Crystal Reports, | Make,                      
+T/SQL,           | Angular2+,       | Webpack,            
+DDD,             | Node,            | Bash,     
+REST,            | Mysql,           | PowerShell,      
+Azure Devops,    | Java 1.8,        | Gulp.js,                 
+.MVC5,           | Mithril,         | Quartz,          
+C#,              | SPA,             | SOAP UI,  
+C ,              | OpenLayers,      | Insomnia,         
+C++,             | Charts.js,       | Curl,          
+TSQL,            | API Soap,        | Oracle Virtual Box,          
+Cake,            | NancyFx,         | Kubernetes,        
+ES6,             | .Net WebApi,     | Apache,                   
+BorlandC Builder | EntityFramework, | WebLogic,                             
+Linux,           | Bash,            | WebSphere,        
+TypeScript,      | UC4,             | IIS7/8.5,           
+Visual Basic,    | MVC.NET,         | Oracle Aplication Server,                 
+
+
+
+
+
+
+
+

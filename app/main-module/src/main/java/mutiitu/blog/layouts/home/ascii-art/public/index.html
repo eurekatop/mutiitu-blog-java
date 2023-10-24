@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="index.css">
+  <!-- script src="../dist/bundle.js"></script -->
+  <script type="module">
+    import { test, parseAsciiArt, fetchJson } from "../dist/bundle.js"
+
+    let count = 1
+    let oriSourceX = 0;
+    let oriSourceY = 300;
+    function main(coordinates) {
+
+      const appEl = document.getElementById("app");
+      //const x = coordinates[0] * 8 + 0;
+      //const y = coordinates[1] * 14 + 0;
+      
+      const x = coordinates[0] * 6 + 0;
+      const y = coordinates[1] * 12 + 0;
+
+      const char = coordinates[2]
+
+      const divElement = document.createElement("div");
+      const color = `rgb(${Math.random() * 300 % 120},120,120)`
+      divElement.classList.add("tween");
+      divElement.innerText = char
+      divElement.style.top = `${oriSourceY}px`
+      divElement.style.left = `${oriSourceX}px`
+      divElement.style.color = color;
+      appEl.appendChild(divElement)
+
+      test(divElement, { x: oriSourceX, y: oriSourceY }, { x: x, y: y }, 800);
+
+      //const destElement = document.createElement("div");
+      //destElement.classList.add("dest");
+      //destElement.style.top = `${y}px`
+      //destElement.style.left = `${x}px`
+      //destElement.innerText = char
+      //appEl.appendChild(destElement)
+
+    }
+
+    function getParameterByName(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, "\\$&");
+      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    window.addEventListener("mousemove", function (event) {
+      oriSourceX = event.clientX;
+      oriSourceY = event.clientY + window.scrollY;
+    });
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      let file = getParameterByName("f")
+      if ( !file ) file ="ascii-art.txt"
+      const asciiArt = await fetchJson(file)
+
+
+      const result = parseAsciiArt(asciiArt);
+      const numPoints = result.length;
+      let loop = 0;
+
+      setInterval(() => {
+        // batch 
+        for (let i = 0; i < 5; i++) {
+          if (loop > numPoints * 1)
+            return;
+          const coordinates = result[loop++ % numPoints]
+          main(coordinates)
+
+        }
+      }, 300 / 5)
+    });
+  </script>
+</head>
+
+<body>
+  <div id="app">
+    <div class="box1"></div>
+  </div>
+</body>
+
+</html>

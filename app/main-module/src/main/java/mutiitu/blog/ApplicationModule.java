@@ -9,12 +9,10 @@ import mutiitu.blog.components.HeaderServiceImpl;
 import mutiitu.blog.components.card.CardUIComponent;
 import mutiitu.blog.components.markdown.MarkdownUIComponent;
 import mutiitu.blog.layouts.home.HomeLayout;
-//import mutiitu.blog.controllers.BlogController;
 import mutiitu.blog.services.BlogEntryService;
 import mutiitu.blog.services.TestService;
 
 import com.mutiitu.di.PersistenceModule;
-import com.mutiitu.framework.core.Router;
 import com.mutiitu.framework.core.di.CoreModule;
 
 public class ApplicationModule extends AbstractModule {

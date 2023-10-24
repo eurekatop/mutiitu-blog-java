@@ -1994,6 +1994,8 @@ input, select, textarea {
 				-webkit-align-items: center;
 				-ms-align-items: center;
 				align-items: center;
+				background-color: #0A0A0A;
+
 			}
 
 				#main > .panel.intro .pic {
@@ -2190,3 +2192,68 @@ input, select, textarea {
 			}
 
 		}
+
+/* Ascii */
+
+#div_iframe_01 {
+	width:100%;
+	height:100%;
+	text-align:center;
+	background-color:black;
+	margin:auto;
+
+}
+
+#iframe_01 {
+	height:100%;
+	width:100%;
+	margin:auto;
+	overflow:no-scroll hidden;
+	border: none;
+	scroll-behavior:unset
+}
+
+		@media screen and (max-width: 980px) {
+			#div_iframe_01 {
+				width:70%;
+			}
+		}
+
+		@media screen and (max-width: 736px) {
+
+			#div_iframe_01  {
+				width:100%;
+				height:100%;
+				text-align:center;
+				background-color:black;
+				margin:auto;
+			}
+
+			#iframe_01 {
+				height:100%;
+				width:50%;
+				margin:auto;
+			}
+		}
+
+		@media screen and (max-width: 415px) {
+			#div_iframe_01  {
+				width:100%;
+				height:100%;
+				text-align:center;
+				background-color:black;
+				margin:auto;
+			}
+
+			#iframe_01 {
+				height:100%;
+				width:100%;
+			}
+
+			#main > .panel.intro .pic {
+				height: 32em;
+			}
+		}
+
+
+
