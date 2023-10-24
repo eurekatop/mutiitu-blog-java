@@ -52,6 +52,15 @@ public interface MigrateDao {
         AUTHOR_ID INT,
         FOREIGN KEY (AUTHOR_ID) REFERENCES Author(id)
       );
+
+      CREATE TABLE IF NOT EXISTS ContactMe (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        NAME VARCHAR(50) NOT NULL,
+        MESSAGE LONGTEXT NOT NULL,
+        SUBJECT LONGTEXT NOT NULL,
+        EMAIL VARCHAR(255) NOT NULL
+      );
+
       """)
   @Script
   void create();

@@ -8,6 +8,7 @@ import com.google.inject.Scopes;
 import com.google.inject.matcher.Matchers;
 import com.mutiitu.annotations.Transactional;
 import com.mutiitu.dao.BlogEntryDao;
+import com.mutiitu.dao.ContactMeDao;
 import com.mutiitu.dao.MigrateDao;
 import com.mutiitu.dao.MigrateDatabase;
 import com.mutiitu.dao.MigrateDatabaseImpl;
@@ -25,6 +26,8 @@ public class PersistenceModule extends AbstractModule {
         bind(SQLiteDB.class).in(SQLiteDBScope);
         // bind(SQLiteDB.class).in(Scopes.SINGLETON);
         bind(BlogEntryDao.class).in(SQLiteDBScope);
+        bind(ContactMeDao.class).in(SQLiteDBScope);
+
 
         // bind(MigrateDao.class).in(Scopes.SINGLETON);
         bind(MigrateDatabase.class).to(MigrateDatabaseImpl.class).in(Scopes.SINGLETON);

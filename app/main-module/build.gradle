@@ -193,6 +193,7 @@ tasks.register('copyAllLayoutsFolder', Copy) {
     include '**/*.ttf'
     include '**/*.json'
     include '**/*.txt'
+    include '**/*.svg'
     into layout.buildDirectory.dir("resources/public/layouts")
 }
 

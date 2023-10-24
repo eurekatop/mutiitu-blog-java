@@ -3,6 +3,11 @@ package mutiitu.blog.controllers;
 import org.slf4j.LoggerFactory;
 import com.google.inject.Inject;
 import com.mutiitu.annotations.Transactional;
+import com.mutiitu.dao.BlogEntryDao;
+import com.mutiitu.dao.ContactMeDao;
+import com.mutiitu.dao.MigrateDatabase;
+import com.mutiitu.dao.MigrateDatabaseImpl;
+import com.mutiitu.domain.ContactMeModel;
 import com.mutiitu.framework.core.JavalinController;
 import com.mutiitu.framework.core.annotations.Controller;
 import com.mutiitu.framework.core.annotations.Method;
@@ -10,6 +15,7 @@ import com.mutiitu.framework.core.annotations.Path;
 import com.mutiitu.framework.core.http.responses.HtmlResponse;
 import com.mutiitu.framework.core.http.responses.HttpResponse;
 import com.mutiitu.framework.core.http.responses.StringResponse;
+import com.mutiitu.persistence.PersistenceFactory;
 import com.mutiitu.framework.core.http.responses.JsonResponse;
 
 
@@ -23,8 +29,10 @@ import mutiitu.blog.components.home.HomePage;
 import mutiitu.blog.components.infinitescroll.InfiniteScrollUIComponent;
 import mutiitu.blog.components.markdown.MarkdownUIComponent;
 import mutiitu.blog.layouts.components.ComponentsLayout;
+import mutiitu.blog.layouts.home.ContactMeLayout;
 import mutiitu.blog.layouts.home.HomeLayout;
 import mutiitu.blog.layouts.resume.ResumeLayout;
+import mutiitu.blog.models.dto.BlogEntryInputDto;
 import mutiitu.blog.services.BlogEntryService;
 
 @Controller
@@ -50,6 +58,18 @@ public class HomePageController extends JavalinController {
     @Inject
     ComponentsLayout componentsLayout;
 
+    @Inject
+    ContactMeLayout contactMeLayout;
+
+
+    @Inject
+    MigrateDatabase migrateDatabase;
+
+    @Inject
+    ContactMeDao contactMeDao;
+
+
+
 
     @Path(Value = "/")
     @Method(Value = "GET")
@@ -74,6 +94,50 @@ public class HomePageController extends JavalinController {
             return new JsonResponse(ex);
         }
     }
+
+
+    @Path(Value = "/contact/me")
+    @Method(Value = "POST") 
+    @Transactional
+    public HttpResponse ContactMe() {
+
+        try {
+            String name = ctx.formParam("name");
+            String email = ctx.formParam("email");
+            String subject = ctx.formParam("subject");
+            String message = ctx.formParam("message");
+
+            logger.info ( "CONTACTO!!!  name " + name  );
+            logger.info ( "CONTACTO!!!  email " + email  );
+            logger.info ( "CONTACTO!!!  subject " + subject  );
+            logger.info ( "CONTACTO!!!  message " + message  );
+
+            migrateDatabase.create();
+
+//            var migrate = new MigrateDatabaseImpl();
+
+
+            var contact = new ContactMeModel();
+            contact.setEmail(email);
+            contact.setMessage(message);
+            contact.setName(name);
+            contact.setSubject(subject);
+            contactMeDao.insert(contact);
+
+
+    //    var c = contactMeDao.getContactMes();
+    //    for (ContactMeModel contactMeModel : c) {
+    //        logger.info ( contactMeModel.getName());
+    //    }
+
+
+            return contactMeLayout.render();
+        } catch (Exception ex) {
+            logger.error(null, ex);
+            return new JsonResponse(ex);
+        }
+    }
+
 
 
     @Path(Value = "/components")
