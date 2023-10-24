@@ -199,7 +199,7 @@ body {
 }
 @media (max-width: 400px) {
   body {
-    font-size: 12px;
+    font-size: 14px;
     /*margin-left: 10px;
     margin-right: 10px;
     margin-top: 10px;
@@ -208,7 +208,7 @@ body {
 }
 @media (min-width: 401px) and (max-width: 600px) {
   body {
-    font-size: 14px;
+    font-size: 16px;
     /*margin-left: 10px;
     margin-right: 10px;
     margin-top: 10px;
@@ -217,7 +217,7 @@ body {
 }
 @media (min-width: 601px) and (max-width: 900px) {
   body {
-    font-size: 15px;
+    font-size: 17px;
     /*margin-left: 100px;
     margin-right: 100px;
     margin-top: 20px;
@@ -226,7 +226,7 @@ body {
 }
 @media (min-width: 901px) and (max-width: 1800px) {
   body {
-    font-size: 17px;
+    font-size: 19px;
     /*margin-left: 200px;
     margin-right: 200px;
     margin-top: 30px;
@@ -236,7 +236,7 @@ body {
 }
 @media (min-width: 1801px) {
   body {
-    font-size: 18px;
+    font-size: 20px;
     /*margin-left: 20%;
     margin-right: 20%;
     margin-top: 30px;

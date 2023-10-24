@@ -344,7 +344,7 @@ function _enTransition(node) {
   screen.style.backgroundColor = "black";
   screen.style.color = "white";
   screen01.innerHTML = /*html*/ `<div class="screen01_title">
-        <h1 id="screen01_title" style="font-size:20rem">&#8595;&#x1F4BB;&#8595</h1>
+        <h1 id="screen01_title" style="font-size:20rem">&#8595;&#237E;&#8595</h1>
       </div>`;
 
   while (document.querySelectorAll(".box1").length > 0) {
