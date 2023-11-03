@@ -1,16 +1,7 @@
 package mutiitu.blog.controllers.rest;
 
-import java.util.List;
-import java.util.Map;
-
 import org.slf4j.LoggerFactory;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
-import mutiitu.blog.components.BlogEntryComponent;
-import mutiitu.blog.components.Header3;
-import mutiitu.blog.models.dto.BlogEntryInputDto;
 import mutiitu.blog.models.dto.CMSEntryInputDto;
 import mutiitu.blog.services.BlogEntryService;
 import com.mutiitu.annotations.Transactional;
@@ -18,12 +9,11 @@ import com.mutiitu.framework.core.JavalinController;
 import com.mutiitu.framework.core.annotations.Controller;
 import com.mutiitu.framework.core.annotations.Method;
 import com.mutiitu.framework.core.annotations.Path;
-import com.mutiitu.framework.core.http.responses.HtmlResponse;
 import com.mutiitu.framework.core.http.responses.HttpResponse;
-import com.mutiitu.framework.core.http.responses.JsonResponse;
 import com.mutiitu.framework.core.http.responses.StringResponse;
-import com.mutiitu.framework.core.http.responses.HttpResponse.HttpResponseType;
 import com.mutiitu.framework.utils.FormDataParser;
+
+import io.javalin.validation.JavalinValidation;
 
 @Controller
 public class CMSEntryController extends JavalinController {
@@ -41,11 +31,20 @@ public class CMSEntryController extends JavalinController {
     @Method(Value = "POST")
     public HttpResponse post() {
 
-            // Gson gson = new GsonBuilder().create();
-            // var data = gson.fromJson(ctx.body(), CMSEntryInputDto.class);
+        JavalinValidation.
 
-            var data = FormDataParser.parseFormAsClass(ctx, CMSEntryInputDto.class);
-            return new StringResponse(data.toString());
+        //ctx.va  (CMSEntryInputDto.class) 
+        //.check(it -> it.getTitle().isEmpty(), "'to' has to be after 'from'")
+        //.getOrThrow(
+        //    validationErrors -> {
+        //        // Aquí puedes manejar las excepciones generadas en la validación
+        //        // Por ejemplo, lanzar una excepción personalizada con detalles de los errores de validación
+        //        return new Exception();
+        //    }
+        //);
+
+        var data = FormDataParser.parseFormAsClass(ctx, CMSEntryInputDto.class);
+        return new StringResponse(data.toString());
 
 
         // var result = blogEntryService.Create(data);

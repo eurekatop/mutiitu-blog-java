@@ -114,14 +114,9 @@ public class ApplicationStarter {
 
 
         javalin.exception(Exception.class, (e, ctx) -> {
-            System.out.println("-----------------------------------------------");
-            System.out.println("-----------------------------------------------");
-            System.out.println("-----------------------------------------------");
-            System.out.println("-----------------------------------------------");
-            ctx.status(404);
-
-        }).error(404, ctx -> {
-            ctx.result("error 404!");
+            ctx.status(400);
+        }).error(400, ctx -> {
+            ctx.result("error 400!");
         });
 
 
