@@ -47,32 +47,31 @@ public class CoreModule extends AbstractModule {
                     // TODO: APPLICATION NAME mutiitu, environment
                     config.staticFiles.add("/tmp", Location.EXTERNAL);
                     String executionPath = System.getProperty("user.dir");
-                    
-                    //config.staticFiles.add(String.format("%s/build/resources/public", executionPath),
-                    //        Location.EXTERNAL);
 
-                    config.staticFiles.add( cfg -> {
+                    // config.staticFiles.add(String.format("%s/build/resources/public",
+                    // executionPath),
+                    // Location.EXTERNAL);
+
+                    config.staticFiles.add(cfg -> {
                         cfg.mimeTypes.add(ContentType.TEXT_CSS);
                         cfg.directory = String.format("%s/build/resources/public", executionPath);
                         cfg.location = Location.EXTERNAL;
                     });
-                    
 
                     // json mapper
-                    // Gson gson = new GsonBuilder().create();
-                    // JsonMapper gsonMapper = new JsonMapper() {
-                    // @Override
-                    // public String toJsonString(@NotNull Object obj, @NotNull Type type) {
-                    // return gson.toJson(obj, type);
-                    // }
-                    //
-                    // @Override
-                    // public <T> T fromJsonString(@NotNull String json, @NotNull Type targetType) {
-                    // return gson.fromJson(json, targetType);
-                    // }
-                    // };
-                    // config.jsonMapper(gsonMapper);
+                    Gson gson = new GsonBuilder().create();
+                    JsonMapper gsonMapper = new JsonMapper() {
+                        @Override
+                        public String toJsonString(@NotNull Object obj, @NotNull Type type) {
+                            return gson.toJson(obj, type);
+                        }
 
+                        @Override
+                        public <T> T fromJsonString(@NotNull String json, @NotNull Type targetType) {
+                            return gson.fromJson(json, targetType);
+                        }
+                    };
+                    config.jsonMapper(gsonMapper);
                 }));
 
         bind(ApplicationStarter.class).in(Scopes.SINGLETON);

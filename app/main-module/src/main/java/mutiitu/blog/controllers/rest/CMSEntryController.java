@@ -1,4 +1,8 @@
 package mutiitu.blog.controllers.rest;
+
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
@@ -17,7 +21,9 @@ import com.mutiitu.framework.core.annotations.Path;
 import com.mutiitu.framework.core.http.responses.HtmlResponse;
 import com.mutiitu.framework.core.http.responses.HttpResponse;
 import com.mutiitu.framework.core.http.responses.JsonResponse;
+import com.mutiitu.framework.core.http.responses.StringResponse;
 import com.mutiitu.framework.core.http.responses.HttpResponse.HttpResponseType;
+import com.mutiitu.framework.utils.FormDataParser;
 
 @Controller
 public class CMSEntryController extends JavalinController {
@@ -30,44 +36,43 @@ public class CMSEntryController extends JavalinController {
         this.blogEntryService = blogEntryService;
     }
 
-
     @Transactional
     @Path(Value = "/cms-entry/post")
-    @Method(Value ="POST")
-    public JsonResponse post() {
+    @Method(Value = "POST")
+    public HttpResponse post() throws Exception {
 
         try {
-        Gson gson = new GsonBuilder().create();
-        var data = gson.fromJson(ctx.body(), CMSEntryInputDto.class);
+            // Gson gson = new GsonBuilder().create();
+            // var data = gson.fromJson(ctx.body(), CMSEntryInputDto.class);
 
-        return new JsonResponse(data);
-        }
-        catch (Exception ex ){
+            var data = FormDataParser.parseFormAsClass(ctx, CMSEntryInputDto.class);
+            return new StringResponse(data.toString());
+
+        } catch (Exception ex) {
             logger.error(null, ex);
-            throw ex;
+            throw new Exception("kkk");
         }
 
-
-        //var result = blogEntryService.Create(data);
-//
-        //return new JsonResponse(result);
-    //
-        //var data = gson.fromJson(ctx.body(), BlogEntryInputDto.class);
-//
-//
-        //var contentType = ctx.queryParam("content-type");
-        //if (contentType == null) {
-        //    contentType = "html";
-        //}
-//
-        //var result = blogEntryService.GetBydId(id);
-//
-        //switch (contentType) {
-        //    case "json":
-        //        return new JsonResponse(result);
-        //    default:
-        //        return new HtmlResponse(blogEntryComponent.init(result));
-        //}
+        // var result = blogEntryService.Create(data);
+        //
+        // return new JsonResponse(result);
+        //
+        // var data = gson.fromJson(ctx.body(), BlogEntryInputDto.class);
+        //
+        //
+        // var contentType = ctx.queryParam("content-type");
+        // if (contentType == null) {
+        // contentType = "html";
+        // }
+        //
+        // var result = blogEntryService.GetBydId(id);
+        //
+        // switch (contentType) {
+        // case "json":
+        // return new JsonResponse(result);
+        // default:
+        // return new HtmlResponse(blogEntryComponent.init(result));
+        // }
 
     }
 

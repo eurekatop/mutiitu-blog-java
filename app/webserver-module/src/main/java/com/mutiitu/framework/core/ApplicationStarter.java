@@ -1,4 +1,5 @@
 package com.mutiitu.framework.core;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import org.reflections.Reflections;
@@ -124,6 +125,17 @@ public class ApplicationStarter {
         } catch (Exception ex) {
             logger.error(null, ex);
         }
+
+        javalin.exception(Exception.class, (e, ctx) -> {
+            System.out.println("-----------------------------------------------");
+            System.out.println("-----------------------------------------------");
+            System.out.println("-----------------------------------------------");
+            System.out.println("-----------------------------------------------");
+            ctx.status(404);
+
+        }).error(404, ctx -> {
+            ctx.result("error 404!");
+        });
 
     }
 }
