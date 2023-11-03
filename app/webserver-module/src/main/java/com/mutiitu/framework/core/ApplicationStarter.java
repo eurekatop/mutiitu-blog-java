@@ -84,7 +84,6 @@ public class ApplicationStarter {
             // ctx.req().
             // System.out.println(ctx.);
             // });
-
         }
 
     }
@@ -112,6 +111,20 @@ public class ApplicationStarter {
 
         });
 
+
+
+        javalin.exception(Exception.class, (e, ctx) -> {
+            System.out.println("-----------------------------------------------");
+            System.out.println("-----------------------------------------------");
+            System.out.println("-----------------------------------------------");
+            System.out.println("-----------------------------------------------");
+            ctx.status(404);
+
+        }).error(404, ctx -> {
+            ctx.result("error 404!");
+        });
+
+
         router.bind();
         javalin.start(8080);
 
@@ -126,16 +139,6 @@ public class ApplicationStarter {
             logger.error(null, ex);
         }
 
-        javalin.exception(Exception.class, (e, ctx) -> {
-            System.out.println("-----------------------------------------------");
-            System.out.println("-----------------------------------------------");
-            System.out.println("-----------------------------------------------");
-            System.out.println("-----------------------------------------------");
-            ctx.status(404);
-
-        }).error(404, ctx -> {
-            ctx.result("error 404!");
-        });
 
     }
 }

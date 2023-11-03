@@ -39,19 +39,14 @@ public class CMSEntryController extends JavalinController {
     @Transactional
     @Path(Value = "/cms-entry/post")
     @Method(Value = "POST")
-    public HttpResponse post() throws Exception {
+    public HttpResponse post() {
 
-        try {
             // Gson gson = new GsonBuilder().create();
             // var data = gson.fromJson(ctx.body(), CMSEntryInputDto.class);
 
             var data = FormDataParser.parseFormAsClass(ctx, CMSEntryInputDto.class);
             return new StringResponse(data.toString());
 
-        } catch (Exception ex) {
-            logger.error(null, ex);
-            throw new Exception("kkk");
-        }
 
         // var result = blogEntryService.Create(data);
         //

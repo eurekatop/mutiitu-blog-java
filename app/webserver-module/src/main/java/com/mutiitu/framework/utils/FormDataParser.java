@@ -8,7 +8,7 @@ import io.javalin.http.Context;
 
 public class FormDataParser {
 
-    public static <T> T parseFormAsClass(Context ctx, Class<T> dtoClass) throws Exception {
+    public static <T> T parseFormAsClass(Context ctx, Class<T> dtoClass) {
         JsonObject jsonObject = new JsonObject();
 
         var formDataMap = ctx.formParamMap();

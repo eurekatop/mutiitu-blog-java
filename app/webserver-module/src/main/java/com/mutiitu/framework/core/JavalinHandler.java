@@ -67,7 +67,8 @@ public class JavalinHandler implements Handler {
                 resultInvoke = method.invoke(instance);
             }
         } catch (Exception ex) {
-            System.out.println(ex);
+            logger.error(String.format("Error when invoke method: %s in class %s", method.getName(), clazz.getName() ), ex);
+            throw ex;
         }
 
         // get return type
