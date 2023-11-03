@@ -17,23 +17,23 @@ public class JsonResponse extends HttpResponse {
         this.expose = expose;
     }
 
-    public String toJsonString() {
-        try {
-
-            GsonBuilder gsonBuilder = new GsonBuilder();
-            if (expose) {
-                gsonBuilder = gsonBuilder.excludeFieldsWithoutExposeAnnotation();
-            }
-
-            Gson gson = gsonBuilder.create();
-
-            var json = gson.toJson(data);
-
-            return json;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "{}";
-        }
-    }
+    //public String toJsonString() {
+    //    try {
+//
+    //        GsonBuilder gsonBuilder = new GsonBuilder();
+    //        if (expose) {
+    //            gsonBuilder = gsonBuilder.excludeFieldsWithoutExposeAnnotation();
+    //        }
+//
+    //        Gson gson = gsonBuilder.create();
+//
+    //        var json = gson.toJson(data);
+//
+    //        return json;
+//
+    //    } catch (Exception e) {
+    //        e.printStackTrace();
+    //        return "{}";
+    //    }
+    //}
 }

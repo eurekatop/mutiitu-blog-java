@@ -15,6 +15,7 @@ import com.mutiitu.framework.core.http.responses.JsonResponse;
 import com.mutiitu.framework.core.http.responses.StringResponse;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
+import io.javalin.validation.ValidationException;
 
 public class JavalinHandler implements Handler {
     private final org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
@@ -28,7 +29,7 @@ public class JavalinHandler implements Handler {
     }
 
     @Override
-    public void handle(@NotNull Context ctx) throws Exception {
+    public void handle(@NotNull Context ctx) throws Exception, ValidationException {
 
         // get params
         ArrayList<Object> parameterValues = new ArrayList<Object>();
@@ -56,6 +57,7 @@ public class JavalinHandler implements Handler {
         Class<?> clazz = method.getDeclaringClass();
         JavalinController instance = (JavalinController) injector.getInstance(clazz);
         Object resultInvoke = null;
+        Throwable causeExThrowable = null;
         try {
             var params = new ArrayList<Object>();
             params.add("Mortadelo");
@@ -70,12 +72,18 @@ public class JavalinHandler implements Handler {
         } catch (InvocationTargetException ex) {
             logger.error(String.format("Error when invoke method: %s in class %s", method.getName(), clazz.getName()),
                     ex);
-            throw ex.getTargetException();
-        } catch (Exception ex) {
-            logger.error(String.format("Error when invoke method: %s in class %s", method.getName(), clazz.getName()),
+            causeExThrowable = ex.getCause();
+            if ( causeExThrowable instanceof ValidationException ) {
+                throw (ValidationException) causeExThrowable;
+            }
+        } 
+        catch (IllegalAccessException ex) {
+            logger.error(String.format("!!!! Error when invoke method: %s in class %s", method.getName(), clazz.getName()),
                     ex);
             throw ex;
         }
+
+
 
         // get return type
         // var returnType = method.getReturnType();
@@ -88,9 +96,9 @@ public class JavalinHandler implements Handler {
                 ctx.result(((StringResponse) resultInvoke).data);
             }
             if (resultInvoke instanceof JsonResponse) {
-                var data = ((JsonResponse) resultInvoke).toJsonString();
-
-                ctx.json(data, JsonResponse.class);
+                //var data = ((JsonResponse) resultInvoke).toJsonString();
+                //ctx.json(data, JsonResponse.class);
+                ctx.json(resultInvoke);
             }
         }
 

@@ -114,21 +114,26 @@ public class ApplicationStarter {
 
         });
 
-        // javalin.exception(Exception.class, (e, ctx) -> {
-        // ctx.status(400);
-        // }).error(400, ctx -> {
-        // ctx.result("error 400!");
-        // });
-
-        javalin.exception(InvocationTargetException.class, (e, ctx) -> {
-            ctx.status(401);
-            ctx.json(e);
-        }).error(401, ctx -> {
-            ctx.result("error 400!!!!!!!!!!!");
-        });
+        //javalin.exception(ValidationException.class, (e, ctx) -> {
+        //    ctx.status(400);
+        //    ctx.json(e);
+        //}).error(400, ctx -> {
+        //    ctx.result("error 400!!!!!!!!!!!");
+        //});
 
         router.bind();
         javalin.start(8080);
+
+        javalin.exception(ValidationException.class, (e, ctx) -> {
+            ctx.status(400);
+            ctx.json(e.getErrors());
+        });
+
+        javalin.exception(Exception.class, (e, ctx) -> {
+            ctx.result(e.getMessage());
+            ctx.status(410);
+        });
+
 
         var a = new com.google.inject.servlet.GuiceFilter();
         // a.doFilter(ctx.req(), ctx.res(), null);

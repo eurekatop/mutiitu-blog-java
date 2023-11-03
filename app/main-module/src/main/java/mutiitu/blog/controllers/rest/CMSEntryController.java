@@ -1,5 +1,7 @@
 package mutiitu.blog.controllers.rest;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Map;
 
 import org.slf4j.LoggerFactory;
@@ -12,6 +14,7 @@ import com.mutiitu.framework.core.annotations.Controller;
 import com.mutiitu.framework.core.annotations.Method;
 import com.mutiitu.framework.core.annotations.Path;
 import com.mutiitu.framework.core.http.responses.HttpResponse;
+import com.mutiitu.framework.core.http.responses.JsonResponse;
 import com.mutiitu.framework.core.http.responses.StringResponse;
 import com.mutiitu.framework.utils.FormDataParser;
 
@@ -32,32 +35,23 @@ public class CMSEntryController extends JavalinController {
     @Transactional
     @Path(Value = "/cms-entry/post")
     @Method(Value = "POST")
-    public HttpResponse post() {
+    public HttpResponse post() throws Exception {
 
-        //
-        var i = new ValidationError<String>("kk", Map.of("lomit", 5), "ee");
-
-        var r = ctx.formParamAsClass("title", String.class)
-                .check(it -> {
-                    System.err.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                    System.err.println(it);
-
-                    return !(it.isBlank() && it.isEmpty());
-                }, i)
+        ctx.formParamAsClass("title", String.class)
+                .check(it -> !(it.isBlank() && it.isEmpty()), "Is empty!")
+                .get();
+        ctx.formParamAsClass("authorId", Integer.class)
+                .check(it -> it > 0, "author id must be greater than 0!")
+                .get();
+        ctx.formParamAsClass("date", String.class)
+                .check(it -> !(it.isBlank() && it.isEmpty()), "Is empty!")
                 .get();
 
-        // ctx.bodyValidator(CMSEntryInputDto.class)
-        // .check(it -> it.getTitle().isEmpty(), "'to' has to be after 'from'")
-        // .getOrThrow(
-        // validationErrors -> {
-        // // Aquí puedes manejar las excepciones generadas en la validación
-        // // Por ejemplo, lanzar una excepción personalizada con detalles de los
-        // // errores de validación
-        // return new Exception();
-        // });
-
+                
         var data = FormDataParser.parseFormAsClass(ctx, CMSEntryInputDto.class);
-        return new StringResponse(r);
+
+        logger.error(data.toString(), data);
+        return new JsonResponse(data);
 
         // var result = blogEntryService.Create(data);
         //
