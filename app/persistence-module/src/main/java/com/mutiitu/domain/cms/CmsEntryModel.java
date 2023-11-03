@@ -1,7 +1,5 @@
-package com.mutiitu.domain;
+package com.mutiitu.domain.cms;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.seasar.doma.Column;
 import org.seasar.doma.Entity;
 import org.seasar.doma.GeneratedValue;
@@ -11,37 +9,53 @@ import org.seasar.doma.Metamodel;
 import org.seasar.doma.OriginalStates;
 import org.seasar.doma.Table;
 import org.seasar.doma.Transient;
-import com.google.gson.annotations.Expose;
-import com.mutiitu.domain.cms.CmsEntryModel;
-import com.mutiitu.persistence.BaseModel;
 import lombok.EqualsAndHashCode;
 
-@Table(name = "Author")
+import com.google.gson.annotations.Expose;
+import com.mutiitu.persistence.BaseModel;
+
+@Table(name = "CmsEntry")
 @Entity(metamodel = @Metamodel)
 @lombok.Data
 @EqualsAndHashCode(callSuper = true)
-public class AuthorModel extends BaseModel {
+public class CmsEntryModel extends BaseModel{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
     @Expose
-    @Column(name = "NAME")
-    String name;
+    @Column(name = "TITLE")
+    String title;
 
     @Expose
-    @Column(name = "SURNAME")
-    String surname;
+    @Column(name = "CONTENT")
+    String content;
 
     @Expose
+    @Column(name = "STATUS")
+    String status;
+
+    @Expose
+    @Column(name = "AUTHOR_ID")
+    Integer authorId;
+
+    @Expose
+    @Column(name = "DATE")
+    String date;
+
+    @Expose
+    @Column(name = "EXCERPT")
+    String excerpt;
+
+    @Expose
+    @Column(name = "THUMBNAIL")
+    String thumbnail;
+
+    @Expose
+    @Column(name = "SLUG")
+    String slug;
+
     @Transient
-    List<BlogEntryModel> blogEntries = new ArrayList<>();
-
-    @Expose
-    @Transient
-    List<CmsEntryModel> cmsEntries = new ArrayList<>();
-
-
     @OriginalStates
-    AuthorModel originalStates;
+    CmsEntryModel originalStates;
 }

@@ -5,22 +5,20 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
-//import com.google.inject.servlet.SessionScoped;
 
-import io.javalin.Javalin;
-import mutiitu.blog.components.HeaderService;
+import mutiitu.blog.components.admin.pages.ConfigPageComponent;
+import mutiitu.blog.components.admin.pages.NewEntryPageComponent;
+import mutiitu.blog.layouts.admin.AdminLayout;
 import mutiitu.blog.models.dto.BlogEntryInputDto;
 import mutiitu.blog.models.dto.ResumeInputDto;
-import mutiitu.blog.services.BlogEntryService;
-import mutiitu.blog.services.TestService;
-
 import com.mutiitu.annotations.Transactional;
-import com.mutiitu.dao.BlogEntryDao;
+import com.mutiitu.dao.MigrateDatabase;
 import com.mutiitu.domain.BlogEntryModel;
 import com.mutiitu.framework.core.JavalinController;
 import com.mutiitu.framework.core.annotations.Controller;
 import com.mutiitu.framework.core.annotations.Method;
 import com.mutiitu.framework.core.annotations.Path;
+import com.mutiitu.framework.core.http.responses.HtmlResponse;
 import com.mutiitu.framework.core.http.responses.HttpResponse;
 import com.mutiitu.framework.core.http.responses.JsonResponse;
 import com.mutiitu.framework.core.http.responses.StringResponse;
@@ -30,29 +28,68 @@ public class AdminController extends JavalinController {
     private final org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
 
     @Inject
-    private Javalin javalin;
+    MigrateDatabase migrateDatabase;
 
     @Inject
-    private BlogEntryService blogEntryService;
+    AdminLayout adminLayout;
 
     @Inject
-    private TestService testService;
+    ConfigPageComponent configPageComponent;
 
     @Inject
-    com.mutiitu.persistence.SQLiteDB SQLiteDB;
+    NewEntryPageComponent newEntryPageComponent;
 
-    @Path(Value = "/admin/home")
-    public void aa() {
-        logger.info("me estan llamando desde core");
-        logger.info(javalin.toString());
-        logger.info(testService.toString());
+    
+
+    @Path(Value = "/admin")
+    public HttpResponse index() {
+        return adminLayout.render();
     }
+
 
     @Transactional
-    @Path(Value = "/admin/test")
-    public JsonResponse test() {
-        return new JsonResponse(testService.TestA());
+    @Path(Value = "/admin/database/migrate")
+    @Method(Value = "POST") // TODO: refactor
+    public JsonResponse config() {
+        // migrate BD
+        var result = "";
+        try {
+            migrateDatabase.create();
+            result = "OK";
+        }
+        catch ( Exception ex ){
+            logger.error("Error en la migracion", ex);
+            result="KO";
+        }
+
+        return new JsonResponse(result);
     }
+
+
+    @Path(Value = "/admin/test")
+    @Method(Value = "POST") // TODO: refactor
+    public JsonResponse test() {
+        return new JsonResponse("hello");
+    }
+
+    @Path(Value = "/admin/page")
+    @Method(Value = "GET") // TODO: refactor
+    public HtmlResponse page(String page) {
+        switch (page) {
+            case "config":
+                 return new HtmlResponse(configPageComponent);
+            case "new-entry":
+                 return new HtmlResponse(newEntryPageComponent);
+            default:
+                break;
+        }
+        return new HtmlResponse("");
+    }
+
+
+
+
+
 
     @Transactional
     @Path(Value = "/admin/add")
@@ -82,7 +119,7 @@ public class AdminController extends JavalinController {
             blogEntryModel.setContent(data.content);
             // tech:@
 
-            blogEntryService.AddBlog(blogEntryModel);
+            //blogEntryService.AddBlog(blogEntryModel);
 
             return new JsonResponse(blogEntryModel);
 

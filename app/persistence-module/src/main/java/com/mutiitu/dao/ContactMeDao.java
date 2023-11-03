@@ -4,9 +4,6 @@ import java.util.List;
 
 import org.slf4j.LoggerFactory;
 import com.google.inject.Inject;
-import com.mutiitu.domain.AuthorModel_;
-import com.mutiitu.domain.BlogEntryModel;
-import com.mutiitu.domain.BlogEntryModel_;
 import com.mutiitu.domain.ContactMeModel;
 import com.mutiitu.domain.ContactMeModel_;
 import com.mutiitu.persistence.SQLiteDB;

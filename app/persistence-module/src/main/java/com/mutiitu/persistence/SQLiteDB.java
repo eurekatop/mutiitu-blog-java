@@ -37,7 +37,9 @@ public class SQLiteDB implements Config {
 
         if (SQLiteDB.hikariDataSource == null) {
             SQLiteDB.hikariDataSource = new HikariDataSource();
-            SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://mariadb:3306/test_mu");
+            // SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://mariadb:3306/test_mu");
+            // SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://10.0.0.2:3306/test_mu");
+            SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://localhost:3306/test_mu");
             SQLiteDB.hikariDataSource.setUsername("root");
             SQLiteDB.hikariDataSource.setPassword("mypassword");
             SQLiteDB.hikariDataSource.setMaximumPoolSize(20);

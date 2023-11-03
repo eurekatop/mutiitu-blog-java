@@ -61,6 +61,18 @@ public interface MigrateDao {
         EMAIL VARCHAR(255) NOT NULL
       );
 
+      CREATE TABLE IF NOT EXISTS CmsEntry (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        TITLE VARCHAR(50) NOT NULL,
+        CONTENT LONGTEXT NOT NULL,
+        STATUS VARCHAR(50) NOT NULL,
+        AUTHOR_ID INT,
+        DATE VARCHAR(50) NOT NULL,
+        EXCERPT VARCHAR(50) NOT NULL,
+        THUMBNAIL VARCHAR(50) NOT NULL,
+        SLUG VARCHAR(50) NOT NULL
+      );
+
       """)
   @Script
   void create();

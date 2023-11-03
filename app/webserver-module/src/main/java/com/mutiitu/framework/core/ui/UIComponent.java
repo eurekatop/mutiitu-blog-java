@@ -13,8 +13,6 @@ import io.pebbletemplates.pebble.PebbleEngine;
 import io.pebbletemplates.pebble.template.PebbleTemplate;
 
 public class UIComponent {
-    public String UUID;
-
     private final org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
 
     private PebbleEngine engine;
@@ -24,7 +22,6 @@ public class UIComponent {
 
     protected UIComponent() {
         this.engine = new PebbleEngine.Builder().build();
-
         // TODO:remove /java
         // get file template
         var fileTemplate = this.getClass().getCanonicalName();
@@ -35,6 +32,10 @@ public class UIComponent {
         this.compiledTemplate = engine.getTemplate(fileTemplate);
     }
 
+    protected String UUID() {
+        return java.util.UUID.randomUUID().toString();
+    }
+
     protected void addVar(String name, Object value) {
         this.context.put(name, value);
     }
@@ -42,6 +43,9 @@ public class UIComponent {
     protected String render() throws IOException {
         Writer writer = new StringWriter();
 
+        // add UUID to template 
+        this.context.put("UUID", this.UUID());
+        
         // populate template with public variables
         var c = this.getClass();
         logger.info("--------------- render template -------------");
@@ -62,7 +66,7 @@ public class UIComponent {
                 try {
                     var fieldName = field.getName();
                     var fieldValue = field.get(this);
-                    logger.info(fieldName + " / " + fieldValue);
+                    logger.info( fieldName + " / " + fieldValue);
                     this.context.put(fieldName, fieldValue);
                 } catch (Exception e) {
                     //
