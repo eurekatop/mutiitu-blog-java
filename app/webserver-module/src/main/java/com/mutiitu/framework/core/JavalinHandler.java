@@ -1,5 +1,6 @@
 package com.mutiitu.framework.core;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class JavalinHandler implements Handler {
             logger.info("Parameter name:" + parameterName);
             logger.info("Parameter value:" + parameterValue);
 
-            // TODO: refactor 
+            // TODO: refactor
             if (parameterType.equals(String.class)) {
                 parameterValues.add(parameterValue);
             } else if (parameterType.equals(int.class)) {
@@ -66,8 +67,13 @@ public class JavalinHandler implements Handler {
             } else {
                 resultInvoke = method.invoke(instance);
             }
+        } catch (InvocationTargetException ex) {
+            logger.error(String.format("Error when invoke method: %s in class %s", method.getName(), clazz.getName()),
+                    ex);
+            throw ex.getTargetException();
         } catch (Exception ex) {
-            logger.error(String.format("Error when invoke method: %s in class %s", method.getName(), clazz.getName() ), ex);
+            logger.error(String.format("Error when invoke method: %s in class %s", method.getName(), clazz.getName()),
+                    ex);
             throw ex;
         }
 

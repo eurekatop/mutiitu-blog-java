@@ -1,5 +1,7 @@
 package mutiitu.blog.controllers.rest;
 
+import java.util.Map;
+
 import org.slf4j.LoggerFactory;
 import com.google.inject.Inject;
 import mutiitu.blog.models.dto.CMSEntryInputDto;
@@ -14,6 +16,7 @@ import com.mutiitu.framework.core.http.responses.StringResponse;
 import com.mutiitu.framework.utils.FormDataParser;
 
 import io.javalin.validation.JavalinValidation;
+import io.javalin.validation.ValidationError;
 
 @Controller
 public class CMSEntryController extends JavalinController {
@@ -31,21 +34,30 @@ public class CMSEntryController extends JavalinController {
     @Method(Value = "POST")
     public HttpResponse post() {
 
-        JavalinValidation.
+        //
+        var i = new ValidationError<String>("kk", Map.of("lomit", 5), "ee");
 
-        //ctx.va  (CMSEntryInputDto.class) 
-        //.check(it -> it.getTitle().isEmpty(), "'to' has to be after 'from'")
-        //.getOrThrow(
-        //    validationErrors -> {
-        //        // Aquí puedes manejar las excepciones generadas en la validación
-        //        // Por ejemplo, lanzar una excepción personalizada con detalles de los errores de validación
-        //        return new Exception();
-        //    }
-        //);
+        var r = ctx.formParamAsClass("title", String.class)
+                .check(it -> {
+                    System.err.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                    System.err.println(it);
+
+                    return !(it.isBlank() && it.isEmpty());
+                }, i)
+                .get();
+
+        // ctx.bodyValidator(CMSEntryInputDto.class)
+        // .check(it -> it.getTitle().isEmpty(), "'to' has to be after 'from'")
+        // .getOrThrow(
+        // validationErrors -> {
+        // // Aquí puedes manejar las excepciones generadas en la validación
+        // // Por ejemplo, lanzar una excepción personalizada con detalles de los
+        // // errores de validación
+        // return new Exception();
+        // });
 
         var data = FormDataParser.parseFormAsClass(ctx, CMSEntryInputDto.class);
-        return new StringResponse(data.toString());
-
+        return new StringResponse(r);
 
         // var result = blogEntryService.Create(data);
         //

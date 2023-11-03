@@ -1,5 +1,6 @@
 package com.mutiitu.framework.core;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import org.reflections.Reflections;
@@ -10,6 +11,8 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
+import io.javalin.validation.ValidationException;
+
 import com.mutiitu.framework.core.annotations.Controller;
 import com.mutiitu.framework.core.annotations.Path;
 
@@ -111,14 +114,18 @@ public class ApplicationStarter {
 
         });
 
+        // javalin.exception(Exception.class, (e, ctx) -> {
+        // ctx.status(400);
+        // }).error(400, ctx -> {
+        // ctx.result("error 400!");
+        // });
 
-
-        javalin.exception(Exception.class, (e, ctx) -> {
-            ctx.status(400);
-        }).error(400, ctx -> {
-            ctx.result("error 400!");
+        javalin.exception(InvocationTargetException.class, (e, ctx) -> {
+            ctx.status(401);
+            ctx.json(e);
+        }).error(401, ctx -> {
+            ctx.result("error 400!!!!!!!!!!!");
         });
-
 
         router.bind();
         javalin.start(8080);
@@ -133,7 +140,6 @@ public class ApplicationStarter {
         } catch (Exception ex) {
             logger.error(null, ex);
         }
-
 
     }
 }
