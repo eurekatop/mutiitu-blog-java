@@ -2,10 +2,16 @@
     <h2>Cms Entry Form</h2>
     <div hx-ext="response-targets">
 
-    <form hx-post="/cms-entry/post" 
+    <form id="form-{{UUID}}" hx-post="/cms-entry/post" 
         hx-target="#response-ok-{{UUID}}"
         hx-target-400="#response-400-{{UUID}}"
         >
+
+        <div class="form-group">
+            <label for="id">Id</label>
+            <input type="text" disabled class="form-control" id="id" name="id" value="0">
+        </div>
+
         <div class="form-group">
             <label for="title">Title</label>
             <input type="text" class="form-control" id="title" name="title">
@@ -49,8 +55,99 @@
 
     <div id="response-400-{{UUID}}">
     </div>
-
-
+</div>
 </div>
 
-</div>
+
+<script>
+    if ( !validateForm ) {
+        var validateForm = (id) =>  {
+        const self = {
+            _id:id,
+    
+            // INIT FUNC
+            _init : (id) => {
+                const form = document.getElementById(`form-${id}`);
+
+                form.addEventListener('htmx:configRequest', function (event) {
+                    event.detail.headers['Accept'] = 'application/json';
+                });
+
+                form.addEventListener('htmx:afterOnLoad', function (event) {
+                    if (event.detail.xhr.status === 400) {
+                        try {
+                            const errorData = JSON.parse(event.detail.xhr.responseText);
+                            self.displayErrors(errorData);
+                        } catch (e) {
+                            // Handle JSON parsing error
+                        }
+                    }
+                    if (event.detail.xhr.status === 200) {
+                        try {
+                            const data = JSON.parse(event.detail.xhr.responseText);
+                            self.updateData(data)
+                        } catch (e) {
+                            // Handle JSON parsing error
+                            alert(e)
+                        }
+                    }
+                });
+            },
+
+            // DISPLAY ERRORS
+            displayErrors: (errorData) => {
+                const errorsElement = document.querySelectorAll(`ul.error-list`);
+                for (var el of errorsElement) {
+                    el.remove();
+                }
+
+                for (const fieldName in errorData) {
+                    const errorMessages = errorData[fieldName];
+                    const inputElement = document.querySelector(`[name="${fieldName}"]`);
+
+                    if (inputElement) {
+                        const errorList = document.createElement('ul');
+                        errorList.classList.add('error-list');
+
+                        errorMessages.forEach((errorMessage) => {
+                            const errorItem = document.createElement('li');
+                            errorItem.textContent = errorMessage.message;
+                            errorList.appendChild(errorItem);
+                        });
+
+                        inputElement.classList.add('has-error');
+                        inputElement.parentNode.appendChild(errorList);
+                    }
+                }
+            },
+
+            //update data
+            updateData: (data) => {
+                const errorsElement = document.querySelectorAll(`ul.error-list`);
+                for (var el of errorsElement) {
+                    el.remove();
+                }
+
+                for (const fieldName of Object.keys(data?.data)) {
+                    const value = data?.data[fieldName]
+                    const inputElement = document.querySelector(`[name="${fieldName}"]`);
+                    console.log ( fieldName )
+                    console.log ( value )
+                    inputElement.value = value
+                }
+            }
+
+
+        }
+
+        self._init(id)
+        return (self)
+        }
+
+        validateForm("{{UUID}}")
+
+    }
+    
+
+
+</script>

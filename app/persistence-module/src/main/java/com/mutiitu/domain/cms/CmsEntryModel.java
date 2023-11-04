@@ -18,7 +18,8 @@ import com.mutiitu.persistence.BaseModel;
 @Entity(metamodel = @Metamodel)
 @lombok.Data
 @EqualsAndHashCode(callSuper = true)
-public class CmsEntryModel extends BaseModel{
+public class CmsEntryModel extends BaseModel {
+    @Expose
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;

@@ -15,6 +15,7 @@ import mutiitu.blog.components.markdown.MarkdownUIComponent;
 import mutiitu.blog.layouts.admin.AdminLayout;
 import mutiitu.blog.layouts.home.HomeLayout;
 import mutiitu.blog.services.BlogEntryService;
+import mutiitu.blog.services.CMSEntryService;
 import mutiitu.blog.services.TestService;
 
 import com.mutiitu.di.PersistenceModule;
@@ -46,8 +47,6 @@ public class ApplicationModule extends AbstractModule {
         bind(ConfigPageComponent.class);
         bind(NewEntryPageComponent.class);
 
-        
-
         // bind(TestService.class).in(Scopes.SINGLETON);
 
         // TODO: discover with anotation
@@ -61,6 +60,7 @@ public class ApplicationModule extends AbstractModule {
         // TODO: automatic binding application services
         bind(TestService.class).in(PersistenceModule.SQLiteDBScope);
         bind(BlogEntryService.class).in(PersistenceModule.SQLiteDBScope);
+        bind(CMSEntryService.class).in(PersistenceModule.SQLiteDBScope);
 
     }
 }

@@ -73,17 +73,16 @@ public class JavalinHandler implements Handler {
             logger.error(String.format("Error when invoke method: %s in class %s", method.getName(), clazz.getName()),
                     ex);
             causeExThrowable = ex.getCause();
-            if ( causeExThrowable instanceof ValidationException ) {
+            if (causeExThrowable instanceof ValidationException) {
                 throw (ValidationException) causeExThrowable;
             }
-        } 
-        catch (IllegalAccessException ex) {
-            logger.error(String.format("!!!! Error when invoke method: %s in class %s", method.getName(), clazz.getName()),
+            throw ex;
+        } catch (IllegalAccessException ex) {
+            logger.error(
+                    String.format("!!!! Error when invoke method: %s in class %s", method.getName(), clazz.getName()),
                     ex);
             throw ex;
         }
-
-
 
         // get return type
         // var returnType = method.getReturnType();
@@ -96,8 +95,8 @@ public class JavalinHandler implements Handler {
                 ctx.result(((StringResponse) resultInvoke).data);
             }
             if (resultInvoke instanceof JsonResponse) {
-                //var data = ((JsonResponse) resultInvoke).toJsonString();
-                //ctx.json(data, JsonResponse.class);
+                // var data = ((JsonResponse) resultInvoke).toJsonString();
+                // ctx.json(data, JsonResponse.class);
                 ctx.json(resultInvoke);
             }
         }

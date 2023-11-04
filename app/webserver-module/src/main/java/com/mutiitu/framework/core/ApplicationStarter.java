@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import io.javalin.Javalin;
+import io.javalin.http.ContentType;
 import io.javalin.rendering.template.JavalinThymeleaf;
 import io.javalin.validation.ValidationException;
 
@@ -114,19 +115,13 @@ public class ApplicationStarter {
 
         });
 
-        //javalin.exception(ValidationException.class, (e, ctx) -> {
-        //    ctx.status(400);
-        //    ctx.json(e);
-        //}).error(400, ctx -> {
-        //    ctx.result("error 400!!!!!!!!!!!");
-        //});
-
         router.bind();
         javalin.start(8080);
 
         javalin.exception(ValidationException.class, (e, ctx) -> {
             ctx.status(400);
             ctx.json(e.getErrors());
+            ctx.contentType(ContentType.APPLICATION_JSON);
         });
 
         javalin.exception(Exception.class, (e, ctx) -> {
@@ -134,6 +129,10 @@ public class ApplicationStarter {
             ctx.status(410);
         });
 
+        javalin.exception(InvocationTargetException.class, (e, ctx) -> {
+            ctx.result(e.getCause().getMessage());
+            ctx.status(410);
+        });
 
         var a = new com.google.inject.servlet.GuiceFilter();
         // a.doFilter(ctx.req(), ctx.res(), null);

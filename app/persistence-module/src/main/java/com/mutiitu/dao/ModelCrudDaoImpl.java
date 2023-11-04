@@ -65,13 +65,13 @@ public class ModelCrudDaoImpl<T extends BaseModel, T1 extends EntityMetamodel<T>
         try {
             // var txx = tx.getTransaction();
             // txx.begin();
-            // eql.insert( t__ , model).execute();
+            // var r = eql.insert(t__, model).execute();
             // txx.commit();
 
-            tx.required(
-                    () -> {
-                        eql.insert(t__, model).execute();
-                    });
+            // tx.required(
+            // () -> {
+            eql.insert(t__, model).execute().getEntity();
+            // });
 
         } catch (Exception e) {
             logger.error("Error on insert", e);
@@ -167,12 +167,12 @@ public class ModelCrudDaoImpl<T extends BaseModel, T1 extends EntityMetamodel<T>
                         whereDeclaration.eq(isId, id);
                     };
 
-                    var txx = tx.getTransaction();
-                    txx.begin();
+                    // var txx = tx.getTransaction();
+                    // txx.begin();
                     var result = eql.from(t__)
                             .where(cc)
                             .fetchOne();
-                    txx.commit();
+                    // txx.commit();
                     return result;
                 }
             }
