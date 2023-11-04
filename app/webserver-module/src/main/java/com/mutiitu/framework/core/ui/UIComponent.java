@@ -33,7 +33,9 @@ public class UIComponent {
     }
 
     protected String UUID() {
-        return java.util.UUID.randomUUID().toString();
+        String uuidWithHyphens = java.util.UUID.randomUUID().toString();
+        String uuidWithUnderscores = uuidWithHyphens.replace("-", "_");
+        return uuidWithUnderscores;
     }
 
     protected void addVar(String name, Object value) {

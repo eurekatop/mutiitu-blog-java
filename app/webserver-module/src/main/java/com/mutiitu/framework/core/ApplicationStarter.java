@@ -131,7 +131,7 @@ public class ApplicationStarter {
 
         javalin.exception(InvocationTargetException.class, (e, ctx) -> {
             ctx.result(e.getCause().getMessage());
-            ctx.status(410);
+            ctx.status(500);
         });
 
         var a = new com.google.inject.servlet.GuiceFilter();

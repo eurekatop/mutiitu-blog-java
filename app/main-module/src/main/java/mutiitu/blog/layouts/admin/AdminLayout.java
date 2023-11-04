@@ -28,7 +28,7 @@ public class AdminLayout {
     public HttpResponse render() {
         try {
             PebbleEngine engine = new PebbleEngine.Builder().build();
-            PebbleTemplate compiledTemplate = engine.getTemplate("mutiitu/blog/layouts/admin/index.html");
+            PebbleTemplate compiledTemplate = engine.getTemplate("mutiitu/blog/layouts/admin/AdminLayout.html");
             Map<String, Object> context = new HashMap<>();
 
             context.put("name", "Mitchell");

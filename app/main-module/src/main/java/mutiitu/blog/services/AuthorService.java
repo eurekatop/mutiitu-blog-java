@@ -1,19 +1,22 @@
 package mutiitu.blog.services;
+
+import java.util.List;
+
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
-import com.mutiitu.dao.cms.CMSEntryDao;
-import com.mutiitu.domain.cms.CmsEntryModel;
+import com.mutiitu.dao.AuthorDao;
+import com.mutiitu.domain.AuthorModel;
 
 //TODO: this is a repository
-public class CMSEntryService {
+public class AuthorService {
     private final org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
 
     @Inject
-    CMSEntryDao CmsEntryDao;
+    AuthorDao AuthorDao;
 
-    public CmsEntryModel GetBydId(int id) {
-        return CmsEntryDao.getById(id);
+    public AuthorModel GetBydId(int id) {
+        return AuthorDao.getById(id);
     }
     //
     // public List<Integer> GetAllBlogIds() {
@@ -24,7 +27,7 @@ public class CMSEntryService {
     // return BlogEntryDao.getBlogs(count);
     // }
 
-    public void Add(CmsEntryModel model) {
-        CmsEntryDao.insert(model);
+    public void Add(AuthorModel model) {
+        AuthorDao.insert(model);
     }
 }

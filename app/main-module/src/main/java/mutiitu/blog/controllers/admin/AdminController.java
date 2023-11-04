@@ -6,6 +6,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
 
+import mutiitu.blog.components.admin.pages.AuthorFormPageComponent;
+import mutiitu.blog.components.admin.pages.BlogFormPageComponent;
 import mutiitu.blog.components.admin.pages.ConfigPageComponent;
 import mutiitu.blog.components.admin.pages.NewEntryPageComponent;
 import mutiitu.blog.layouts.admin.AdminLayout;
@@ -38,6 +40,14 @@ public class AdminController extends JavalinController {
 
     @Inject
     NewEntryPageComponent newEntryPageComponent;
+
+    @Inject
+    AuthorFormPageComponent authorFormPageComponent;
+
+
+    @Inject
+    BlogFormPageComponent blogFormPageComponent;
+
 
     
 
@@ -80,6 +90,10 @@ public class AdminController extends JavalinController {
                  return new HtmlResponse(configPageComponent);
             case "new-entry":
                  return new HtmlResponse(newEntryPageComponent);
+            case "author-form":
+                 return new HtmlResponse(authorFormPageComponent);
+            case "blog-form":
+                 return new HtmlResponse(blogFormPageComponent);
             default:
                 break;
         }

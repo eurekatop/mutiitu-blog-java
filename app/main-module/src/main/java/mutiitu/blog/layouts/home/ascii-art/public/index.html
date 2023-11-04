@@ -22,7 +22,7 @@
       const char = coordinates[2]
 
       const divElement = document.createElement("div");
-      const color = `rgb(${Math.random() * 300 % 120},120,120)`
+      const color = `rgb(${(Math.random() * 20 % 255+120)},${Math.random() * 255 % 255},${(Math.random() * 10 % 150) + 100})`
       divElement.classList.add("tween");
       divElement.innerText = char
       divElement.style.top = `${oriSourceY}px`
@@ -30,7 +30,7 @@
       divElement.style.color = color;
       appEl.appendChild(divElement)
 
-      test(divElement, { x: oriSourceX, y: oriSourceY }, { x: x, y: y }, 800);
+      test(divElement, { x: oriSourceX, y: oriSourceY }, { x: x, y: y }, 200);
 
       //const destElement = document.createElement("div");
       //destElement.classList.add("dest");

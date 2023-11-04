@@ -8,12 +8,14 @@ import mutiitu.blog.components.HeaderService;
 import mutiitu.blog.components.HeaderServiceImpl;
 import mutiitu.blog.components.admin.AdminHeaderComponent;
 import mutiitu.blog.components.admin.core.ButtonActionComponent;
+import mutiitu.blog.components.admin.pages.AuthorFormPageComponent;
 import mutiitu.blog.components.admin.pages.ConfigPageComponent;
 import mutiitu.blog.components.admin.pages.NewEntryPageComponent;
 import mutiitu.blog.components.card.CardUIComponent;
 import mutiitu.blog.components.markdown.MarkdownUIComponent;
 import mutiitu.blog.layouts.admin.AdminLayout;
 import mutiitu.blog.layouts.home.HomeLayout;
+import mutiitu.blog.services.AuthorService;
 import mutiitu.blog.services.BlogEntryService;
 import mutiitu.blog.services.CMSEntryService;
 import mutiitu.blog.services.TestService;
@@ -46,6 +48,7 @@ public class ApplicationModule extends AbstractModule {
         bind(ButtonActionComponent.class);
         bind(ConfigPageComponent.class);
         bind(NewEntryPageComponent.class);
+        bind(AuthorFormPageComponent.class);
 
         // bind(TestService.class).in(Scopes.SINGLETON);
 
@@ -61,6 +64,7 @@ public class ApplicationModule extends AbstractModule {
         bind(TestService.class).in(PersistenceModule.SQLiteDBScope);
         bind(BlogEntryService.class).in(PersistenceModule.SQLiteDBScope);
         bind(CMSEntryService.class).in(PersistenceModule.SQLiteDBScope);
+        bind(AuthorService.class).in(PersistenceModule.SQLiteDBScope);
 
     }
 }

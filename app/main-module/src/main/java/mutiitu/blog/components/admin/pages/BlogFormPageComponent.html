@@ -1,62 +1,51 @@
 <div class="container">
-    <h2>Cms Entry Form</h2>
+    <h2>Blog Form</h2>
     <div hx-ext="response-targets">
 
-    <form id="form-{{UUID}}" hx-post="/cms-entry/post" 
+    <form id="form-{{UUID}}" hx-post="/blog-post-entry/post" 
         hx-target="#response-ok-{{UUID}}"
         hx-target-400="#response-400-{{UUID}}"
+        hx-target-500="#response-500-{{UUID}}"
         >
 
         <div class="form-group">
-            <label for="id">Id</label>
+            <label for="id">ID</label>
             <input type="text" disabled class="form-control" id="id" name="id" value="0">
         </div>
-
+    
         <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" class="form-control " id="title" name="title">
+            <input type="text" class="form-control" id="title" name="title">
         </div>
+    
+        <div class="form-group">
+            <label for="subtitle">Subtitle</label>
+            <input type="text" class="form-control" id="subtitle" name="subtitle">
+        </div>
+    
         <div class="form-group">
             <label for="content">Content</label>
             <textarea class="form-control" id="content" name="content" rows="4"></textarea>
         </div>
-        <div class="form-group">
-            <label for="status">Status</label>
-            <select class="form-control" id="status" name="status">
-                <option value="Draft">Draft</option>
-                <option value="Published">Published</option>
-            </select>
-        </div>
+    
         <div class="form-group">
             <label for="authorId">Author ID</label>
             <input type="text" class="form-control" id="authorId" name="authorId">
         </div>
-        <div class="form-group">
-            <label for="date">Date</label>
-            <input type="date" class="form-control" id="date" name="date">
-        </div>
-        <div class="form-group">
-            <label for="excerpt">Excerpt</label>
-            <textarea class="form-control" id="excerpt" name="excerpt" rows="2"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="thumbnail">Thumbnail</label>
-            <input type="text" class="form-control" id="thumbnail" name="thumbnail">
-        </div>
-        <div class="form-group">
-            <label for="slug">Slug</label>
-            <input type="text" class="form-control" id="slug" name="slug">
-        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
+        
     </form>
 
     <!-- message ok container -->
     <div id="response-ok-{{UUID}}" style="display:none"></div>
-    </div>
 
-    <!-- messake ko container -->
+    <!-- message application exception container -->
     <div id="response-400-{{UUID}}" style="display:none"></div>
-    </div>
+
+    <!-- message server error exception container -->
+    <div id="response-500-{{UUID}}" style="display:none"></div>
+
 
     <!-- toast container -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
@@ -66,7 +55,6 @@
       
 </div>
 </div>
-
 
 <script>
     if ( !validateForm_{{UUID}} ) {
@@ -105,6 +93,7 @@
 
                 // events on state change
                 self._onChangeContentDisplayToasts('response-400-{{UUID}}')
+                self._onChangeContentDisplayToasts('response-500-{{UUID}}')
                 self._onChangeContentDisplayToasts('response-ok-{{UUID}}')
 
 
@@ -196,6 +185,7 @@
         }
 
         validateForm_{{UUID}}("{{UUID}}")
+
     }
     
 

@@ -14,7 +14,7 @@ export function fetchJson(url) {
         try {
             const response = yield fetch(url);
             if (!response.ok) {
-                throw new Error("No se pudo cargar el archivo JSON.");
+                throw new Error("No se pudo cargar el archivo JSON1.");
             }
             const data = yield response.text();
             return data;

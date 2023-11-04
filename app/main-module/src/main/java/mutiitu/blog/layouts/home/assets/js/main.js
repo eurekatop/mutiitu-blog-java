@@ -22,18 +22,13 @@
 			xsmall:  [ null,      '360px'  ]
 		});
 
-	// Play initial animations on page load.
-		$window.on('load', function() {
-			window.setTimeout(function() {
-				$body.removeClass('is-preload');
-			}, 100);
-		});
-
 	// Nav.
 		$nav_links
 			.on('click', function(event) {
 
 				var href = $(this).attr('href');
+
+				navLinkCallback(href)
 
 				// Not a panel link? Bail.
 					if (href.charAt(0) != '#'
@@ -209,11 +204,95 @@
 
 		}
 
-		const slides = ['ascii-art.txt', 'ascii-art-01.txt']
-		let slidesCount = 0;
-		$('#jumplink_01').click ( () => {
-			const file = slides[(++slidesCount)%slides.length]
-			$('#iframe_01').attr('src', `/layouts/home/ascii-art/public?f=${file}`);
-		})
+		// ------------------------------------------------------------------------------
+		// rfranr: added
+		function addToOnLoadToTemplate () {
+			const slides = ['ascii-art.txt', 'ascii-art-01.txt']
+			let slidesCount = 0;
+			$('#jumplink_01').click ( () => {
+				const file = slides[(++slidesCount)%slides.length]
+				$('#iframe_01').attr('src', `/layouts/home/ascii-art/public?f=${file}`);
+			})
+			var fragment = window.location.hash;
+			navLinkCallback(fragment);
+		}
+
+
+
+		let callBackTimeout;
+		function articlesCallback (href){
+			if (callBackTimeout) {
+				clearTimeout(callBackTimeout);
+			}
+			document.documentElement.style.setProperty('--color-nav-after', "#FFAF33")
+
+			callBackTimeout = setTimeout ( () => {
+				//document.body.style.backgroundColor = "cyan"
+				$('nav a').each(function(index, element) {
+					element.style.color = "black"
+					
+				});
+				document.body.classList.remove('svg-1')
+				document.body.classList.remove('svg-3')
+				document.body.classList.add('svg-2')
+			},600)
+		}
+
+		function contactCallback (href){
+			if (callBackTimeout) {
+				clearTimeout(callBackTimeout);
+			}
+			document.documentElement.style.setProperty('--color-nav-after', "blue")
+			
+
+			callBackTimeout = setTimeout ( () => {
+				document.body.classList.remove('svg-1')
+				document.body.classList.remove('svg-2')
+				document.body.classList.add('svg-3')
+
+			},600)
+		}
+		
+		function defaultCallback (){
+			if (callBackTimeout) {
+				clearTimeout(callBackTimeout);
+			}
+			document.documentElement.style.setProperty('--color-nav-after', '#fff')
+
+			callBackTimeout = setTimeout ( () => {
+				$('nav a').each(function(index, element) {
+					element.style.color = ''
+				});
+				document.body.classList.remove('svg-3')
+				document.body.classList.remove('svg-2')
+				document.body.classList.add('svg-1')
+				document.body.style.backgroundPositionX = "0px"
+			},600)
+		}
+
+
+		function navLinkCallback (href){
+			switch ( href ) {
+				case '#articles':
+					articlesCallback(href);
+					return;
+				case '#contact':
+					contactCallback(href);
+					return;
+				}
+			defaultCallback();
+		}
+		// ------------------------------------------------------------------------------
+
+	// Play initial animations on page load.
+	$window.on('load', function() {
+		window.setTimeout(function() {
+			$body.removeClass('is-preload');
+			$('body').css('display', '');
+			$('body').css('background-color', '');
+			addToOnLoadToTemplate();
+		}, 100);
+	});
+
 
 })(jQuery);
