@@ -11,6 +11,13 @@
         <script src="https://unpkg.com/htmx.org@1.9.6"></script>
         <script src="https://unpkg.com/htmx.org/dist/ext/response-targets.js"></script>
         
+        <!-- datatables-->
+        <link href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+        <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        
+
 		<!-- link rel="stylesheet" href="/layouts/home/assets/css/main.css" / -->
 		<!-- noscript><link rel="stylesheet" href="/layouts/home/assets/css/noscript.css" /></noscript -->
 	</head>
@@ -37,6 +44,10 @@
                 <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" checked
                 hx-get="/admin/page/blog-form" hx-target="#center" hx-swap="innerHTML">
                 <label class="btn btn-outline-primary" for="btnradio4">Add new Blog Post</label>
+
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off" checked
+                hx-get="/admin/page/blog-list" hx-target="#center" hx-swap="innerHTML">
+                <label class="btn btn-outline-primary" for="btnradio5">List Blog</label>
 
 
 

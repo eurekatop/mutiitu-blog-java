@@ -3,10 +3,6 @@ package mutiitu.blog.components;
 import java.util.UUID;
 
 import com.mutiitu.dao.MigrateDatabaseImpl;
-import com.mutiitu.dao.ModelCrudDaoImpl;
-
-//import org.seasar.doma.jdbc.criteria.Entityql;
-
 import com.mutiitu.domain.FooterModel;
 import com.mutiitu.domain.FooterModel_;
 import com.mutiitu.domain.HeaderModel;
@@ -15,16 +11,6 @@ import com.mutiitu.domain.TranslateModel_;
 import com.mutiitu.persistence.PersistenceFactory;
 import com.mutiitu.persistence.SQLiteDB;
 
-// import mutiitu.blog.core.persistence.SQLiteDB;
-
-// import mutiitu.blog.domain.FooterModel;
-// import mutiitu.blog.domain.FooterModel_;
-// import mutiitu.blog.domain.HeaderModel;
-// import mutiitu.blog.domain.HeaderModel_;
-// import mutiitu.blog.domain.ModelCrudImpl;
-// import mutiitu.blog.domain.TranslateModel;
-// import mutiitu.blog.domain.TranslateModel_;
-// import mutiitu.blog.domain.impl.HeaderModelDaoImpl;
 
 public class HeaderServiceImpl implements HeaderService {
 

@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import com.google.inject.Inject;
 
 import mutiitu.blog.components.BlogEntryComponent;
-import mutiitu.blog.components.Header3;
 import mutiitu.blog.services.BlogEntryService;
 import com.mutiitu.annotations.Transactional;
 import com.mutiitu.framework.core.JavalinController;

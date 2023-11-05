@@ -1,0 +1,56 @@
+
+-- {{rows}}
+
+
+<table id="example" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>AuthorId</th>
+            <th>Title</th>
+            <th>Subtitle</th>
+            <th>Content</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in blogs %}
+        <tr>
+            <td>{{ row.id }}</td>
+            <td>{{ row.authorId }}</td>
+            <td>{{ row.title }}</td>
+            <td>{{ row.subtitle }}</td>
+            <td>{{ row.content }}</td>
+        </tr>            
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Id</th>
+            <th>AuthorId</th>
+            <th>Title</th>
+            <th>Subtitle</th>
+            <th>Content</th>
+        </tr>
+    </tfoot>
+</table>
+
+<script>
+    //new DataTable('#example');
+    //new DataTable('#example');
+    let dataTable = undefined;
+    if ( dataTable === undefined ) {
+        //dataTable = new DataTable('#example');
+        //dataTable = new DataTable('#example');
+        dataTable = new DataTable('#example', {
+        initComplete: function () {
+            let api = this.api();
+        
+            api.on('click', 'tbody td', function (e) {
+                console.log ( this )
+                console.log ( e )
+                //api.search(this.innerHTML).draw();
+            });
+        }});
+    }
+//});
+</script>

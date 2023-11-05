@@ -1,21 +1,29 @@
 package mutiitu.blog.controllers.admin;
 
+import java.lang.reflect.Type;
+import java.util.List;
+
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.google.inject.Inject;
 
 import mutiitu.blog.components.admin.pages.AuthorFormPageComponent;
 import mutiitu.blog.components.admin.pages.BlogFormPageComponent;
+import mutiitu.blog.components.admin.pages.BlogListPageComponent;
 import mutiitu.blog.components.admin.pages.ConfigPageComponent;
 import mutiitu.blog.components.admin.pages.NewEntryPageComponent;
 import mutiitu.blog.layouts.admin.AdminLayout;
 import mutiitu.blog.models.dto.BlogEntryInputDto;
 import mutiitu.blog.models.dto.ResumeInputDto;
+import mutiitu.blog.services.BlogEntryService;
+
 import com.mutiitu.annotations.Transactional;
 import com.mutiitu.dao.MigrateDatabase;
 import com.mutiitu.domain.BlogEntryModel;
+import com.mutiitu.domain.cms.CmsEntryModel;
 import com.mutiitu.framework.core.JavalinController;
 import com.mutiitu.framework.core.annotations.Controller;
 import com.mutiitu.framework.core.annotations.Method;
@@ -48,6 +56,8 @@ public class AdminController extends JavalinController {
     @Inject
     BlogFormPageComponent blogFormPageComponent;
 
+    @Inject
+    BlogEntryService blogEntryService;    
 
     
 
@@ -94,12 +104,26 @@ public class AdminController extends JavalinController {
                  return new HtmlResponse(authorFormPageComponent);
             case "blog-form":
                  return new HtmlResponse(blogFormPageComponent);
+            case "blog-list":
+                 return blogList();
             default:
                 break;
         }
         return new HtmlResponse("");
     }
 
+    
+    @Transactional
+    protected HtmlResponse blogList() {
+        var blogs = blogEntryService.GetBlogs(1000);
+
+        Gson gson = new Gson();
+        Type listType = new TypeToken<List<BlogEntryInputDto>>() {}.getType();
+        List<BlogEntryInputDto>  model = gson.fromJson(gson.toJson(blogs), listType);
+
+        
+        return new HtmlResponse(new BlogListPageComponent(model));
+    }
 
 
 
