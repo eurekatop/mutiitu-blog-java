@@ -2,7 +2,7 @@
 -- {{rows}}
 
 
-<table id="example" class="display" style="width:100%">
+<table id="data-{{UUID}}" class="display" style="width:100%">
     <thead>
         <tr>
             <th>Id</th>
@@ -14,7 +14,7 @@
     </thead>
     <tbody>
         {% for row in blogs %}
-        <tr>
+        <tr data-row-id="row-{{row.id}}">
             <td>{{ row.id }}</td>
             <td>{{ row.authorId }}</td>
             <td>{{ row.title }}</td>
@@ -35,22 +35,16 @@
 </table>
 
 <script>
-    //new DataTable('#example');
-    //new DataTable('#example');
-    let dataTable = undefined;
-    if ( dataTable === undefined ) {
-        //dataTable = new DataTable('#example');
-        //dataTable = new DataTable('#example');
-        dataTable = new DataTable('#example', {
+        new DataTable('#data-{{UUID}}', {
         initComplete: function () {
             let api = this.api();
         
-            api.on('click', 'tbody td', function (e) {
+            api.on('click', 'tbody tr', function (e) {
                 console.log ( this )
-                console.log ( e )
+                history.pushState({ page: 1 }, "title 1", "?page=1");
+                //window.history.pushState({}, "Ruta 1", "/ruta1");
                 //api.search(this.innerHTML).draw();
             });
         }});
-    }
 //});
 </script>
