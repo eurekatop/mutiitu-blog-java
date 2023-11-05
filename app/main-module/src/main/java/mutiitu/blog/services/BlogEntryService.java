@@ -15,6 +15,11 @@ public class BlogEntryService {
     @Inject
     BlogEntryDao BlogEntryDao;
 
+
+    public void DeleteBydId(int id) {
+        BlogEntryDao.delete(id);
+    }
+
     public BlogEntryModel GetBydId(int id) {
         return BlogEntryDao.getWithAuthorsById(id);
     }
@@ -28,7 +33,14 @@ public class BlogEntryService {
     }
 
     public void AddBlog(BlogEntryModel blogEntryModel) {
-        BlogEntryDao.insert(blogEntryModel);
+        var id = blogEntryModel.getId();
+        if ( id != null  &&  id > 0 ) {
+            BlogEntryDao.update(blogEntryModel);
+        }
+        else {
+            blogEntryModel.setId(-1);
+            BlogEntryDao.insert(blogEntryModel);
+        }
     }
 
 }

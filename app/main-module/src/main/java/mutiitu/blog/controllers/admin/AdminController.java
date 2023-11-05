@@ -16,6 +16,7 @@ import mutiitu.blog.components.admin.pages.BlogListPageComponent;
 import mutiitu.blog.components.admin.pages.ConfigPageComponent;
 import mutiitu.blog.components.admin.pages.NewEntryPageComponent;
 import mutiitu.blog.layouts.admin.AdminLayout;
+import mutiitu.blog.layouts.admin.LoginLayout;
 import mutiitu.blog.models.dto.BlogEntryInputDto;
 import mutiitu.blog.models.dto.ResumeInputDto;
 import mutiitu.blog.services.BlogEntryService;
@@ -44,6 +45,10 @@ public class AdminController extends JavalinController {
     AdminLayout adminLayout;
 
     @Inject
+    LoginLayout loginLayout;
+
+
+    @Inject
     ConfigPageComponent configPageComponent;
 
     @Inject
@@ -52,14 +57,10 @@ public class AdminController extends JavalinController {
     @Inject
     AuthorFormPageComponent authorFormPageComponent;
 
-
-    @Inject
-    BlogFormPageComponent blogFormPageComponent;
-
     @Inject
     BlogEntryService blogEntryService;    
 
-    
+
 
     @Path(Value = "/admin")
     public HttpResponse index() {
@@ -94,16 +95,22 @@ public class AdminController extends JavalinController {
 
     @Path(Value = "/admin/page")
     @Method(Value = "GET") // TODO: refactor
-    public HtmlResponse page(String page) {
+    public HttpResponse page(String page) {
         switch (page) {
+            case "login":
+                 return loginLayout.render();
+
             case "config":
                  return new HtmlResponse(configPageComponent);
             case "new-entry":
                  return new HtmlResponse(newEntryPageComponent);
             case "author-form":
                  return new HtmlResponse(authorFormPageComponent);
-            case "blog-form":
-                 return new HtmlResponse(blogFormPageComponent);
+            case "blog-form": {
+                var id = ctx.queryParam("id");
+                return blogUpsert(id);
+            }
+                 
             case "blog-list":
                  return blogList();
             default:
@@ -112,7 +119,78 @@ public class AdminController extends JavalinController {
         return new HtmlResponse("");
     }
 
-    
+    @Path(Value = "/admin/action")
+    @Method(Value = "POST") // TODO: refactor
+    public HttpResponse action(String page) throws Exception{
+        switch (page) {
+            case "login": {
+                var email = ctx.formParam("email");
+                var password = ctx.formParam("password");
+                if ("admin@admin.local".equals(email) && "XWAJ3dFEwM3Nxtd".equals(password) ) {
+                    ctx.header("HX-Redirect", "/admin");
+                    var cookie1 = String.format("mmu_hash=%s; path=/; HttpOnly; Secure; SameSite=Lax",password);
+                    var cookie2 = String.format("mmu_user=%s; path=/; HttpOnly; Secure; SameSite=Lax",email);
+                    var cookie3 = String.format("mmu_rol=%s; path=/; HttpOnly; Secure; SameSite=Lax","admin");
+                    ctx.header("Set-cookie", cookie1);
+                    ctx.header("Set-cookie", cookie2);
+                    ctx.header("Set-cookie", cookie3);
+                    return new JsonResponse("go!");
+                }
+
+                ctx.status(401);
+                return new StringResponse("na nai");
+            }
+            case "blog-delete": {
+                var id = ctx.queryParam("id");
+                return blogDelete(id);
+            }
+            default:
+                break;
+        }
+        return new JsonResponse("");
+    }
+
+
+
+    @Transactional
+    protected HtmlResponse blogUpsert(String id) {
+        if ( id == null ) {
+            return new HtmlResponse(new BlogFormPageComponent());
+        }
+        else {
+            var _id = Integer.parseInt(id);
+            var blog = blogEntryService.GetBydId(_id);
+
+            Gson gson = new Gson();
+            var blogDto = gson.fromJson(gson.toJson(blog), BlogEntryInputDto.class );
+
+            return new HtmlResponse(new BlogFormPageComponent(blogDto));
+        }
+   }
+
+    @Transactional
+    protected JsonResponse blogDelete(String id) throws Exception{
+        if ( id == null ) {
+            throw new Exception("error");
+        }
+        else {
+            var _id = Integer.parseInt(id);
+            var blog = blogEntryService.GetBydId(_id);
+
+            if (blog == null ) {
+                throw new Exception("error1");
+            }
+
+            blogEntryService.DeleteBydId(_id);
+
+            Gson gson = new Gson();
+            var blogDto = gson.fromJson(gson.toJson(blog), BlogEntryInputDto.class );
+
+            return new JsonResponse(blogDto);
+        }
+   }
+
+
     @Transactional
     protected HtmlResponse blogList() {
         var blogs = blogEntryService.GetBlogs(1000);

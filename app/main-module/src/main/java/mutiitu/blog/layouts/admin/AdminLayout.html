@@ -15,9 +15,14 @@
         <link href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        <!-- script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script -->
         
+        
+        <!-- router -->
+        <script src="//unpkg.com/navigo"></script>
+
         <!-- admin -->
-        <script src="/layouts/admin/index.js "></script>
+        <script src="/layouts/admin/index.js" type="module"></script>
 
 		<!-- link rel="stylesheet" href="/layouts/home/assets/css/main.css" / -->
 		<!-- noscript><link rel="stylesheet" href="/layouts/home/assets/css/noscript.css" /></noscript -->
@@ -25,37 +30,47 @@
 	<body>
 
         <div class="header">
-            {# {header.init("Hola") | raw} #}
 
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#">Navbar</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/admin/configuration" data-navigo>Configuration</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/admin/blog" data-navigo>Add New BlogPost</a>
+                      </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Dropdown
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="/admin/cms-entry" data-navigo>Add CmsEntry</a></li>
+                          <li><a class="dropdown-item" href="/admin/blog" data-navigo>New Blog</a></li>
+                          <li><a class="dropdown-item" href="/admin/blog-list" data-navigo>List Blogs</a></li>
+                          <li><a class="dropdown-item" href="/admin/author" data-navigo>Add Author</a></li>
 
-
-            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
-                hx-get="/admin/page/config" hx-target="#center" hx-swap="innerHTML">
-                <label class="btn btn-outline-primary" for="btnradio2">Configuration</label>
-
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked
-                hx-get="/admin/page/new-entry" hx-target="#center" hx-swap="innerHTML">
-                <label class="btn btn-outline-primary" for="btnradio1">Add new entry</label>
-
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" checked
-                hx-get="/admin/page/author-form" hx-target="#center" hx-swap="innerHTML">
-                <label class="btn btn-outline-primary" for="btnradio3">Add new Author</label>
-
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" checked
-                hx-get="/admin/page/blog-form" hx-target="#center" hx-swap="innerHTML">
-                <label class="btn btn-outline-primary" for="btnradio4">Add new Blog Post</label>
-
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off" checked
-                hx-get="/admin/page/blog-list" hx-target="#center" hx-swap="innerHTML">
-                <label class="btn btn-outline-primary" for="btnradio5">List Blog</label>
-
-
-
-            </div>
-
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                      </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                      <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                  </div>
+                </div>
+              </nav>
         </div>
-
 
         <div id="center">
             {# {configPage | raw } #}

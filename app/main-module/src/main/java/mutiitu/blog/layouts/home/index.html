@@ -6,6 +6,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="/layouts/home/assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="/layouts/home/assets/css/noscript.css" /></noscript>
+
+		<!-- TODO: BUNDLES with another system -->
+		<script async src="https://unpkg.com/systemjs@6.14.2/dist/extras/amd.js"></script>
+		<script async src="https://unpkg.com/systemjs@6.14.2/dist/system.js"></script>
+	
+		<script defer src="/layouts/home/HomeLayout.js"></script>
+
 	</head>
 	<body class="is-preload" style="display:none;background-color: #0A0A0A;	">
 
@@ -44,55 +51,18 @@
 						<!-- Work -->
 						<article id="articles" class="panel">
 							<header>
-								<h2>Two different ways to style Pseudo-elements with Javascript</h2>
-								<p>
-									Phasellus enim sapien, blandit ullamcorper elementum eu, condimentum eu elit.
-									Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
-									luctus elit eget interdum.
-								</p>
-
-								<section>
+								{% for blog in blogs %}
+									<h2>{{blog.title}}</h2>
+									<p>{{blog.subtitle}}</p>
+									<mu-markdown document="{{blog.content}}"></mu-markdown>
+								{% endfor %}								
+								<!-- section>
 									<div class="row">
 										<div class="col-4 col-6-medium col-12-small">
 											<a href="#" class="image fit"><img src="/layouts/home/images/pic01.jpg" alt=""></a>
 										</div>
 									</div>
-								</section>
-
-								<section>
-									<div class="row">
-										<div class="col-4 col-6-medium col-12-small">
-											<a href="#" class="image fit"><img src="/layouts/home/images/pic01.jpg" alt=""></a>
-										</div>
-									</div>
-								</section>
-								<section>
-									<div class="row">
-										<div class="col-4 col-6-medium col-12-small">
-											<a href="#" class="image fit"><img src="/layouts/home/images/pic01.jpg" alt=""></a>
-										</div>
-									</div>
-								</section>								<section>
-									<div class="row">
-										<div class="col-4 col-6-medium col-12-small">
-											<a href="#" class="image fit"><img src="/layouts/home/images/pic01.jpg" alt=""></a>
-										</div>
-									</div>
-								</section>								<section>
-									<div class="row">
-										<div class="col-4 col-6-medium col-12-small">
-											<a href="#" class="image fit"><img src="/layouts/home/images/pic01.jpg" alt=""></a>
-										</div>
-									</div>
-								</section>								<section>
-									<div class="row">
-										<div class="col-4 col-6-medium col-12-small">
-											<a href="#" class="image fit"><img src="/layouts/home/images/pic01.jpg" alt=""></a>
-										</div>
-									</div>
-								</section>
-
-
+								</section -->
 							</header>
 						</article>
 

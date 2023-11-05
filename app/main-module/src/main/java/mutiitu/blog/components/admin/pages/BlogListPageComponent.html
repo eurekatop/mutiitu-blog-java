@@ -14,7 +14,7 @@
     </thead>
     <tbody>
         {% for row in blogs %}
-        <tr data-row-id="row-{{row.id}}">
+        <tr data-blog-id="{{row.id}}">
             <td>{{ row.id }}</td>
             <td>{{ row.authorId }}</td>
             <td>{{ row.title }}</td>
@@ -35,15 +35,47 @@
 </table>
 
 <script>
-        new DataTable('#data-{{UUID}}', {
-        initComplete: function () {
-            let api = this.api();
+        const table_{{UUID}} = new DataTable('#data-{{UUID}}', {
         
-            api.on('click', 'tbody tr', function (e) {
-                console.log ( this )
-                history.pushState({ page: 1 }, "title 1", "?page=1");
-                //window.history.pushState({}, "Ruta 1", "/ruta1");
-                //api.search(this.innerHTML).draw();
+            columnDefs: [ {
+                "targets": -1, // The last column (Actions column)
+                "data": null,
+                "defaultContent": /*html*/`<button type="button" class="btn" data-action="edit">Edit</button> 
+                <button type="button" class="btn" data-action="delete">Delete</button>` // Action buttons
+            }],
+
+            initComplete: function () {
+            let api = this.api();
+
+            api.on('click', 'button', async function (e) {
+                console.log (e)
+
+                const rowElement = $(this).parents('tr');
+                const blogId = $(this).parents('tr').data('blogId'); 
+                const action = $(this).data('action');
+
+                switch (action) {
+                    case "edit":
+                        return;
+                    case "delete":
+                        e.stopPropagation();
+
+                        mu.action('POST', `/admin/action/blog-delete?id=${blogId}`)
+                            .then((data) => {
+                                rowElement.remove();
+                            })
+                            .catch((error) => alert("!" + error));
+                        break;
+                
+                    default:
+                        break;
+                }
+            });
+
+
+            api.on('click', 'tbody tr', function () {
+                const blogId = this.dataset.blogId
+                window.mu.router.navigate(`/admin/blog/${blogId}`);
             });
         }});
 //});

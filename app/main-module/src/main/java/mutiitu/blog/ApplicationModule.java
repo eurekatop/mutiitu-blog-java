@@ -41,7 +41,7 @@ public class ApplicationModule extends AbstractModule {
         bind(HeaderService.class).to(HeaderServiceImpl.class);
 
         // layouts
-        bind(HomeLayout.class).asEagerSingleton();
+        bind(HomeLayout.class); //.asEagerSingleton();
 
         bind(AdminLayout.class).asEagerSingleton();
         bind(AdminHeaderComponent.class);

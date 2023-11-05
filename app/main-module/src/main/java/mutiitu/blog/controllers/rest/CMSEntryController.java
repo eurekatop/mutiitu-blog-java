@@ -129,12 +129,11 @@ public class CMSEntryController extends JavalinController {
         // convert form input to inputdto
         var data = FormDataParser.parseFormAsClass(ctx, BlogEntryInputDto.class);
 
-        // note: doma need 0 or negative to populate generate id key
-        data.id = -1;
-
         // convert input dto to domain model
         Gson gson = new Gson();
         BlogEntryModel model = gson.fromJson(gson.toJson(data), BlogEntryModel.class);
+
+        logger.info("ADD BLOG DTO {}", model);
 
         // add to domain
         blogEntryService.AddBlog(model);

@@ -7,6 +7,10 @@ public interface ModelCrudDao<T> {
 
     CompletableFuture<Void> insertAsync(T model);
 
+    void update(T model);
+
+    CompletableFuture<Void> updateAsync(T model);
+
     T getById(int id);
 
     T getById(String id);

@@ -79,6 +79,30 @@ public class ModelCrudDaoImpl<T extends BaseModel, T1 extends EntityMetamodel<T>
         }
     }
 
+    @Override
+    public CompletableFuture<Void> updateAsync(T model) {
+        return CompletableFuture.runAsync(() -> {
+            try {
+                update(model);
+            } catch (Exception ex) {
+                logger.error("Error on updateAsync", ex);
+                throw ex;
+            }
+        }, executor);
+    }
+
+    @Override
+    public void update(T model) {
+        try {
+            logger.debug("Update %s", model);
+            eql.update(t__, model).execute();
+        } catch (Exception e) {
+            logger.error("Error on update", e);
+            throw e;
+        }
+    }
+
+
     public CompletableFuture<Void> deleteAsync(int id) {
         return CompletableFuture.runAsync(() -> {
             try {
@@ -111,9 +135,9 @@ public class ModelCrudDaoImpl<T extends BaseModel, T1 extends EntityMetamodel<T>
                     // /*var result =*/ nql.delete(t__).where(cc).execute();
                     // txx.commit();
 
-                    tx.required(() -> {
+                    //tx.required(() -> {
                         nql.delete(t__).where(cc).execute();
-                    });
+                    //});
 
                 }
             }
