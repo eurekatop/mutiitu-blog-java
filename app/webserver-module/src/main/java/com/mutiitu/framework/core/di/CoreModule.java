@@ -16,6 +16,7 @@ import org.eclipse.jetty.server.session.NullSessionCache;
 import org.eclipse.jetty.server.session.SessionCache;
 import org.eclipse.jetty.server.session.SessionHandler;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -27,15 +28,20 @@ import io.javalin.config.StaticFilesConfig;
 import io.javalin.http.ContentType;
 import io.javalin.http.staticfiles.Location;
 import io.javalin.json.JsonMapper;
+import io.javalin.validation.ValidationException;
 import jakarta.transaction.Transactional;
 
 import com.mutiitu.framework.core.ApplicationStarter;
 import com.mutiitu.framework.core.AutoShutdownPlugin;
 import com.mutiitu.framework.core.Router;
+import com.mutiitu.framework.core.adapters.ValidationExceptionAdapter;
 import com.mutiitu.framework.core.ui.RouterImpl;
 
 public class CoreModule extends AbstractModule {
+    private final org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
 
+
+    //TODO: refactor, for setting store sessions
     private final DataSource dataSource;
 
     public CoreModule(DataSource dataSource) {
@@ -91,11 +97,10 @@ public class CoreModule extends AbstractModule {
                     // json mapper
                     // ----------------------------------------------------------------------------------
                     GsonBuilder gsonBuilder = new GsonBuilder();
-                    gsonBuilder.excludeFieldsWithoutExposeAnnotation();
 
-                    // if (expose) {
-                    // gsonBuilder = gsonBuilder.excludeFieldsWithoutExposeAnnotation();
-                    // }
+                    gsonBuilder.registerTypeAdapter(ValidationException.class, new ValidationExceptionAdapter() );
+
+                    gsonBuilder.excludeFieldsWithoutExposeAnnotation();
 
                     Gson gson = gsonBuilder.create();
                     JsonMapper gsonMapper = new JsonMapper() {

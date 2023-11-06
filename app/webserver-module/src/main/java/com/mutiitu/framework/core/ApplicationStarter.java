@@ -12,6 +12,7 @@ import com.google.inject.Injector;
 import io.javalin.Javalin;
 import io.javalin.http.ContentType;
 import io.javalin.rendering.template.JavalinThymeleaf;
+import io.javalin.validation.ValidationError;
 import io.javalin.validation.ValidationException;
 
 import com.mutiitu.framework.core.annotations.Controller;
@@ -120,7 +121,8 @@ public class ApplicationStarter {
 
         javalin.exception(ValidationException.class, (e, ctx) -> {
             ctx.status(400);
-            ctx.json(e.getErrors());
+            //ctx.json(e.getErrors());
+            ctx.json(e);
             ctx.contentType(ContentType.APPLICATION_JSON);
         });
 
