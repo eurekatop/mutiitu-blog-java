@@ -38,11 +38,16 @@ public interface MigrateDao {
         TITLE VARCHAR(50) NOT NULL
       );
 
+      /*
       CREATE TABLE IF NOT EXISTS Author (
         id INT AUTO_INCREMENT PRIMARY KEY,
         NAME VARCHAR(50) NOT NULL,
-        SURNAME VARCHAR(50) NOT NULL
+        SURNAME VARCHAR(50) NOT NULL,
+        PASSWORD VARCHAR(2000) NOT NULL
       );
+      */
+      ALTER TABLE test_mu.Author ADD PASSWORD varchar(2000) NULL;
+
 
       CREATE TABLE IF NOT EXISTS BlogEntry (
         id INT AUTO_INCREMENT PRIMARY KEY,

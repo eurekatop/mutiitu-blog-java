@@ -22,13 +22,17 @@ import mutiitu.blog.services.TestService;
 
 import com.mutiitu.di.PersistenceModule;
 import com.mutiitu.framework.core.di.CoreModule;
+import com.mutiitu.persistence.SQLiteDB;
 
 public class ApplicationModule extends AbstractModule {
     @Override
     protected void configure() {
         super.configure();
 
-        install(new CoreModule());
+        // TODO: refactor
+        var dataSource = new SQLiteDB().getPoolDataSource();
+
+        install(new CoreModule(dataSource));
         install(new PersistenceModule());
 
         // components
@@ -41,7 +45,7 @@ public class ApplicationModule extends AbstractModule {
         bind(HeaderService.class).to(HeaderServiceImpl.class);
 
         // layouts
-        bind(HomeLayout.class); //.asEagerSingleton();
+        bind(HomeLayout.class); // .asEagerSingleton();
 
         bind(AdminLayout.class).asEagerSingleton();
         bind(AdminHeaderComponent.class);

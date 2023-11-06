@@ -4,11 +4,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Injector;
+import com.mutiitu.framework.core.annotations.Role;
 import com.mutiitu.framework.core.http.responses.HtmlResponse;
 import com.mutiitu.framework.core.http.responses.HttpResponse;
 import com.mutiitu.framework.core.http.responses.JsonResponse;
@@ -30,6 +32,27 @@ public class JavalinHandler implements Handler {
 
     @Override
     public void handle(@NotNull Context ctx) throws Exception, ValidationException {
+        // acces management
+        var annotationsRole = method.getAnnotationsByType(Role.class);
+        logger.info("Mehod is annotated with {}", annotationsRole.toString());
+
+        for (Role role : annotationsRole) {
+            var roles = role.value();
+            var currentUser = ctx.sessionAttribute("current-user");
+            var userRole = ctx.sessionAttribute("user-role");
+            var userHash = ctx.sessionAttribute("user-hash");
+
+            // ctx.sessionAttribute("current-user", email);
+            // ctx.sessionAttribute("user-role", "admin");
+            // ctx.sessionAttribute("user-hash", "hash");
+
+            if (!Arrays.asList(roles).contains(userRole) || currentUser == null || userHash == null) {
+                // userRole se encuentra en la lista de roles
+                throw new Exception("No access " + ctx.url());
+            } else {
+                logger.info("Usser {} logged in as {}", currentUser, userRole);
+            }
+        }
 
         // get params
         ArrayList<Object> parameterValues = new ArrayList<Object>();

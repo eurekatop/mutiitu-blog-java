@@ -24,11 +24,11 @@ import mutiitu.blog.services.BlogEntryService;
 import com.mutiitu.annotations.Transactional;
 import com.mutiitu.dao.MigrateDatabase;
 import com.mutiitu.domain.BlogEntryModel;
-import com.mutiitu.domain.cms.CmsEntryModel;
 import com.mutiitu.framework.core.JavalinController;
 import com.mutiitu.framework.core.annotations.Controller;
 import com.mutiitu.framework.core.annotations.Method;
 import com.mutiitu.framework.core.annotations.Path;
+import com.mutiitu.framework.core.annotations.Role;
 import com.mutiitu.framework.core.http.responses.HtmlResponse;
 import com.mutiitu.framework.core.http.responses.HttpResponse;
 import com.mutiitu.framework.core.http.responses.JsonResponse;
@@ -47,7 +47,6 @@ public class AdminController extends JavalinController {
     @Inject
     LoginLayout loginLayout;
 
-
     @Inject
     ConfigPageComponent configPageComponent;
 
@@ -58,61 +57,92 @@ public class AdminController extends JavalinController {
     AuthorFormPageComponent authorFormPageComponent;
 
     @Inject
-    BlogEntryService blogEntryService;    
+    BlogEntryService blogEntryService;
 
+    @Path(Value = "/admin/login")
+    public HttpResponse login() {
+        return loginLayout.render();
+    }
 
+    @Method(Value = "POST")
+    @Path(Value = "/admin/login")
+    public HttpResponse loginPost() {
+        // if (!ctx.req().isRequestedSessionIdValid()) {
+        // ctx.req().changeSessionId();
+        // }
+
+        var email = ctx.formParam("email");
+        var password = ctx.formParam("password");
+        if ("admin@admin.local".equals(email) && "XWAJ3dFEwM3Nxtd".equals(password)) {
+            ctx.header("HX-Redirect", "/admin");
+
+            var value = String.format("u:%s-p:%s-r:$s", email, "admin");
+            var key = "mysuperkey";
+            var hash = "d" + value + key;
+            var cookie1 = String.format("mmu_hash=%s; path=/; HttpOnly; Secure;SameSite=Lax", hash);
+            ctx.header("Set-cookie", cookie1);
+            ctx.cookie("_Host-mu", "oo", 100);
+
+            ctx.sessionAttribute("current-user", email);
+            ctx.sessionAttribute("user-role", "admin");
+            ctx.sessionAttribute("user-hash", "hash");
+
+            return new JsonResponse("go!");
+        }
+
+        ctx.status(401);
+        return new StringResponse("na nai");
+    }
 
     @Path(Value = "/admin")
+    @Role(value = { "admin" })
     public HttpResponse index() {
         return adminLayout.render();
     }
 
-
     @Transactional
     @Path(Value = "/admin/database/migrate")
     @Method(Value = "POST") // TODO: refactor
+    @Role(value = { "admin" })
     public JsonResponse config() {
         // migrate BD
         var result = "";
         try {
             migrateDatabase.create();
             result = "OK";
-        }
-        catch ( Exception ex ){
+        } catch (Exception ex) {
             logger.error("Error en la migracion", ex);
-            result="KO";
+            result = "KO";
         }
 
         return new JsonResponse(result);
     }
 
-
     @Path(Value = "/admin/test")
     @Method(Value = "POST") // TODO: refactor
+    @Role(value = { "admin" })
     public JsonResponse test() {
         return new JsonResponse("hello");
     }
 
     @Path(Value = "/admin/page")
-    @Method(Value = "GET") // TODO: refactor
-    public HttpResponse page(String page) {
+    @Method(Value = "GET")
+    @Role(value = { "admin" })
+    public HttpResponse page(String page) throws Exception {
         switch (page) {
-            case "login":
-                 return loginLayout.render();
-
             case "config":
-                 return new HtmlResponse(configPageComponent);
+                return new HtmlResponse(configPageComponent);
             case "new-entry":
-                 return new HtmlResponse(newEntryPageComponent);
+                return new HtmlResponse(newEntryPageComponent);
             case "author-form":
-                 return new HtmlResponse(authorFormPageComponent);
+                return new HtmlResponse(authorFormPageComponent);
             case "blog-form": {
                 var id = ctx.queryParam("id");
                 return blogUpsert(id);
             }
-                 
+
             case "blog-list":
-                 return blogList();
+                return blogList();
             default:
                 break;
         }
@@ -121,25 +151,9 @@ public class AdminController extends JavalinController {
 
     @Path(Value = "/admin/action")
     @Method(Value = "POST") // TODO: refactor
-    public HttpResponse action(String page) throws Exception{
+    @Role(value = { "admin" })
+    public HttpResponse action(String page) throws Exception {
         switch (page) {
-            case "login": {
-                var email = ctx.formParam("email");
-                var password = ctx.formParam("password");
-                if ("admin@admin.local".equals(email) && "XWAJ3dFEwM3Nxtd".equals(password) ) {
-                    ctx.header("HX-Redirect", "/admin");
-                    var cookie1 = String.format("mmu_hash=%s; path=/; HttpOnly; Secure; SameSite=Lax",password);
-                    var cookie2 = String.format("mmu_user=%s; path=/; HttpOnly; Secure; SameSite=Lax",email);
-                    var cookie3 = String.format("mmu_rol=%s; path=/; HttpOnly; Secure; SameSite=Lax","admin");
-                    ctx.header("Set-cookie", cookie1);
-                    ctx.header("Set-cookie", cookie2);
-                    ctx.header("Set-cookie", cookie3);
-                    return new JsonResponse("go!");
-                }
-
-                ctx.status(401);
-                return new StringResponse("na nai");
-            }
             case "blog-delete": {
                 var id = ctx.queryParam("id");
                 return blogDelete(id);
@@ -150,100 +164,52 @@ public class AdminController extends JavalinController {
         return new JsonResponse("");
     }
 
-
-
     @Transactional
     protected HtmlResponse blogUpsert(String id) {
-        if ( id == null ) {
+        if (id == null) {
             return new HtmlResponse(new BlogFormPageComponent());
-        }
-        else {
+        } else {
             var _id = Integer.parseInt(id);
             var blog = blogEntryService.GetBydId(_id);
 
             Gson gson = new Gson();
-            var blogDto = gson.fromJson(gson.toJson(blog), BlogEntryInputDto.class );
+            var blogDto = gson.fromJson(gson.toJson(blog), BlogEntryInputDto.class);
 
             return new HtmlResponse(new BlogFormPageComponent(blogDto));
         }
-   }
+    }
 
     @Transactional
-    protected JsonResponse blogDelete(String id) throws Exception{
-        if ( id == null ) {
+    protected JsonResponse blogDelete(String id) throws Exception {
+        if (id == null) {
             throw new Exception("error");
-        }
-        else {
+        } else {
             var _id = Integer.parseInt(id);
             var blog = blogEntryService.GetBydId(_id);
 
-            if (blog == null ) {
+            if (blog == null) {
                 throw new Exception("error1");
             }
 
             blogEntryService.DeleteBydId(_id);
 
             Gson gson = new Gson();
-            var blogDto = gson.fromJson(gson.toJson(blog), BlogEntryInputDto.class );
+            var blogDto = gson.fromJson(gson.toJson(blog), BlogEntryInputDto.class);
 
             return new JsonResponse(blogDto);
         }
-   }
-
+    }
 
     @Transactional
     protected HtmlResponse blogList() {
         var blogs = blogEntryService.GetBlogs(1000);
 
         Gson gson = new Gson();
-        Type listType = new TypeToken<List<BlogEntryInputDto>>() {}.getType();
-        List<BlogEntryInputDto>  model = gson.fromJson(gson.toJson(blogs), listType);
+        Type listType = new TypeToken<List<BlogEntryInputDto>>() {
+        }.getType();
+        List<BlogEntryInputDto> model = gson.fromJson(gson.toJson(blogs), listType);
 
-        
         return new HtmlResponse(new BlogListPageComponent(model));
-    }
-
-
-
-
-
-    @Transactional
-    @Path(Value = "/admin/add")
-    @Method(Value = "POST") // TODO: refactor
-    public HttpResponse test(String asset) {
-
-        Gson gson = new GsonBuilder()
-                .create();
-
-        var json = """
-                {
-                    "id":"1",
-                    "title":"pedro",
-                    "subtitle":"pedro",
-                    "authoriId":"1",
-                    "content":"kk"
-                }
-                """;
-        try {
-            var data = gson.fromJson(ctx.body(), BlogEntryInputDto.class);
-
-            // @tech: Mapping
-            var blogEntryModel = new BlogEntryModel();
-            blogEntryModel.setAuthorId(data.authorId);
-            blogEntryModel.setTitle(data.title);
-            blogEntryModel.setSubtitle(data.subtitle);
-            blogEntryModel.setContent(data.content);
-            // tech:@
-
-            //blogEntryService.AddBlog(blogEntryModel);
-
-            return new JsonResponse(blogEntryModel);
-
-        } catch (Exception ex) {
-            // tech: errors
-            return new StringResponse(ex.getMessage());
-
-        }
     }
 
     @Transactional
@@ -253,16 +219,14 @@ public class AdminController extends JavalinController {
         Gson gson = new GsonBuilder()
                 .create();
 
-        System.out.println(ctx.body());        
+        System.out.println(ctx.body());
         ResumeInputDto data = null;
         try {
             data = gson.fromJson(ctx.body(), ResumeInputDto.class);
-        }
-        catch ( Exception ex ) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 
-        
         return new JsonResponse(data);
     }
 
@@ -270,10 +234,9 @@ public class AdminController extends JavalinController {
     @Path(Value = "/admin/resume/get")
     @Method(Value = "GET") // TODO: refactor
     public HttpResponse ResumeGet(int id) throws Exception {
-        
+
         throw new Exception();
 
     }
-
 
 }

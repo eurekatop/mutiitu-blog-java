@@ -66,6 +66,10 @@ public class SQLiteDB implements Config {
         return dataSource;
     }
 
+    public DataSource getPoolDataSource() {
+        return SQLiteDB.hikariDataSource;
+    }
+
     public LocalTransactionManager getTransactionManager() {
         return transactionManager;
     }

@@ -33,6 +33,9 @@ public class AuthorModel extends BaseModel {
     @Column(name = "SURNAME")
     String surname;
 
+    @Column(name = "PASSWORD")
+    String password;
+
     @Expose
     @Transient
     List<BlogEntryModel> blogEntries = new ArrayList<>();
@@ -40,7 +43,6 @@ public class AuthorModel extends BaseModel {
     @Expose
     @Transient
     List<CmsEntryModel> cmsEntries = new ArrayList<>();
-
 
     @OriginalStates
     AuthorModel originalStates;

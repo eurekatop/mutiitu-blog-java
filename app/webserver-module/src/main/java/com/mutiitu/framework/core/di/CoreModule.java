@@ -2,9 +2,19 @@ package com.mutiitu.framework.core.di;
 
 import java.lang.reflect.Type;
 import java.nio.file.Path;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
+import javax.sql.DataSource;
+
+import org.eclipse.jetty.server.session.DatabaseAdaptor;
+import org.eclipse.jetty.server.session.DefaultSessionCache;
+import org.eclipse.jetty.server.session.JDBCSessionDataStoreFactory;
+import org.eclipse.jetty.server.session.NullSessionCache;
+import org.eclipse.jetty.server.session.SessionCache;
+import org.eclipse.jetty.server.session.SessionHandler;
 import org.jetbrains.annotations.NotNull;
 
 import com.google.gson.Gson;
@@ -17,6 +27,7 @@ import io.javalin.config.StaticFilesConfig;
 import io.javalin.http.ContentType;
 import io.javalin.http.staticfiles.Location;
 import io.javalin.json.JsonMapper;
+import jakarta.transaction.Transactional;
 
 import com.mutiitu.framework.core.ApplicationStarter;
 import com.mutiitu.framework.core.AutoShutdownPlugin;
@@ -24,6 +35,25 @@ import com.mutiitu.framework.core.Router;
 import com.mutiitu.framework.core.ui.RouterImpl;
 
 public class CoreModule extends AbstractModule {
+
+    private final DataSource dataSource;
+
+    public CoreModule(DataSource dataSource) {
+        super();
+        this.dataSource = dataSource;
+    }
+
+    private static JDBCSessionDataStoreFactory jdbcDataStoreFactory(DataSource dataSource) {
+        DatabaseAdaptor databaseAdaptor = new DatabaseAdaptor();
+        // databaseAdaptor.setDriverInfo(driver, url);
+        databaseAdaptor.setDatasource(dataSource); // you can set data sourcehere
+        // (for connection pooling, etc)
+        JDBCSessionDataStoreFactory jdbcSessionDataStoreFactory = new JDBCSessionDataStoreFactory();
+        jdbcSessionDataStoreFactory.setDatabaseAdaptor(databaseAdaptor);
+
+        return jdbcSessionDataStoreFactory;
+    }
+
     @Override
     protected void configure() {
         bind(Router.class).to(RouterImpl.class);
@@ -59,7 +89,15 @@ public class CoreModule extends AbstractModule {
                     });
 
                     // json mapper
-                    Gson gson = new GsonBuilder().create();
+                    // ----------------------------------------------------------------------------------
+                    GsonBuilder gsonBuilder = new GsonBuilder();
+                    gsonBuilder.excludeFieldsWithoutExposeAnnotation();
+
+                    // if (expose) {
+                    // gsonBuilder = gsonBuilder.excludeFieldsWithoutExposeAnnotation();
+                    // }
+
+                    Gson gson = gsonBuilder.create();
                     JsonMapper gsonMapper = new JsonMapper() {
                         @Override
                         public String toJsonString(@NotNull Object obj, @NotNull Type type) {
@@ -72,6 +110,57 @@ public class CoreModule extends AbstractModule {
                         }
                     };
                     config.jsonMapper(gsonMapper);
+                    // ----------------------------------------------------------------------------------
+
+                    // session handler
+                    // ----------------------------------------------------------------------------------
+                    Supplier<SessionHandler> sessionHandler = new Supplier<SessionHandler>() {
+                        @Override
+                        public SessionHandler get() {
+                            System.out.println("-------------------------------------------------------");
+                            System.out.println("-------------------------------------------------------");
+                            System.out.println("-------------------------------------------------------");
+                            System.out.println("-------------------------------------------------------");
+                            System.out.println("-------------------------------------------------------");
+                            System.out.println("-------------------------------------------------------");
+                            System.out.println("-------------------------------------------------------");
+                            System.out.println("-------------------------------------------------------");
+                            System.out.println("-------------------------------------------------------");
+                            System.out.println("-------------------------------------------------------");
+                            System.out.println("-------------------------------------------------------");
+                            System.out.println("-------------------------------------------------------");
+                            System.out.println("-------------------------------------------------------");
+                            System.out.println("-------------------------------------------------------");
+                            System.out.println("-------------------------------------------------------");
+
+                            SessionHandler sessionHandler = new SessionHandler();
+                            SessionCache sessionCache = new DefaultSessionCache(sessionHandler); // new
+                                                                                                 // DefaultSessionCache(sessionHandler);
+                            sessionCache.setSessionDataStore(
+                                    CoreModule.jdbcDataStoreFactory(dataSource)
+                                            .getSessionDataStore(sessionHandler));
+                            sessionHandler.setSessionCache(sessionCache);
+                            sessionHandler.setHttpOnly(true);
+                            // make additional changes to your SessionHandler here
+
+                            // try {
+                            //
+                            // var c = dataSource.getConnection();
+                            // c.setAutoCommit(false);
+                            // } catch (SQLException e) {
+                            // // TODO Auto-generated catch block
+                            // e.printStackTrace();
+                            // }
+
+                            return sessionHandler;
+
+                            // TODO Auto-generated method stub
+                            // throw new UnsupportedOperationException("Unimplemented method 'get'");
+                        }
+                    };
+                    config.jetty.sessionHandler(sessionHandler);
+                    // ----------------------------------------------------------------------------------
+
                 }));
 
         bind(ApplicationStarter.class).in(Scopes.SINGLETON);
