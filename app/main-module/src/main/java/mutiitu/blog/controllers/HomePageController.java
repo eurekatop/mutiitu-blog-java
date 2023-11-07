@@ -112,7 +112,6 @@ public class HomePageController extends JavalinController {
             logger.info ( "CONTACTO!!!  subject " + subject  );
             logger.info ( "CONTACTO!!!  message " + message  );
 
-            migrateDatabase.create();
 
 //            var migrate = new MigrateDatabaseImpl();
 
