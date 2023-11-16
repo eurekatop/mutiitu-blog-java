@@ -20,6 +20,7 @@ import mutiitu.blog.layouts.admin.LoginLayout;
 import mutiitu.blog.models.dto.BlogEntryInputDto;
 import mutiitu.blog.models.dto.ResumeInputDto;
 import mutiitu.blog.services.BlogEntryService;
+import mutiitu.blog.services.cms.TestJsonEntryService;
 
 import com.mutiitu.annotations.Transactional;
 import com.mutiitu.dao.MigrateDatabase;
@@ -58,6 +59,10 @@ public class AdminController extends JavalinController {
 
     @Inject
     BlogEntryService blogEntryService;
+
+    @Inject
+    TestJsonEntryService testJsonEntryService;
+
 
     @Path(Value = "/admin/login")
     public HttpResponse login() {
@@ -119,10 +124,13 @@ public class AdminController extends JavalinController {
     }
 
     @Path(Value = "/admin/test")
-    @Method(Value = "POST") // TODO: refactor
+    @Method(Value = "GET") // TODO: refactor
     @Role(value = { "admin" })
+    @Transactional
     public JsonResponse test() {
-        return new JsonResponse("hello");
+        var data = testJsonEntryService.GetBydId(1);
+
+        return new JsonResponse(data);
     }
 
     @Path(Value = "/admin/page")
