@@ -28,11 +28,23 @@
             <label for="content">Content</label>
             <textarea class="form-control" id="content" name="content" rows="4">{{blog.content | raw}}</textarea>
         </div>
-    
+
+        <div class="form-group">
+            <label for="resume">Resume</label>
+            <textarea class="form-control" id="resume" name="resume" rows="4">{{blog.resume | raw}}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Image</label>
+            <input type="text" class="form-control" id="image" name="image" value="{{blog.image}}">
+        </div>
+        
         <div class="form-group">
             <label for="authorId">Author ID</label>
             <input type="text" class="form-control" id="authorId" name="authorId" value="{{blog.authorId}}">
         </div>
+
+        <img src="{{blog.image}}">
 
         <button type="submit" class="btn btn-primary">Submit</button>
         

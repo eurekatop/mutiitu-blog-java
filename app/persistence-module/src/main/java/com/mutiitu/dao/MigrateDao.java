@@ -45,7 +45,7 @@ public interface MigrateDao {
         SURNAME VARCHAR(50) NOT NULL,
         PASSWORD VARCHAR(2000) NOT NULL
       );
-      */
+      
       ALTER TABLE test_mu.Author ADD PASSWORD varchar(2000) NULL;
 
 
@@ -77,6 +77,15 @@ public interface MigrateDao {
         THUMBNAIL VARCHAR(50) NOT NULL,
         SLUG VARCHAR(50) NOT NULL
       );
+      */
+
+      ALTER TABLE test_mu.BlogEntry MODIFY COLUMN TITLE varchar(2000) NOT NULL;
+      ALTER TABLE test_mu.BlogEntry MODIFY COLUMN SUBTITLE varchar(2000) NOT NULL;
+
+      ALTER TABLE test_mu.BlogEntry ADD RESUME varchar(2000) NULL;
+      ALTER TABLE test_mu.BlogEntry ADD IMAGE varchar(400) NULL;
+
+
 
       """)
   @Script

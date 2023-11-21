@@ -39,9 +39,32 @@ public class SQLiteDB implements Config {
             SQLiteDB.hikariDataSource = new HikariDataSource();
             // SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://mariadb:3306/test_mu");
             // SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://10.0.0.2:3306/test_mu");
-            SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://localhost:3306/test_mu");
-            SQLiteDB.hikariDataSource.setUsername("root");
-            SQLiteDB.hikariDataSource.setPassword("mypassword");
+            
+            
+            // Get database URL from environment variable, defaulting to a fallback value if not set
+            String jdbcUrl = System.getenv("DB_URL");
+            if (jdbcUrl == null || jdbcUrl.isEmpty()) {
+                jdbcUrl = "jdbc:mariadb://localhost:3306/test_mu";
+            }
+            SQLiteDB.hikariDataSource.setJdbcUrl(jdbcUrl);          
+            
+            // Get database username from environment variable, defaulting to a fallback value if not set
+            String username = System.getenv("DB_USERNAME");
+            if (username == null || username.isEmpty()) {
+                username = "root";
+            }
+            SQLiteDB.hikariDataSource.setUsername(username);
+
+            // Get database password from environment variable, defaulting to a fallback value if not set
+            String password = System.getenv("DB_PASSWORD");
+            if (password == null || password.isEmpty()) {
+                password = "mypassword";
+            }
+            SQLiteDB.hikariDataSource.setPassword(password);
+            
+            //SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://localhost:3306/test_mu");
+            //SQLiteDB.hikariDataSource.setUsername("root");
+            //SQLiteDB.hikariDataSource.setPassword("mypassword");
             SQLiteDB.hikariDataSource.setMaximumPoolSize(20);
 
         }
