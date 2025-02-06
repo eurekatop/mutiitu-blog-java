@@ -83,6 +83,8 @@ public class HomePageController extends JavalinController {
         }
     }
 
+
+
     @Path(Value = "/resume")
     @Method(Value = "GET")
     public HttpResponse Resume() {
@@ -112,7 +114,6 @@ public class HomePageController extends JavalinController {
             logger.info ( "CONTACTO!!!  subject " + subject  );
             logger.info ( "CONTACTO!!!  message " + message  );
 
-            migrateDatabase.create();
 
 //            var migrate = new MigrateDatabaseImpl();
 

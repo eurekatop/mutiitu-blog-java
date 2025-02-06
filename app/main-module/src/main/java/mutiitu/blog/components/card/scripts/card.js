@@ -11,19 +11,21 @@ export class MuCard extends HTMLElement {
       }
 
       connectedCallback() {
-        const { title, subtitle, content } = getAttributes(this, 'title', 'subtitle', 'content');
+        const { title, subtitle, content, url, "image-url":imageUrl } = getAttributes(this, 'title', 'subtitle', 'content', 'url' , 'image-url');
 
         this.shadowRoot.innerHTML =
         /*html*/
       `<div class="card">
         <div class="card-image">
-          <img src="/images/chrome_niPHyRorSF.png" alt="Imagen de la tarjeta">
-        </div>
-        <div class="card-content">
-          <h3>${title}</h3>
+          <img src="${imageUrl}" alt="..">
+
+          <div class="card-content">
+          <h3><a href='${url}'>${title}</a></h3>
           <h4>${subtitle}</h4>
-          <p>${content}</p>
+          <!-- p>${content}</p -->
         </div>
+
+          </div>
        </div>`;
       }
 

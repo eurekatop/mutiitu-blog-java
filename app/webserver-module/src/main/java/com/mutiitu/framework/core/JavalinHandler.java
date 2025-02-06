@@ -48,7 +48,8 @@ public class JavalinHandler implements Handler {
 
             if (!Arrays.asList(roles).contains(userRole) || currentUser == null || userHash == null) {
                 // userRole se encuentra en la lista de roles
-                throw new Exception("No access " + ctx.url());
+                logger.error("No access {}", ctx.url());
+                throw new Exception("");
             } else {
                 logger.info("Usser {} logged in as {}", currentUser, userRole);
             }

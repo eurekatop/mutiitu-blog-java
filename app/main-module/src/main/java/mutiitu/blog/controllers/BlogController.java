@@ -43,7 +43,8 @@ public class BlogController extends JavalinController {
             case "json":
                 return new JsonResponse(result);
             default:
-                return new HtmlResponse(blogEntryComponent.init(result));
+                return new HtmlResponse("todo");
+                //return new HtmlResponse(blogEntryComponent.init(result));
         }
 
     }

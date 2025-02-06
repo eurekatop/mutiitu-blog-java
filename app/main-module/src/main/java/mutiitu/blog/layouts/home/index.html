@@ -1,15 +1,26 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7W4HK1XNTG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7W4HK1XNTG');
+</script>	
 		<title>Francesc López Marió - Fullstack developer</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="msvalidate.01" content="72F79C2A1E9BFCF2EEF36190A175AC53" />
+		<meta name="yandex-verification" content="e95298d4f88a7a5d" />
 		<link rel="stylesheet" href="/layouts/home/assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="/layouts/home/assets/css/noscript.css" /></noscript>
 
 		<!-- TODO: BUNDLES with another system -->
-		<script async src="https://unpkg.com/systemjs@6.14.2/dist/extras/amd.js"></script>
-		<script async src="https://unpkg.com/systemjs@6.14.2/dist/system.js"></script>
+		<script defer src="https://unpkg.com/systemjs@6.14.2/dist/extras/amd.js"></script>
+		<script defer src="https://unpkg.com/systemjs@6.14.2/dist/system.js"></script>
 	
 		<script defer src="/layouts/home/HomeLayout.js"></script>
 
@@ -51,11 +62,14 @@
 						<!-- Work -->
 						<article id="articles" class="panel">
 							<header>
-								{% for blog in blogs %}
-									<h2>{{blog.title}}</h2>
-									<p>{{blog.subtitle}}</p>
-									<mu-markdown document="{{blog.content}}"></mu-markdown>
-								{% endfor %}								
+								<div id="footer" style="display:flex;flex-direction: row; width:100%;flex-wrap: wrap; justify-content: center;">
+									{% for blog in blogs %}
+										<my-card url="/articles/{{blog.id}}" title="{{blog.title}}" subtitle="{{blog.subtitle}}" content="card.content"></my-card>
+									{% endfor %}
+									<!-- ul class="copyright">
+										<li>&copy; Untitled.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+									</ul -->
+								</div>								
 								<!-- section>
 									<div class="row">
 										<div class="col-4 col-6-medium col-12-small">
@@ -148,15 +162,17 @@
 									<img src="/layouts/home/images/LI-Bug.svg.original.svg" alt="LinkedIn" style="width: 3em;">
 								</a>
 							</article>
-
 					</div>
 
 				<!-- Footer -->
-					<div id="footer">
-						<!-- ul class="copyright">
-							<li>&copy; Untitled.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-						</ul -->
-					</div>
+				<div id="footer" style="display:flex;flex-direction: row; width:100%;flex-wrap: wrap; justify-content: center;">
+					{% for blog in blogs %}
+						<my-card url="/articles/{{blog.id}}" title="{{blog.title}}" subtitle="{{blog.subtitle}}" content="" image-url="{{blog.image}}/resize/200/200"></my-card>
+					{% endfor %}
+					<!-- ul class="copyright">
+						<li>&copy; Untitled.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul -->
+				</div>
 
 			</div>
 

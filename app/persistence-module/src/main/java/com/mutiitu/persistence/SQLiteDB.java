@@ -42,7 +42,30 @@ public class SQLiteDB implements Config {
             // inside muttitu 
             // SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://10.0.0.2:3306/test_mu");
 
-            //SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://localhost:3306/test_mu");
+            
+            
+            // Get database URL from environment variable, defaulting to a fallback value if not set
+            String jdbcUrl = System.getenv("DB_URL");
+            if (jdbcUrl == null || jdbcUrl.isEmpty()) {
+                jdbcUrl = "jdbc:mariadb://localhost:3306/test_mu";
+            }
+            SQLiteDB.hikariDataSource.setJdbcUrl(jdbcUrl);          
+            
+            // Get database username from environment variable, defaulting to a fallback value if not set
+            String username = System.getenv("DB_USERNAME");
+            if (username == null || username.isEmpty()) {
+                username = "root";
+            }
+            SQLiteDB.hikariDataSource.setUsername(username);
+
+            // Get database password from environment variable, defaulting to a fallback value if not set
+            String password = System.getenv("DB_PASSWORD");
+            if (password == null || password.isEmpty()) {
+                password = "lampara.magica";
+            }
+            SQLiteDB.hikariDataSource.setPassword(password);
+            
+            ////SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://localhost:3306/test_mu");
 
             // inside docker
             SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://172.26.208.1:3306/test_mu"); 
@@ -51,8 +74,14 @@ public class SQLiteDB implements Config {
             SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://192.168.1.134:3306/test_mu"); 
 
 
-            SQLiteDB.hikariDataSource.setUsername("root");
-            SQLiteDB.hikariDataSource.setPassword("lampara.magica");
+            //SQLiteDB.hikariDataSource.setUsername("root");
+            //SQLiteDB.hikariDataSource.setPassword("lampara.magica");
+
+            // inside local host
+            SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://192.168.1.134:3306/test_mu"); 
+
+
+
             SQLiteDB.hikariDataSource.setMaximumPoolSize(20);
 
         }

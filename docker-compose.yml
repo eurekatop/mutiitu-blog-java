@@ -11,6 +11,11 @@ services:
     working_dir: /_dev
     user: developer
     entrypoint: sh /_dev/app/entrypoint.sh
+    environment:
+      DB_URL: jdbc:mariadb://localhost:3306/test_mu
+      DB_USERNAME: root
+      DB_PASSWORD: mypassword
+      MYSQL_DATABASE: test_mu
     ports:
       - "8080:8080"
       - "8081:8081" #TODO: environment vars debug port

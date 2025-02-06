@@ -12,5 +12,9 @@ public class BlogEntryInputDto {
     @Expose
     public String content;
     @Expose
+    public String resume;
+    @Expose
+    public String image;
+    @Expose
     public Integer authorId;
 }

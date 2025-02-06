@@ -35,6 +35,15 @@ public class BlogEntryModel extends BaseModel {
     @Column(name = "CONTENT")
     String content;
 
+    @Expose
+    @Column(name = "RESUME")
+    String resume;
+
+    @Expose
+    @Column(name = "IMAGE")
+    String image;
+
+
     @Column(name = "AUTHOR_ID")
     Integer authorId;
 
