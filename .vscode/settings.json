@@ -5,6 +5,8 @@
     "cSpell.words": [
         "Entityql",
         "gson",
-        "metamodel"
-    ]
+        "metamodel",
+        "mutiitu"
+    ],
+    "java.compile.nullAnalysis.mode": "automatic"
 }

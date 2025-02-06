@@ -1,0 +1,23 @@
+version: '3'
+services:
+  my-java-app:
+    build:
+      context: .
+      dockerfile: Dockerfile-development-java
+    volumes:
+      - ./:/_dev/app
+      #- /_dev/app/.gradle
+      #- /_dev/app/gradle
+    working_dir: /_dev
+    user: developer
+    entrypoint: sh /_dev/app/entrypoint.sh
+    ports:
+      - "8080:8080"
+      - "8081:8081" #TODO: environment vars debug port
+  ##mariadb:
+  ##  image: mariadb:latest
+  ##  environment:
+  ##    MYSQL_ROOT_PASSWORD: mypassword
+  ##    MYSQL_DATABASE: test_mu
+  ##  ports:
+  ##    - "3306:3306"

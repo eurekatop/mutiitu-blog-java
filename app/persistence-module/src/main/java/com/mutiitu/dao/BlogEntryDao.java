@@ -2,6 +2,7 @@ package com.mutiitu.dao;
 
 import java.util.List;
 
+import org.seasar.doma.jdbc.criteria.metamodel.EntityMetamodel;
 import org.slf4j.LoggerFactory;
 import com.google.inject.Inject;
 import com.mutiitu.domain.AuthorModel_;
@@ -18,19 +19,20 @@ public class BlogEntryDao extends ModelCrudDaoImpl<BlogEntryModel, BlogEntryMode
     }
 
     public BlogEntryModel getById(int id) {
-        return eql
-                .from(t__).where(c -> c.eq(t__.id, id))
+        return 
+                queryDsl
+                .from(entityModel).where(c -> c.eq(entityModel.id, id))
                 .fetchOne();
     }
 
     public BlogEntryModel getWithAuthorsById(int id) {
         var a = new AuthorModel_();
 
-        return eql
-                .from(t__)
-                .leftJoin(a, on -> on.eq(t__.authorId, a.id))
-                .where(c -> c.eq(t__.id, id))
-                .associate(t__, a, (blogEntry, author) -> {
+        return queryDsl
+                .from(entityModel)
+                .leftJoin(a, on -> on.eq(entityModel.authorId, a.id))
+                .where(c -> c.eq(entityModel.id, id))
+                .associate(entityModel, a, (blogEntry, author) -> {
                     blogEntry.setAuthor(author);
                     // author.getBlogEntries().add(blogEntry);
                 })
@@ -38,17 +40,16 @@ public class BlogEntryDao extends ModelCrudDaoImpl<BlogEntryModel, BlogEntryMode
     }
 
     public List<Integer> getIds() {
-        return nql
-                .from(t__)
-                .select(t__.id)
+        return queryDsl
+                .from(entityModel)
+                .select(entityModel.id)
                 .fetch();
     }
 
     public List<BlogEntryModel> getBlogs(int count) {
-        return eql
-                .from(t__)
-                .where(c -> c.lt(t__.id, 4000))
+         return queryDsl
+                .from(entityModel)
+                .where(c -> c.lt(entityModel.id, 4000))
                 .fetch();
     }
-
 }

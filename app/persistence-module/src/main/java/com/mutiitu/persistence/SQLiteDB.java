@@ -38,10 +38,21 @@ public class SQLiteDB implements Config {
         if (SQLiteDB.hikariDataSource == null) {
             SQLiteDB.hikariDataSource = new HikariDataSource();
             // SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://mariadb:3306/test_mu");
+            
+            // inside muttitu 
             // SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://10.0.0.2:3306/test_mu");
-            SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://localhost:3306/test_mu");
+
+            //SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://localhost:3306/test_mu");
+
+            // inside docker
+            SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://172.26.208.1:3306/test_mu"); 
+
+            // inside local host
+            SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://192.168.1.134:3306/test_mu"); 
+
+
             SQLiteDB.hikariDataSource.setUsername("root");
-            SQLiteDB.hikariDataSource.setPassword("mypassword");
+            SQLiteDB.hikariDataSource.setPassword("lampara.magica");
             SQLiteDB.hikariDataSource.setMaximumPoolSize(20);
 
         }

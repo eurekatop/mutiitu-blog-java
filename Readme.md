@@ -74,3 +74,9 @@ Cada artículo de la serie aborda una tecnología específica y proporciona un t
 ## Licencia
 
 Este proyecto se encuentra bajo la licencia [Nombre de la Licencia]. Consulta el archivo [LICENSE](LICENSE) para obtener más detalles.
+
+
+# gradle
+>java clean language server workspace
+sdk use java 21.0.4-tem
+./gradlew run -DDEBUG=true -t --args="-mortadelo -filemon"

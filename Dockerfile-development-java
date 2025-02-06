@@ -1,46 +1,33 @@
 FROM amazoncorretto:21
 
+# Install dependencies, including tar
+RUN yum install -y unzip zip shadow-utils curl tar && yum clean all
 
-# Install gradle
-RUN yum install unzip -y
-RUN yum install zip -y
-RUN yum install shadow-utils -y
-
-# Instala las dependencias necesarias
-RUN yum install -y curl && yum clean all
-
-# Descarga e instala Node.js
-RUN  yum install https://rpm.nodesource.com/pub_16.x/nodistro/repo/nodesource-release-nodistro-1.noarch.rpm -y
-RUN yum install nodejs -y --setopt=nodesource-nodejs.module_hotfixes=1# Verifica la instalación de Node.js y npm
+# Install Node.js
+RUN yum install -y https://rpm.nodesource.com/pub_16.x/nodistro/repo/nodesource-release-nodistro-1.noarch.rpm
+RUN yum install -y nodejs --setopt=nodesource-nodejs.module_hotfixes=1
 RUN node -v
 RUN npm -v
 
+# Create user and directories
 RUN useradd -u 1000 -m -d /home/developer developer
-
-# folder to store gradle build environment private container
-RUN mkdir -p /_dev/app
-RUN chown -R 1000:1000 /_dev
-RUN chown -R 1000:1000 /_dev/app
+RUN mkdir -p /_dev/app && chown -R 1000:1000 /_dev /_dev/app
 
 USER developer
 WORKDIR /dev
-RUN curl -s "https://get.sdkman.io" | sh
+
+# Install SDKMAN and Gradle
+RUN curl -s "https://get.sdkman.io" | bash
 RUN /bin/bash -c "source /home/developer/.sdkman/bin/sdkman-init.sh && sdk install gradle"
 
-# Inicia el wrapper de gradle
+# Copy and modify settings.gradle
 COPY settings.gradle /_dev/settings.gradle
-# Realiza la sustitución en el archivo settings.gradle
 RUN sed -i 's/''app\//''app\/app\//g' /_dev/settings.gradle
-RUN /bin/bash -c "cat /_dev/settings.gradle"
-RUN /bin/bash -c "ls -lart /_dev"
+RUN cat /_dev/settings.gradle
+RUN ls -lart /_dev
 
-# copia pacakge.json
+# Copy package.json and install npm packages
 COPY package.json /_dev/package.json
-
-#RUN /bin/bash -c "source /home/developer/.sdkman/bin/sdkman-init.sh && gradle wrapper"
-#
-## Asigna permisos de ejecución al script
-#RUN chown -R 1000:1000 /app/.gradle/
 
 USER root
 WORKDIR /_dev

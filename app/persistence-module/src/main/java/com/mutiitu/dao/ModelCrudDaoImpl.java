@@ -1,48 +1,44 @@
 package com.mutiitu.dao;
 
+import com.mutiitu.persistence.BaseModel;
+import com.mutiitu.persistence.SQLiteDB;
+
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
-
-import org.seasar.doma.jdbc.criteria.Entityql;
-import org.seasar.doma.jdbc.criteria.NativeSql;
 import org.seasar.doma.jdbc.criteria.declaration.WhereDeclaration;
 import org.seasar.doma.jdbc.criteria.metamodel.EntityMetamodel;
 import org.seasar.doma.jdbc.criteria.metamodel.PropertyMetamodel;
 import org.seasar.doma.jdbc.tx.LocalTransactionManager;
 import org.slf4j.LoggerFactory;
+import org.seasar.doma.jdbc.criteria.QueryDsl;
 
-import com.google.inject.Inject;
-import com.mutiitu.persistence.BaseModel;
-import com.mutiitu.persistence.SQLiteDB;
 
 public class ModelCrudDaoImpl<T extends BaseModel, T1 extends EntityMetamodel<T>> implements ModelCrudDao<T> {
-    private final int THREAD_POOL = 40;
+    private final int THREAD_POOL = 5; // TODO: environment variable;
     private final org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
 
     private ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL);
 
     SQLiteDB SQLiteDB;
 
-    protected Entityql eql;
-    NativeSql nql;
-    protected LocalTransactionManager tx;
-    protected T1 t__; // TODO: model
+    protected QueryDsl queryDsl;
 
-    public ModelCrudDaoImpl(T1 doma_, SQLiteDB SQLiteDB) {
+    protected LocalTransactionManager tx;
+    protected T1 entityModel;
+
+    public ModelCrudDaoImpl(T1 entityModel, SQLiteDB SQLiteDB) {
         tx = SQLiteDB.getTransactionManager();
-        eql = new Entityql(SQLiteDB);
-        nql = new NativeSql(SQLiteDB);
-        t__ = doma_;
+        this.entityModel = entityModel;
         this.SQLiteDB = SQLiteDB;
+        this.queryDsl = new QueryDsl(SQLiteDB);
     }
 
-    public ModelCrudDaoImpl(T1 doma_) {
+    public ModelCrudDaoImpl(T1 entityModel) {
         tx = SQLiteDB.getTransactionManager();
-        eql = new Entityql(SQLiteDB);
-        nql = new NativeSql(SQLiteDB);
-        t__ = doma_;
+        queryDsl = new QueryDsl(SQLiteDB);
+        this.entityModel = entityModel;
     }
 
     public CompletableFuture<Void> insertAsync(T model) {
@@ -63,16 +59,10 @@ public class ModelCrudDaoImpl<T extends BaseModel, T1 extends EntityMetamodel<T>
     @Override
     public void insert(T model) {
         try {
-            // var txx = tx.getTransaction();
-            // txx.begin();
-            // var r = eql.insert(t__, model).execute();
-            // txx.commit();
-
-            // tx.required(
-            // () -> {
-            eql.insert(t__, model).execute().getEntity();
-            // });
-
+            tx.required(
+                    () -> {
+                        queryDsl.insert(entityModel).single(model).execute();
+                    });
         } catch (Exception e) {
             logger.error("Error on insert", e);
             throw e;
@@ -94,14 +84,12 @@ public class ModelCrudDaoImpl<T extends BaseModel, T1 extends EntityMetamodel<T>
     @Override
     public void update(T model) {
         try {
-            logger.debug("Update %s", model);
-            eql.update(t__, model).execute();
+            queryDsl.update(entityModel);
         } catch (Exception e) {
             logger.error("Error on update", e);
             throw e;
         }
     }
-
 
     public CompletableFuture<Void> deleteAsync(int id) {
         return CompletableFuture.runAsync(() -> {
@@ -118,7 +106,7 @@ public class ModelCrudDaoImpl<T extends BaseModel, T1 extends EntityMetamodel<T>
     @SuppressWarnings("unchecked")
     public void delete(int id) {
         try {
-            var properties = t__.allPropertyMetamodels();
+            var properties = entityModel.allPropertyMetamodels();
 
             for (PropertyMetamodel<?> prop : properties) {
                 if (prop.asType().isId() && prop.asClass().equals(Integer.class)) {
@@ -135,10 +123,9 @@ public class ModelCrudDaoImpl<T extends BaseModel, T1 extends EntityMetamodel<T>
                     // /*var result =*/ nql.delete(t__).where(cc).execute();
                     // txx.commit();
 
-                    //tx.required(() -> {
-                        nql.delete(t__).where(cc).execute();
-                    //});
-
+                    tx.required(() -> {
+                        queryDsl.delete(entityModel).where(cc).execute();
+                    });
                 }
             }
         } catch (Exception ex) {
@@ -147,10 +134,10 @@ public class ModelCrudDaoImpl<T extends BaseModel, T1 extends EntityMetamodel<T>
     }
 
     @Override
-    @SuppressWarnings("unchecked")
+    //@SuppressWarnings("unchecked")
     public void delete(String id) {
         try {
-            var properties = t__.allPropertyMetamodels();
+            var properties = entityModel.allPropertyMetamodels();
 
             for (PropertyMetamodel<?> prop : properties) {
                 if (prop.asType().isId() && prop.asClass().equals(String.class)) {
@@ -164,7 +151,7 @@ public class ModelCrudDaoImpl<T extends BaseModel, T1 extends EntityMetamodel<T>
 
                     var txx = tx.getTransaction();
                     txx.begin();
-                    /* var result = */ nql.delete(t__).where(cc).execute();
+                    /* var result = */ queryDsl.delete(entityModel).where(cc).execute();
                     txx.commit();
                 }
             }
@@ -174,12 +161,13 @@ public class ModelCrudDaoImpl<T extends BaseModel, T1 extends EntityMetamodel<T>
     }
 
     @Override
-    @SuppressWarnings("unchecked")
+    //@SuppressWarnings("unchecked")
     public T getById(int id) {
         // inspect if exists Pk in metamodel
         // todo: Integer
         try {
-            var properties = t__.allPropertyMetamodels();
+
+            var properties = entityModel.allPropertyMetamodels();
 
             for (PropertyMetamodel<?> prop : properties) {
                 if (prop.asType().isId() && prop.asClass().equals(Integer.class)) {
@@ -191,12 +179,12 @@ public class ModelCrudDaoImpl<T extends BaseModel, T1 extends EntityMetamodel<T>
                         whereDeclaration.eq(isId, id);
                     };
 
-                    // var txx = tx.getTransaction();
-                    // txx.begin();
-                    var result = eql.from(t__)
+                    var txx = tx.getTransaction();
+                    txx.begin();
+                    var result = queryDsl.from(entityModel)
                             .where(cc)
                             .fetchOne();
-                    // txx.commit();
+                    txx.commit();
                     return result;
                 }
             }
@@ -213,7 +201,7 @@ public class ModelCrudDaoImpl<T extends BaseModel, T1 extends EntityMetamodel<T>
         // inspect if exists Pk in metamodel
         // todo: Integer
         try {
-            var properties = t__.allPropertyMetamodels();
+            var properties = entityModel.allPropertyMetamodels();
 
             for (PropertyMetamodel<?> prop : properties) {
                 if (prop.asType().isId() && prop.asClass().equals(String.class)) {
@@ -227,7 +215,7 @@ public class ModelCrudDaoImpl<T extends BaseModel, T1 extends EntityMetamodel<T>
 
                     var txx = tx.getTransaction();
                     txx.begin();
-                    var result = eql.from(t__)
+                    var result = queryDsl.from(entityModel)
                             .where(cc)
                             .fetchOne();
                     txx.commit();
