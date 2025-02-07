@@ -223,7 +223,7 @@ public class HomePageController extends JavalinController {
         try {
 
             var infiniteScroll = new InfiniteScrollUIComponent();
-            // infiniteScroll.init(blog, author);
+            //infiniteScroll.init(blog, author);
 
             return new HtmlResponse(infiniteScroll);
         } catch (Exception ex) {

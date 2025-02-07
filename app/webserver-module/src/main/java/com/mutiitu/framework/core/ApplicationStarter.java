@@ -1,5 +1,4 @@
 package com.mutiitu.framework.core;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -7,13 +6,9 @@ import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
 import org.reflections.util.ConfigurationBuilder;
 import org.slf4j.LoggerFactory;
+import io.javalin.Javalin;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import io.javalin.Javalin;
-import io.javalin.http.ContentType;
-import io.javalin.rendering.template.JavalinThymeleaf;
-import io.javalin.validation.ValidationError;
-import io.javalin.validation.ValidationException;
 
 import com.mutiitu.framework.core.annotations.Controller;
 import com.mutiitu.framework.core.annotations.Path;
@@ -42,6 +37,7 @@ public class ApplicationStarter {
         var controllers = reflections.getTypesAnnotatedWith(Controller.class);
         var paths = reflections.getMethodsAnnotatedWith(Path.class);
 
+        // TODO: refactor
         // System.out.println("-- Controllers: -----------------------------");
         // for (Class<?> c : controllers) {
         // System.out.println(c);
@@ -94,58 +90,43 @@ public class ApplicationStarter {
     }
 
     public void run(String... args) {
-        // command line
+        // Command-line args handling
         for (String arg : args) {
             logger.info(arg);
         }
 
-        // TODO: deprecated
-        JavalinThymeleaf.init();
 
-        // search controllers
+        // Search for controllers and register routes
         searchForControllerAnnotatedClasses();
 
-        // try to guice request scoped
+        // Setup Guice filter (handled via the GuicePlugin)
         javalin.before("/*", ctx -> {
+            logger.info("### BEFORE HANDLER " + Thread.currentThread());
 
-            logger.info("BEFOR HANDLER " + Thread.currentThread());
-
+            // TODO: refactor
             // var a = new com.google.inject.servlet.GuiceFilter();
             // javalin.javalinServlet().getServletContext().addFilter("guiceFilter",
             // a.getClass());
 
         });
 
+        // Bind routes via your custom router
         router.bind();
+
+        // Start Javalin on port 8080
         javalin.start(8080);
 
-        javalin.exception(ValidationException.class, (e, ctx) -> {
-            ctx.status(400);
-            //ctx.json(e.getErrors());
-            ctx.json(e);
-            ctx.contentType(ContentType.APPLICATION_JSON);
+        // Global exception handlers
+        javalin.exception(io.javalin.validation.ValidationException.class, (e, ctx) -> {
+            ctx.status(400).json(e);
         });
 
         javalin.exception(Exception.class, (e, ctx) -> {
-            ctx.result(e.getMessage());
-            ctx.status(410);
+            ctx.result(e.getMessage()).status(410);
         });
 
         javalin.exception(InvocationTargetException.class, (e, ctx) -> {
-            ctx.result(e.getCause().getMessage());
-            ctx.status(500);
+            ctx.result(e.getCause().getMessage()).status(500);
         });
-
-        var a = new com.google.inject.servlet.GuiceFilter();
-        // a.doFilter(ctx.req(), ctx.res(), null);
-
-        try {
-            Thread.sleep(2);
-            javalin.javalinServlet().getServletContext().addFilter("guiceFilter",
-                    a.getClass());
-        } catch (Exception ex) {
-            logger.error(null, ex);
-        }
-
     }
 }

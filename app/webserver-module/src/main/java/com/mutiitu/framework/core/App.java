@@ -3,56 +3,9 @@
  */
 package com.mutiitu.framework.core;
 
-// import java.nio.file.Path;
-// import java.util.ArrayList;
-// import com.google.inject.Guice;
-// import com.google.inject.Injector;
-// 
-// import io.javalin.Javalin;
-// import io.javalin.rendering.template.JavalinThymeleaf;
-// import mutiitu.blog.components.Header;
-// import mutiitu.framework.core.di.CoreModule;
 
 public class App {
     public String getGreeting() {
         return "Hello World  !";
     }
-
-/* 
-    public static void main_2(String[] args) {
-        System.out.println(new App().getGreeting());
-
-
-        JavalinThymeleaf.init();
-
-        var module = new CoreModule();
-        Injector injector = Guice.createInjector(module);
-
-
-        var App = Javalin.create( config -> {
-
-            var rootPath = Path.of(System.getProperty("user.dir")).getParent();
-            var paths = new ArrayList<Path>();
-            paths.add( Path.of(rootPath + "/main-module/src"));
-            paths.add( Path.of(rootPath + "/persistence-module/src"));
-
-            var autoShutdownPlugin = new AutoShutdownPlugin(paths);
-
-            config.plugins.register(autoShutdownPlugin);
-        })
-            .get("/", ctx -> ctx.result("Hello World 1AA11111"))
-            .get("/jte", ctx -> ctx.render("hello.jte"))
-            .get("/thymeleaf", ctx -> {
-                    ctx.render("templates/hello.html");
-            })
-            .get("/header", ctx ->  {
-                var header = injector.getInstance(Header.class);
-                ctx.result(header.render()); 
-            })
-            .start(7070);
-
-        System.out.println(App);
-
-    }
-    */
 }

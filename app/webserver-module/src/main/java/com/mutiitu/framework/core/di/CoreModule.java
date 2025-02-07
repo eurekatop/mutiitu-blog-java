@@ -23,13 +23,11 @@ import com.google.gson.GsonBuilder;
 import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
 import io.javalin.Javalin;
-import io.javalin.config.PrivateConfig;
-import io.javalin.config.StaticFilesConfig;
 import io.javalin.http.ContentType;
 import io.javalin.http.staticfiles.Location;
 import io.javalin.json.JsonMapper;
 import io.javalin.validation.ValidationException;
-import jakarta.transaction.Transactional;
+
 
 import com.mutiitu.framework.core.ApplicationStarter;
 import com.mutiitu.framework.core.AutoShutdownPlugin;
@@ -77,7 +75,7 @@ public class CoreModule extends AbstractModule {
 
                     var autoShutdownPlugin = new AutoShutdownPlugin(paths);
 
-                    config.plugins.register(autoShutdownPlugin);
+                    config.registerPlugin(autoShutdownPlugin);
 
                     // static files
                     // TODO: APPLICATION NAME mutiitu, environment
@@ -122,21 +120,7 @@ public class CoreModule extends AbstractModule {
                     Supplier<SessionHandler> sessionHandler = new Supplier<SessionHandler>() {
                         @Override
                         public SessionHandler get() {
-                            System.out.println("-------------------------------------------------------");
-                            System.out.println("-------------------------------------------------------");
-                            System.out.println("-------------------------------------------------------");
-                            System.out.println("-------------------------------------------------------");
-                            System.out.println("-------------------------------------------------------");
-                            System.out.println("-------------------------------------------------------");
-                            System.out.println("-------------------------------------------------------");
-                            System.out.println("-------------------------------------------------------");
-                            System.out.println("-------------------------------------------------------");
-                            System.out.println("-------------------------------------------------------");
-                            System.out.println("-------------------------------------------------------");
-                            System.out.println("-------------------------------------------------------");
-                            System.out.println("-------------------------------------------------------");
-                            System.out.println("-------------------------------------------------------");
-                            System.out.println("-------------------------------------------------------");
+                            System.out.println("------------- SessionHandler---------------------------");
 
                             SessionHandler sessionHandler = new SessionHandler();
                             SessionCache sessionCache = new DefaultSessionCache(sessionHandler); // new
@@ -146,24 +130,15 @@ public class CoreModule extends AbstractModule {
                                             .getSessionDataStore(sessionHandler));
                             sessionHandler.setSessionCache(sessionCache);
                             sessionHandler.setHttpOnly(true);
-                            // make additional changes to your SessionHandler here
-
-                            // try {
-                            //
-                            // var c = dataSource.getConnection();
-                            // c.setAutoCommit(false);
-                            // } catch (SQLException e) {
-                            // // TODO Auto-generated catch block
-                            // e.printStackTrace();
-                            // }
+ 
 
                             return sessionHandler;
-
-                            // TODO Auto-generated method stub
-                            // throw new UnsupportedOperationException("Unimplemented method 'get'");
                         }
                     };
-                    config.jetty.sessionHandler(sessionHandler);
+
+                    config.jetty.modifyServletContextHandler(ctx -> {
+                        ctx.setSessionHandler(sessionHandler.get());
+                    });
                     // ----------------------------------------------------------------------------------
 
                 }));

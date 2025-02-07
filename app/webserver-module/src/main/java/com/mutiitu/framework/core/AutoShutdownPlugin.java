@@ -1,10 +1,6 @@
 package com.mutiitu.framework.core;
-
-import io.javalin.Javalin;
 import io.javalin.plugin.*;
-
 import org.slf4j.LoggerFactory;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
@@ -13,7 +9,9 @@ import java.util.List;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.TimeUnit;
 
-public class AutoShutdownPlugin implements Plugin {
+import io.javalin.config.JavalinConfig;
+
+public class AutoShutdownPlugin extends Plugin<Void> {
 
     private final List<Path> paths;
 
@@ -22,16 +20,29 @@ public class AutoShutdownPlugin implements Plugin {
     }
 
     @Override
-    public void apply(Javalin app) {
+    public void onStart(JavalinConfig config) {
         FileWatcher fileWatcher;
+
         try {
             fileWatcher = new FileWatcher(paths, () -> {
-                app.stop();
-                System.exit(0);
+                try {
+                    System.out.println("File changed. Stopping Javalin...");
+                    
+                    // In development restart process. Gradle will restart the application
+                    //config.pvt.jetty.server.stop();
+                    System.exit(0);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    throw new RuntimeException("Error stopping Javalin");
+                }
             });
             fileWatcher.start();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
+        } 
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        catch ( Exception e ) {
             e.printStackTrace();
         }
     }
