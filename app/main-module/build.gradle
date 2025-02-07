@@ -46,7 +46,6 @@ dependencies {
 
     // template engine
     implementation 'gg.jte:jte:3.0.3'
-    implementation 'org.thymeleaf:thymeleaf:3.1.2.RELEASE'
     implementation 'io.pebbletemplates:pebble:3.2.1'
 
     // DI   
@@ -65,7 +64,8 @@ dependencies {
     implementation project(':persistence-module') 
     implementation project(':webserver-module') 
 
-    implementation("org.seasar.doma:doma-core:2.54.0")
+    // TODO: REMOVE
+    implementation("org.seasar.doma:doma-core:3.3.0")
 }
 
 abstract class GreetingTask extends DefaultTask {

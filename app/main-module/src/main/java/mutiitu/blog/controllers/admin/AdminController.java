@@ -67,8 +67,9 @@ public class AdminController extends JavalinController {
     @Method(Value = "POST")
     @Path(Value = "/admin/login")
     public HttpResponse loginPost() {
+        // TODO: ALL
         // if (!ctx.req().isRequestedSessionIdValid()) {
-        // ctx.req().changeSessionId();
+        //     ctx.req().changeSessionId();
         // }
 
         var email = ctx.formParam("email");

@@ -14,7 +14,7 @@ public class Application {
         injector.getInstance(ApplicationStarter.class).run(args);
 
         // TODO: code smells
-        // bootstrap core ??
-        UIComponentFactory.configure ( injector );
+        // bootstrap core ?? 
+        UIComponentFactory.configure ( injector ); 
     }
 }
