@@ -1,0 +1,76 @@
+/* Define CSS variables */
+:root {
+    /* Primary (Deep & Warm Navy) */
+    --primary-100: #e9e4ff; /* Soft lavender */
+    --primary-300: #a089ff; /* Muted periwinkle */
+    --primary-500: #5a3ec8; /* Warm royal blue */
+    --primary-700: #3a2a92; /* Deep indigo */
+    --primary-900: #241b5e; /* Almost black-violet */
+
+    /* Secondary (Rich & Earthy) */
+    --secondary-100: #ffe5d2; /* Warm peach */
+    --secondary-300: #f5a572; /* Cozy coral */
+    --secondary-500: #d96a34; /* Earthy burnt orange */
+    --secondary-700: #9e4722; /* Deep terracotta */
+    --secondary-900: #662e14; /* Dark mahogany */
+
+    /* Neutrals (Soft, Creamy, & Cozy) */
+    --neutral-100: #fef6eb; /* Creamy off-white */
+    --neutral-200: #f4e3d4; /* Warm sand */
+    --neutral-300: #dfc4a7; /* Soft tan */
+    --neutral-400: #cba785; /* Muted caramel */
+    --neutral-500: #a67a56; /* Warm brown-gray */
+    --neutral-600: #7d5940; /* Chocolate taupe */
+    --neutral-800: #503929; /* Espresso brown */
+    --neutral-900: #2a1f19; /* Deep mocha */
+
+    /* Accents (Vibrant but Cozy) */
+    --accent-color-info-500: #d07db4; /* Warm magenta */
+    --accent-color-success-500: #4b8f4e; /* Olive green */
+    --accent-color-warn-500: #e4a000; /* Golden amber */
+    --accent-color-error-500: #c02e2e; /* Deep brick red */
+}
+
+
+
+/* Background color utilities */
+.primary-background {
+    background-color: var(--neutral-500);
+}
+
+
+.primary-background-disabled {
+    background-color: var(--primary-100);
+}
+
+.secondary-background {
+    background-color: var(--neutral-500);
+}
+
+
+.secondary-background-disabled {
+    background-color: var(--secondary-100);
+}
+
+/* Text color utilities */
+.heading-primary {
+    color: var(--primary-500);
+}
+
+.heading-secondary {
+    color: var(--secondary-500);
+}
+
+.error-primary {
+    color: var(--accent-color-error-500);
+}
+
+/* Accent color utilities */
+.accent-background-1 {
+    background-color: var(--accent-color-info-500);
+}
+
+.accent-background-2 {
+    background-color: var(--accent-color-success-500);
+}
+

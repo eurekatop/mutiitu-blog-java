@@ -1,0 +1,71 @@
+/* 
+   Layout Utility Classes
+   This file defines common layout utilities for spacing and alignment.
+   It includes size-based padding, centering utilities, and vertical gaps.
+*/
+
+/* Define CSS variables for consistency */
+:root {
+    --layout-padding-sm: 1rem;
+    --layout-padding-md: 1.5rem;
+    --layout-padding-lg: 2rem;
+    --layout-padding-xl: 4rem;
+  
+    --layout-gap-sm: 2rem;
+    --layout-gap-md: 4rem;
+    --layout-gap-lg: 6rem;
+  }
+  
+  /* Padding-based layouts */
+  .layout-sm {
+    padding: var(--layout-padding-sm);
+  }
+  
+  .layout-md {
+    padding: var(--layout-padding-md);
+  }
+  
+  .layout-lg {
+    padding: var(--layout-padding-lg);
+  }
+  
+  .layout-xl {
+    padding: var(--layout-padding-xl);
+  }
+  
+  /* Centering utilities */
+  .layout-all-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  /* Spacing utilities */
+  .layout-gap-sm {
+    margin-bottom: var(--layout-gap-sm);
+  }
+  
+  .layout-gap-md {
+    margin-bottom: var(--layout-gap-md);
+  }
+  
+  .layout-gap-lg {
+    margin-bottom: var(--layout-gap-lg);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .layout-lg {
+      padding: var(--layout-padding-md);
+    }
+  
+    .layout-xl {
+      padding: var(--layout-padding-lg);
+    }
+  
+    .layout-gap-lg {
+      margin-bottom: var(--layout-gap-md);
+    }
+  }
+  

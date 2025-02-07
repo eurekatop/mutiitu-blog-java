@@ -1,0 +1,28 @@
+@use "../../styles/colors";  
+
+/* General Styles */
+img {
+  margin-bottom: 1.5rem;
+}
+
+img:hover {
+  filter: drop-shadow(0 0 2em var(--primary-theme-color-light));  // Use theme color for shadow
+}
+
+/* Project */
+.project-details {
+  margin: 0 auto;
+  padding: 2rem;
+  max-width: 800px; /* Adjust width for readability */
+  line-height: 1.6; /* Makes the text more readable */
+}
+
+.project-details h2 {
+  font-size: 2rem; /* Adjust the heading size */
+  margin-bottom: 1rem;
+}
+
+.project-details p {
+  font-size: 1rem;
+  color: #333;
+}

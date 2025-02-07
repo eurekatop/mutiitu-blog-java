@@ -1,0 +1,53 @@
+/* 
+   Typography Styles
+   This file defines font weights, sizes, and heading styles for consistency.
+*/
+
+/* Font Weights */
+$font-weight-light: 300;
+$font-weight-semi-bold: 500;
+$font-weight-bold: 600;
+
+/* Font Sizes */
+$heading-title-size: 3rem;
+$heading-subtitle-size: 2rem;
+$heading-caption-size: 1.5rem;
+$heading-default-size: 1.2rem;
+
+/* Heading Styles */
+.heading-title {
+  font-size: $heading-title-size;
+  font-weight: $font-weight-bold;
+  margin: 0.5rem;
+}
+
+.heading-subtitle {
+  font-size: $heading-subtitle-size;
+  font-weight: $font-weight-light;
+  margin: 0.5rem;
+}
+
+.heading-subtitle-bold {
+  font-size: $heading-subtitle-size;
+  font-weight: $font-weight-bold;
+  margin: 0.5rem;
+}
+
+.heading-subtitle-semi-bold {
+  font-size: $heading-subtitle-size;
+  font-weight: $font-weight-semi-bold;
+  margin: 0.5rem;
+}
+
+/* Caption and Default Text */
+.heading-caption {
+  font-size: $heading-caption-size;
+  font-weight: $font-weight-light;
+  margin: 0.5rem;
+}
+
+.heading-default {
+  font-size: $heading-default-size;
+  font-weight: $font-weight-semi-bold;
+  margin: 0.5rem;
+}

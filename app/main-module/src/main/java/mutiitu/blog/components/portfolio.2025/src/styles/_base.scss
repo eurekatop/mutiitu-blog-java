@@ -1,0 +1,20 @@
+@use "./colors";
+
+:root {
+	background-color: rgb(48, 7, 7);
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+}
+
+html,
+body {
+  margin: 0;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  background-color: var(--neutral-100);
+}
+
+div {
+  color: var(--primary-black-color);
+}

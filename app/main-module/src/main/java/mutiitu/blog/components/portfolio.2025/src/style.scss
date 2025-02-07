@@ -1,0 +1,93 @@
+@use "./styles/_base";
+@use "./styles/_layouts";
+@use "./styles/colors";
+@use "./styles/_typography";
+@use "./styles/_forms";
+@use "./styles/_buttons";
+@import "../node_modules/animate.css/animate.css";
+
+
+
+/* App Layout */
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--neutral-100);
+}
+
+/* Header */
+header {
+  display: flex;
+  justify-content: flex-end;
+  background-color: var(--secondary-900); // Bright yellow from your theme
+}
+
+header nav {
+  display: flex;
+}
+
+header a {
+  color: var(--primary-500); // Off-white for contrast
+  padding: 0.75rem;
+  text-decoration: none;
+  transition: background-color 0.3s ease; // Smooth transition on hover
+}
+
+header a.active {
+  background-color: var(--secondary-500); // Dark orange for active state
+}
+
+header a:hover {
+  background-color: var(--secondary-900); // Light yellow on hover
+}
+
+/* Main Content */
+main {
+  flex: auto;
+  display: flex;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 2rem; // Added padding for breathing space
+  background-color: var(--neutral-200); 
+  color: var(--neutral-500); // Dark text for readability
+}
+
+/* Responsive Design */
+@media (max-width: 639px) {
+  main {
+    margin: 2rem;
+    padding: 1rem; // Less padding for smaller screens
+  }
+}
+
+/* Dark Mode */
+/*@media (prefers-color-scheme: dark) {
+  :root {
+    color: var(--secondary-theme-color-light); // Muted blue for text in dark mode
+    background-color: var(--secondary-theme-color-dark); // Very dark blue background for dark mode
+  }
+
+  header {
+    background-color: var(--secondary-theme-color); // Dark blue for header in dark mode
+  }
+
+  header a {
+    color: var(--primary-white-color); // Ensure white text in dark mode for contrast
+  }
+
+  header a.active {
+    background-color: var(--secondary-theme-color-light); // Light blue for active state
+  }
+
+  header a:hover {
+    background-color: var(--secondary-theme-color); // Dark blue on hover in dark mode
+  }
+
+  main {
+    background-color: var(--secondary-theme-color-dark); // Dark background for main content
+    color: var(--secondary-theme-color-light); // Light text for contrast in dark mode
+  }
+}*/

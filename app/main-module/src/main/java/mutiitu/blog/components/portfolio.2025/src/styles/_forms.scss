@@ -1,0 +1,48 @@
+/* 
+   Form Elements Styles
+   This file defines styles for form elements including labels, inputs, and form groups.
+*/
+
+/* Form group wrapper */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* Ensures spacing between label and input */
+    margin-bottom: 1rem;
+  }
+  
+  /* Form label */
+  .form-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  /* Form input */
+  .form-input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease-in-out;
+  }
+  
+  /* Input focus styles */
+  .form-input:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  /* Disabled input */
+  .form-input:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+  }
+  
+  /* Error state */
+  .form-input.error {
+    border-color: red;
+    background-color: #ffe6e6;
+  }
+  
