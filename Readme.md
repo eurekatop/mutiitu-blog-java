@@ -80,3 +80,15 @@ Este proyecto se encuentra bajo la licencia [Nombre de la Licencia]. Consulta el
 >java clean language server workspace
 sdk use java 21.0.4-tem
 ./gradlew run -DDEBUG=true -t --args="-mortadelo -filemon"
+
+# javed
+https://blog.stackademic.com/ssr-react-spring-boot-with-javet-536282ff0edb
+https://www.caoccao.com/Javet/reference/resource_management/modularization.html
+
+    if (!r5.current) r5.current = p6.then(() => update(1));
+    return g(() => null, props); // ✅ Instead of throwing, return a fallback component
+  };
+
+
+
+npx esbuild /home/rfranr/source/01-rfranr/resume/2026/resume/dist/server/assets/test.js   --bundle   --platform=node   --format=cjs   --outfile=output.js

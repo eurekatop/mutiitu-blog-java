@@ -29,6 +29,8 @@ app/persistence-module/build/*
 app/persistence-module/bin/*
 app/webserver-module/build/*
 app/webserver-module/bin/*
+app/rendering-module/build/*
+app/rendering-module/bin/*
 **/.gradle/*
 **/node_modules/*
 #app/.gradle/*

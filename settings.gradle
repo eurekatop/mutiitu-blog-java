@@ -11,8 +11,9 @@ plugins {
 }
 
 rootProject.name = 'mutiitu-blog-java'
-include 'main-module', 'persistence-module', 'webserver-module'
+include 'main-module', 'persistence-module', 'webserver-module', 'rendering-module'
 
 project(':main-module').projectDir = new File('app/main-module')
 project(':persistence-module').projectDir = new File('app/persistence-module')
 project(':webserver-module').projectDir = new File('app/webserver-module')
+project(':rendering-module').projectDir = new File('app/rendering-module')

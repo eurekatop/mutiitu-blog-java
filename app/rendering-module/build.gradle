@@ -1,0 +1,67 @@
+plugins {
+    id 'application'
+    id 'java'
+}
+
+
+application {
+    //mainClass = 'com.mycompany.renderer.SingleScriptRendererJaveteExample'
+    //mainClass = 'com.mycompany.renderer.SingleScriptRendererJaveteExample'
+    //mainClass = 'com.mycompany.renderer.SingleScriptRendererJavedNodeInstance' // works
+    mainClass = 'com.mutiitu.renderer.SingleScriptRendererJavedWithParams'
+}
+
+compileJava {
+    options.compilerArgs = ['--enable-preview',  '-Xlint:preview' ]
+    options.debug = true 
+}
+
+
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+    mavenLocal() 
+}
+
+dependencies {
+
+    // Use JUnit test framework.
+    testImplementation 'junit:junit:4.13.2'
+
+    // This dependency is used by the application.
+    implementation 'com.google.guava:guava:32.1.1-jre'
+
+    implementation 'org.slf4j:slf4j-simple:2.0.7'
+
+    // DI   
+    implementation 'com.google.inject:guice:7.0.0'
+
+    // serialization
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+    // graaljs
+    implementation 'org.graalvm.js:js:24.1.2'
+    implementation 'org.graalvm.js:js-scriptengine:24.1.2'
+
+    implementation 'com.caoccao.javet:javet:4.1.1'
+
+    implementation 'com.caoccao.javet:javet-node-linux-x86_64:4.1.1'
+    implementation("com.caoccao.javet:javet-node-linux-x86_64-i18n:4.1.1")
+
+    implementation 'com.caoccao.javet:javet-v8-linux-x86_64:4.1.1'
+    implementation("com.caoccao.javet:javet-v8-linux-x86_64-i18n:4.1.1")
+
+}
+
+// Apply a specific Java toolchain to ease working on different environments.
+java {
+    sourceCompatibility = "21"
+    targetCompatibility = "21"
+    
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+
+
