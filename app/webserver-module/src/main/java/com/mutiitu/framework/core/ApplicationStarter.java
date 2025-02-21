@@ -128,5 +128,6 @@ public class ApplicationStarter {
         javalin.exception(InvocationTargetException.class, (e, ctx) -> {
             ctx.result(e.getCause().getMessage()).status(500);
         });
+      
     }
 }

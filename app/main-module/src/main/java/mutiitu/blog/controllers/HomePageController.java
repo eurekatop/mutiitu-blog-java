@@ -306,7 +306,7 @@ public class HomePageController extends JavalinController {
         }
     }
 
-    @Path(Value = "/editor")
+    @Path(Value = "/editor2")
     @Method(Value = "GET")
     public HttpResponse Editor() {
         try {

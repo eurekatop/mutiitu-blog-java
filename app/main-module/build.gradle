@@ -63,6 +63,7 @@ dependencies {
     // 
     implementation project(':persistence-module') 
     implementation project(':webserver-module') 
+    implementation project(':rendering-module') 
 
     // TODO: REMOVE
     implementation("org.seasar.doma:doma-core:3.3.0")

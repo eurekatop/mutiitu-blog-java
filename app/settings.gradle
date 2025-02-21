@@ -11,5 +11,5 @@ plugins {
 }
 
 rootProject.name = 'mutiitu-blog-java'
-//include 'main-module', 'persistence-module', 'webserver-module', 'rendering-module'
-include 'main-module', 'persistence-module', 'webserver-module'
+include 'main-module', 'persistence-module', 'webserver-module', 'rendering-module'
+//include 'main-module', 'persistence-module', 'webserver-module'

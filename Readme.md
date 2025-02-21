@@ -1,9 +1,9 @@
-Proof of Concept (POC) 
+Proof of Concept (POC)
 
 # Este proyecto es un experimento usando el framework de Javalin. La intención era usar su mínima infraestrucutura para implementar las mismas funcionalidaes con otros "web frameworks"
 
 * El frontal de aa aplicación muestra una frontal con scroll infinito de entradas de blog.
-* El backoffice deberé permitir dar de alta un blog /admin/add/blog 
+* El backoffice deberé permitir dar de alta un blog /admin/add/blog
 
 La intención es a medida desarrollemos ser conscientes de todas las técnicas necesarias  que disponemos normalmente de forma más fácil en otros web frameworks. Enumeremos algunas de ellas.
     * Rutas y gestion de rutas, soporte de métodos.
@@ -92,3 +92,11 @@ https://www.caoccao.com/Javet/reference/resource_management/modularization.html
 
 
 npx esbuild /home/rfranr/source/01-rfranr/resume/2026/resume/dist/server/assets/test.js   --bundle   --platform=node   --format=cjs   --outfile=output.js
+
+
+./gradlew :rendering-module:run
+
+
+# todo: with gradle node
+https://www.graalvm.org/latest/reference-manual/js/NodeJS/
+

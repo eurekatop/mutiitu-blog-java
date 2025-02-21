@@ -33,4 +33,8 @@ app/rendering-module/build/*
 app/rendering-module/bin/*
 **/.gradle/*
 **/node_modules/*
+**/.settings/*
+**/.project
+**/.classpath
+**/.factorypath
 #app/.gradle/*

@@ -12,19 +12,20 @@ import com.caoccao.javet.interop.NodeRuntime;
 
 
 public class SingleScriptRendererJavedWithParams {
+ 
 
-    Dictionary<String, String> slots;
+    Dictionary<String, SlotRecord> slots;
     public SingleScriptRendererJavedWithParams() {
-        this.slots = new Hashtable<String, String>();
+        this.slots = new Hashtable<String, SlotRecord>();
+
         double randomValue = Math.random();
-        
         String formattedValue = String.format("%.20f", randomValue);
-        this.slots.put("0", "slot 0" + formattedValue);
-        this.slots.put("1", "slot 1" + formattedValue);
-        this.slots.put("2", "slot 2" + formattedValue );
-        this.slots.put("3", "slot 3" + formattedValue );
+        this.slots.put("0",new SlotRecord(0, "slot 0" + formattedValue));
+        this.slots.put("1",new SlotRecord(0, "slot 0" + formattedValue));
+        this.slots.put("2",new SlotRecord(0, "slot 0" + formattedValue));
+        this.slots.put("3",new SlotRecord(0, "slot 0" + formattedValue));
     }
-    public String getSlot (String key) {
+    public SlotRecord getSlot (String key) {
         return this.slots.get(key);
     }
 
@@ -47,14 +48,16 @@ public class SingleScriptRendererJavedWithParams {
             //nodeRuntime.getExecutor("let java = javet.package.java").executeVoid();
             nodeRuntime.getExecutor("let mu = javet.package.com.mutiitu.renderer").executeVoid();
 
-            for (int i = 0; i < 1000000.0f; i++) {
+            for (int i = 0; i < 10.0f; i++) {
                 String slotKey = String.valueOf(i);
                 String jsCode = """
                     if ( globalThis.mu == undefined ) {
                         globalThis.mu = new mu.SingleScriptRendererJavedWithParams(); 
+                        var muKey;
                     }
-                    console.log ( {slotKey} % 4 )
-                    globalThis.mu.getSlot(({slotKey} % 4) + "");
+                    muKey = ({slotKey} % 4) + "";
+                    
+                    globalThis.mu.getSlot(muKey);
                 
                     // new mu.SingleScriptRendererJavedWithParams().getSlot( '{slotKey}');
                 """;
