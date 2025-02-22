@@ -1,4 +1,4 @@
-package com.mutiitu.dao;
+package com.mutiitu.core;
 
 import java.util.concurrent.CompletableFuture;
 

@@ -30,17 +30,26 @@ public class Home2Controller extends JavalinController {
         logger.info("Que me dices? tu" + param1 + " " + param2);
 
         // get blogs from service
-        var blogs = blogEntryService.GetAllBlogPartial();
+        //var blogs = blogEntryService.GetAllBlogPartial();
 
         // get blogs from service
-        var blogs1 = blogEntryService.GetAllBlogJooq();
-        for (var blog1 : blogs1) {
-            logger.info("Blog: " + blog1.getTitle());
-        }
+        //var blogs1 = blogEntryService.GetAllBlogJooq();
+        //for (var blog1 : blogs1) {
+        //    logger.info("Blog: " + blog1.getTitle());
+        //}
+//
+        //var blogs2 = blogEntryService.GetAllBlogPartialJooq();
+        //for (var blog1 : blogs2) {
+        //    logger.info("Blog partial: " + blog1.title);
+        //}
 
+        var blogs3 = blogEntryService.GetAllBlogPartialByDto();
+        for (var blog1 : blogs3) {
+            logger.info("Blog partial 2: " + blog1.title);
+        }
         var r = "";
 
-        for (var blog : blogs) {
+        for (var blog : blogs3) {
             r += blog.id+ " ";
             r += blog.resume+ " ";
             r += blog.subtitle+ " ";

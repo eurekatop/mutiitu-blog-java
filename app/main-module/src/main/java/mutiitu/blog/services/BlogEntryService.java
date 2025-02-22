@@ -1,13 +1,18 @@
 package mutiitu.blog.services;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
 import com.mutiitu.dao.BlogEntryDao;
-import com.mutiitu.dao.BlogEntryDao.BlogEntryPartialDto;
 import com.mutiitu.domain.BlogEntryModel;
+import com.mutiitu.domain.BlogEntryModel_;
+
+import mutiitu.blog.models.dto.BlogEntryPartialDto;
 
 //TODO: this is a repository
 public class BlogEntryService {
@@ -30,12 +35,38 @@ public class BlogEntryService {
     }
 
     public List<BlogEntryPartialDto> GetAllBlogPartial() {
-        return BlogEntryDao.getBlogsPartial(200);
+        //return BlogEntryDao.getBlogsPartial(200);
+        return null;
     }
 
     public List<BlogEntryModel> GetAllBlogJooq() {
         return BlogEntryDao.getBlogsJooq(200);
     }
+
+    public List<BlogEntryPartialDto> GetAllBlogPartialJooq() {
+        //return BlogEntryDao.getBlogsJooqPartial(200);
+        return null;
+    }
+
+    public List<BlogEntryPartialDto> GetAllBlogPartialByDto()  {
+        var entity = new BlogEntryModel_();
+        List<String> fieldsToSelect = Arrays.asList(
+            entity.id.getName(),
+            entity.title.getName(),
+            entity.resume.getName()
+            //entity.subtitle.getName()
+        );
+
+
+        //3
+        var daat3 = BlogEntryDao.getPartialDynamic(200, fieldsToSelect, BlogEntryPartialDto.class);
+        return daat3;
+        // 2
+        //var data2  =  BlogEntryDao.getBlogsJooqPartialDynamicDto(200,fieldsToSelect, BlogEntryPartialDto.class);
+        //return data2;
+
+    }
+
 
 
 

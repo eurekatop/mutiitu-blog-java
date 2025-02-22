@@ -1,7 +1,7 @@
 package com.mutiitu.dao.cms;
 
 import com.google.inject.Inject;
-import com.mutiitu.dao.ModelCrudDaoImpl;
+import com.mutiitu.core.ModelCrudDaoImpl;
 import com.mutiitu.domain.cms.CmsEntryModel;
 import com.mutiitu.domain.cms.CmsEntryModel_;
 import com.mutiitu.persistence.SQLiteDB;

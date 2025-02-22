@@ -10,6 +10,7 @@
             "name": "Attach by Process ID",
             "hostName": "localhost",
             "port": 8081,
+            "projectName": "main-module"
         },
         {
             "type": "java",

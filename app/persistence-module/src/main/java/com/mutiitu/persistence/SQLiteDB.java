@@ -96,8 +96,8 @@ public class SQLiteDB implements Config {
                 dataSource.getLocalTransaction(getJdbcLogger(), TransactionIsolationLevel.READ_UNCOMMITTED));
 
         // JOOQ
-         dslContext = DSL.using(hikariDataSource, SQLDialect.MARIADB);
-        
+         dslContext = DSL.using(hikariDataSource, SQLDialect.MYSQL);
+         dslContext.settings().setMapConstructorParameterNames(true);
 
         logger.info(Thread.currentThread().toString());
         logger.info("################## SQLiteDB() !!!!!!!!!! CREATED " + uuid);

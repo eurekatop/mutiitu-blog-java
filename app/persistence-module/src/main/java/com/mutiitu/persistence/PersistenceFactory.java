@@ -3,8 +3,8 @@ package com.mutiitu.persistence;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.mutiitu.dao.ModelCrudDao;
-import com.mutiitu.dao.ModelCrudDaoImpl;
+import com.mutiitu.core.ModelCrudDao;
+import com.mutiitu.core.ModelCrudDaoImpl;
 import com.mutiitu.domain.AuthorModel;
 import com.mutiitu.domain.AuthorModel_;
 import com.mutiitu.domain.BlogEntryModel;

@@ -1,6 +1,7 @@
 package com.mutiitu.dao;
 
 import com.google.inject.Inject;
+import com.mutiitu.core.ModelCrudDaoImpl;
 import com.mutiitu.domain.AuthorModel;
 import com.mutiitu.domain.AuthorModel_;
 import com.mutiitu.persistence.SQLiteDB;
