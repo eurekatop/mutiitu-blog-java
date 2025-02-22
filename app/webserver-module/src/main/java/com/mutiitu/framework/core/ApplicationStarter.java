@@ -53,15 +53,39 @@ public class ApplicationStarter {
             var isHttpVerb = method.isAnnotationPresent(com.mutiitu.framework.core.annotations.Method.class);
             String httpVerb; // TODO: refactor enum
             var path = method.getAnnotation(Path.class);
+            
             var route = path.Value();
+            // /home2/:param1/:param2
+
+
+            if ( route.contains(":" )){
+                var parts = path.Value().split("/");
+                var _route = "";
+                int param = 0;
+                for (String part : parts) {
+                    if (part.startsWith(":")) {
+                        //_route = _route + "/<" + part.substring(1) + ">";
+                        _route = _route + "/<" + "arg" + param + ">";
+                        param++;
+                    } else {
+                        if (part.isEmpty()) {
+                            continue;
+                        }
+                        _route = _route + "/" + part;
+                    }
+                }
+                route = _route;
+            }
+            else {
+                // get params
+                var parameters = method.getParameters();
+                for (Parameter parameter : parameters) {
+                    route = route + "/<" + parameter.getName() + ">";
+                }
+            }
+
 
             var handler = new JavalinHandler(method, injector);
-
-            // get params
-            var parameters = method.getParameters();
-            for (Parameter parameter : parameters) {
-                route = route + "/<" + parameter.getName() + ">";
-            }
 
             logger.info("Route added value:" + route);
 

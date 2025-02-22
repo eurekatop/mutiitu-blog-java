@@ -38,7 +38,6 @@
 						<a href="/resume" class="icon solid fa-id-card"><span>Curriculum</span></a>
 						<a href="#articles" class="icon solid fa-folder-open"><span>Artículos</span></a>
 						<a href="#contact" class="icon solid fa-envelope"><span>Contacto</span></a>
-						<!-- a href="https://twitter.com/ajlkn" class="icon brands fa-twitter"><span>Twitter</span></a -->
 					</nav>
 
 				<!-- Main -->
@@ -52,7 +51,6 @@
 								</header>
 								<a href="#work" class="jumplink pic" style="background-color: black;">
 									<span id="jumplink_01" class="arrow icon solid fa-chevron-right"><span>See my work</span></span>
-									<!-- img src="/layouts/home/images/me.jpg" alt="" / -->
 									<div id="div_iframe_01">
 										<iframe id="iframe_01" scrolling="no" src="/layouts/home/ascii-art/public"></iframe>
 									</div>
@@ -66,72 +64,10 @@
 									{% for blog in blogs %}
 										<my-card url="/articles/{{blog.id}}" title="{{blog.title}}" subtitle="{{blog.subtitle}}" content="card.content"></my-card>
 									{% endfor %}
-									<!-- ul class="copyright">
-										<li>&copy; Untitled.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-									</ul -->
 								</div>								
-								<!-- section>
-									<div class="row">
-										<div class="col-4 col-6-medium col-12-small">
-											<a href="#" class="image fit"><img src="/layouts/home/images/pic01.jpg" alt=""></a>
-										</div>
-									</div>
-								</section -->
 							</header>
 						</article>
 
-						<!--
-							<article id="work" class="panel">
-								<header>
-									<h2>Work</h2>
-								</header>
-								<p>
-									Phasellus enim sapien, blandit ullamcorper elementum eu, condimentum eu elit.
-									Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
-									luctus elit eget interdum.
-								</p>
-								<section>
-									<div class="row">
-										<div class="col-4 col-6-medium col-12-small">
-											<a href="#" class="image fit"><img src="/layouts/home/images/pic01.jpg" alt=""></a>
-										</div>
-										<div class="col-4 col-6-medium col-12-small">
-											<a href="#" class="image fit"><img src="/layouts/home/images/pic02.jpg" alt=""></a>
-										</div>
-										<div class="col-4 col-6-medium col-12-small">
-											<a href="#" class="image fit"><img src="/layouts/home/images/pic03.jpg" alt=""></a>
-										</div>
-										<div class="col-4 col-6-medium col-12-small">
-											<a href="#" class="image fit"><img src="/layouts/home/images/pic04.jpg" alt=""></a>
-										</div>
-										<div class="col-4 col-6-medium col-12-small">
-											<a href="#" class="image fit"><img src="/layouts/home/images/pic05.jpg" alt=""></a>
-										</div>
-										<div class="col-4 col-6-medium col-12-small">
-											<a href="#" class="image fit"><img src="/layouts/home/images/pic06.jpg" alt=""></a>
-										</div>
-										<div class="col-4 col-6-medium col-12-small">
-											<a href="#" class="image fit"><img src="/layouts/home/images/pic07.jpg" alt=""></a>
-										</div>
-										<div class="col-4 col-6-medium col-12-small">
-											<a href="#" class="image fit"><img src="/layouts/home/images/pic08.jpg" alt=""></a>
-										</div>
-										<div class="col-4 col-6-medium col-12-small">
-											<a href="#" class="image fit"><img src="/layouts/home/images/pic09.jpg" alt=""></a>
-										</div>
-										<div class="col-4 col-6-medium col-12-small">
-											<a href="#" class="image fit"><img src="/layouts/home/images/pic10.jpg" alt=""></a>
-										</div>
-										<div class="col-4 col-6-medium col-12-small">
-											<a href="#" class="image fit"><img src="/layouts/home/images/pic11.jpg" alt=""></a>
-										</div>
-										<div class="col-4 col-6-medium col-12-small">
-											<a href="#" class="image fit"><img src="/layouts/home/images/pic12.jpg" alt=""></a>
-										</div>
-									</div>
-								</section>
-							</article>
-						-->
 						<!-- Contact -->
 						<article id="contact" class="panel">
 								<header>
@@ -169,11 +105,7 @@
 					{% for blog in blogs %}
 						<my-card url="/articles/{{blog.id}}" title="{{blog.title}}" subtitle="{{blog.subtitle}}" content="" image-url="{{blog.image}}/resize/200/200"></my-card>
 					{% endfor %}
-					<!-- ul class="copyright">
-						<li>&copy; Untitled.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-					</ul -->
 				</div>
-
 			</div>
 
 

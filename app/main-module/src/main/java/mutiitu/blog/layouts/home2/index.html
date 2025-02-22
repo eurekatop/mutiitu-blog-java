@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="msvalidate.01" content="72F79C2A1E9BFCF2EEF36190A175AC53" />
+	<meta name="yandex-verification" content="e95298d4f88a7a5d" />
+</head>
+
+<body class="is-preload" style="background-color: #f0f0f0;	">
+	<div style="display:flex;flex-direction: column; width:100%;flex-wrap: wrap; justify-content: center;">
+		{% for blog in blogs %}
+			<a href="/articles/{{blog.id}}" title="{{blog.title}}">
+				{{blog.subtitle}}
+			</a> 
+		{% endfor %}
+	</div>
+</body>
+</html>

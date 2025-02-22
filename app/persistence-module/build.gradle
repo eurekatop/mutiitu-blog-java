@@ -22,7 +22,7 @@ repositories {
 
 
 dependencies {
-    //ORM
+    //ORM doma
     annotationProcessor("org.seasar.doma:doma-processor:3.3.0")
     implementation("org.seasar.doma:doma-core:3.3.0")
     
@@ -30,7 +30,11 @@ dependencies {
     implementation("com.h2database:h2:2.2.220")
     implementation("mysql:mysql-connector-java:8.0.33")
     implementation 'org.mariadb.jdbc:mariadb-java-client:3.2.0'
-                    
+
+    // jooq
+    implementation 'org.jooq:jooq:3.18.5'
+    implementation 'org.jooq:jooq-meta:3.18.5'
+
     // pool
     implementation 'com.zaxxer:HikariCP:5.0.1'
 
@@ -48,6 +52,7 @@ dependencies {
 
     // serialization
     implementation 'com.google.code.gson:gson:2.10.1'
+
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

@@ -12,6 +12,7 @@ import org.seasar.doma.jdbc.criteria.metamodel.EntityMetamodel;
 import org.seasar.doma.jdbc.criteria.metamodel.PropertyMetamodel;
 import org.seasar.doma.jdbc.tx.LocalTransactionManager;
 import org.slf4j.LoggerFactory;
+import org.jooq.DSLContext;
 import org.seasar.doma.jdbc.criteria.QueryDsl;
 
 
@@ -24,6 +25,7 @@ public class ModelCrudDaoImpl<T extends BaseModel, T1 extends EntityMetamodel<T>
     SQLiteDB SQLiteDB;
 
     protected QueryDsl queryDsl;
+    protected DSLContext dslContext;
 
     protected LocalTransactionManager tx;
     protected T1 entityModel;
@@ -33,6 +35,9 @@ public class ModelCrudDaoImpl<T extends BaseModel, T1 extends EntityMetamodel<T>
         this.entityModel = entityModel;
         this.SQLiteDB = SQLiteDB;
         this.queryDsl = new QueryDsl(SQLiteDB);
+
+        this.dslContext = SQLiteDB.getDslContext();
+
     }
 
     public ModelCrudDaoImpl(T1 entityModel) {

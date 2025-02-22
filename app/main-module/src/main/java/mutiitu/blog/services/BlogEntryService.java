@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
 import com.mutiitu.dao.BlogEntryDao;
+import com.mutiitu.dao.BlogEntryDao.BlogEntryPartialDto;
 import com.mutiitu.domain.BlogEntryModel;
 
 //TODO: this is a repository
@@ -27,6 +28,16 @@ public class BlogEntryService {
     public List<Integer> GetAllBlogIds() {
         return BlogEntryDao.getIds();
     }
+
+    public List<BlogEntryPartialDto> GetAllBlogPartial() {
+        return BlogEntryDao.getBlogsPartial(200);
+    }
+
+    public List<BlogEntryModel> GetAllBlogJooq() {
+        return BlogEntryDao.getBlogsJooq(200);
+    }
+
+
 
     public List<BlogEntryModel> GetBlogs(int count) {
         return BlogEntryDao.getBlogs(count);

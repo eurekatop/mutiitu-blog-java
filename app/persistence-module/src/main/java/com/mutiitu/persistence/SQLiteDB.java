@@ -3,6 +3,10 @@ package com.mutiitu.persistence;
 import java.sql.SQLException;
 import java.util.UUID;
 import javax.sql.DataSource;
+
+import org.jooq.DSLContext;
+import org.jooq.SQLDialect;
+import org.jooq.impl.DSL;
 import org.seasar.doma.jdbc.Config;
 import org.seasar.doma.jdbc.dialect.Dialect;
 import org.seasar.doma.jdbc.dialect.MysqlDialect;
@@ -25,9 +29,9 @@ public class SQLiteDB implements Config {
     static HikariDataSource hikariDataSource;
 
     private final LocalTransactionDataSource dataSource;
-    // private final MTLocalTransactionDataSource dataSource;
-
     private final LocalTransactionManager transactionManager;
+
+    private final DSLContext dslContext;
 
     public SQLiteDB() {
         dialect = new MysqlDialect();
@@ -86,10 +90,14 @@ public class SQLiteDB implements Config {
 
         }
 
+        // DOMA
         dataSource = new LocalTransactionDataSource(SQLiteDB.hikariDataSource);
-
         transactionManager = new LocalTransactionManager(
                 dataSource.getLocalTransaction(getJdbcLogger(), TransactionIsolationLevel.READ_UNCOMMITTED));
+
+        // JOOQ
+         dslContext = DSL.using(hikariDataSource, SQLDialect.MARIADB);
+        
 
         logger.info(Thread.currentThread().toString());
         logger.info("################## SQLiteDB() !!!!!!!!!! CREATED " + uuid);
@@ -112,6 +120,10 @@ public class SQLiteDB implements Config {
 
     public LocalTransactionManager getTransactionManager() {
         return transactionManager;
+    }
+
+    public DSLContext getDslContext() {
+        return dslContext;
     }
 
 }

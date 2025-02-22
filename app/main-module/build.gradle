@@ -22,8 +22,9 @@ plugins {
 }
 
 node {
-    version = '14.16.0'  // Define la versión de Node.js que deseas utilizar
-    npmVersion = '6.14.0'  // Define la versión de npm que deseas utilizar
+    download = false
+    version = '22.14.0'  
+    npmVersion = '10.9.2' 
 }
 
 repositories {
@@ -36,7 +37,6 @@ dependencies {
     // Use JUnit test framework.
     testImplementation 'junit:junit:4.13.2'
 
-    // This dependency is used by the application.
     implementation 'com.google.guava:guava:32.1.1-jre'
 
     implementation 'io.javalin:javalin:5.6.2'
