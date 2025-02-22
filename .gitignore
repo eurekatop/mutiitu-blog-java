@@ -37,4 +37,5 @@ app/rendering-module/bin/*
 **/.project
 **/.classpath
 **/.factorypath
+/secrets.sh
 #app/.gradle/*

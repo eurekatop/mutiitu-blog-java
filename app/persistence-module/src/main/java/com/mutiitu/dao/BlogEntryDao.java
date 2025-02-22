@@ -17,7 +17,7 @@ import com.mutiitu.core.ModelCrudDaoImpl;
 import com.mutiitu.domain.AuthorModel_;
 import com.mutiitu.domain.BlogEntryModel;
 import com.mutiitu.domain.BlogEntryModel_;
-import com.mutiitu.persistence.SQLiteDB;
+import com.mutiitu.persistence.DatabaseConfig;
 
 import lombok.Data;
 import lombok.Getter;
@@ -45,7 +45,7 @@ public class BlogEntryDao extends ModelCrudDaoImpl<BlogEntryModel, BlogEntryMode
 
 
     @Inject
-    public BlogEntryDao(SQLiteDB SQLiteDB) {
+    public BlogEntryDao(DatabaseConfig SQLiteDB) {
         super(new BlogEntryModel_(), new BlogEntryModel(), SQLiteDB);
     }
 

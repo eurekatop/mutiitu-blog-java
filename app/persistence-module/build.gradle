@@ -54,6 +54,9 @@ dependencies {
     // serialization
     implementation 'com.google.code.gson:gson:2.10.1'
 
+    // reflection
+    implementation 'org.reflections:reflections:0.10.2'
+
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

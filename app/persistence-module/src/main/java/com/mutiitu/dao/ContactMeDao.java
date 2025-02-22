@@ -5,13 +5,13 @@ import com.google.inject.Inject;
 import com.mutiitu.core.ModelCrudDaoImpl;
 import com.mutiitu.domain.ContactMeModel;
 import com.mutiitu.domain.ContactMeModel_;
-import com.mutiitu.persistence.SQLiteDB;
+import com.mutiitu.persistence.DatabaseConfig;
 
 public class ContactMeDao extends ModelCrudDaoImpl<ContactMeModel, ContactMeModel_> {
     // private final org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
 
     @Inject
-    public ContactMeDao(SQLiteDB SQLiteDB) {
+    public ContactMeDao(DatabaseConfig SQLiteDB) {
         super(new ContactMeModel_(), SQLiteDB);
     }
 

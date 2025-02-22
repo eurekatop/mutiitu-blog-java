@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.slf4j.LoggerFactory;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -67,20 +69,41 @@ public class AdminController extends JavalinController {
     @Method(Value = "POST")
     @Path(Value = "/admin/login")
     public HttpResponse loginPost() {
-        // TODO: ALL
-        // if (!ctx.req().isRequestedSessionIdValid()) {
-        //     ctx.req().changeSessionId();
-        // }
+        // TODO: 
+        // Session Fixation Vulnerability
+        //if (!ctx.req().isRequestedSessionIdValid()) {
+        //    ctx.req().changeSessionId();
+        //}
 
+        String _password = System.getenv("ADMIN_PASSWORD");
+        String _email = System.getenv("ADMIN_EMAIL");
+        String _key = System.getenv("ADMIN_KEY");
         var email = ctx.formParam("email");
         var password = ctx.formParam("password");
-        if ("admin@admin.local".equals(email) && "XWAJ3dFEwM3Nxtd".equals(password)) {
+
+        //TODO:
+        // BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), _passwordHashFromEnv);
+        // if (result.verified) { ... }
+        // Exposure of Credentials via Environment Variables
+        // No Rate Limiting or Brute Force Protection
+        // Lack of Input Validation
+
+
+        if (email.equals(_email) && _password.equals(password)) {
             ctx.header("HX-Redirect", "/admin");
 
-            var value = String.format("u:%s-p:%s-r:$s", email, "admin");
-            var key = "mysuperkey";
-            var hash = "d" + value + key;
-            var cookie1 = String.format("mmu_hash=%s; path=/; HttpOnly; Secure;SameSite=Lax", hash);
+            //var value = String.format("u:%s-p:%s-r:$s", email, "admin");
+            //var key = _key;
+            //var hash = "d" + value + key;
+            //var cookie1 = String.format("mmu_hash=%s; path=/; HttpOnly; Secure;SameSite=Lax", hash);
+
+            String token = JWT.create()
+            .withSubject(email)
+            .withClaim("role", "admin")
+            .sign(Algorithm.HMAC256(_key));
+            var cookie1 = String.format("mmu_hash=%s; path=/; HttpOnly; Secure;SameSite=Lax", token);
+
+
             ctx.header("Set-cookie", cookie1);
             ctx.cookie("_Host-mu", "oo", 100);
 

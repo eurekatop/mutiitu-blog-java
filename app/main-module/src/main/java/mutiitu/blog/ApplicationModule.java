@@ -22,15 +22,18 @@ import mutiitu.blog.services.TestService;
 
 import com.mutiitu.di.PersistenceModule;
 import com.mutiitu.framework.core.di.CoreModule;
-import com.mutiitu.persistence.SQLiteDB;
+import com.mutiitu.persistence.DatabaseConfig;
 
 public class ApplicationModule extends AbstractModule {
     @Override
     protected void configure() {
         super.configure();
 
+        // TODO: discover with anotation
+
+
         // TODO: refactor
-        var dataSource = new SQLiteDB().getPoolDataSource();
+        var dataSource = new DatabaseConfig().getPoolDataSource();
 
         install(new CoreModule(dataSource));
         install(new PersistenceModule());
@@ -53,16 +56,6 @@ public class ApplicationModule extends AbstractModule {
         bind(ConfigPageComponent.class);
         bind(NewEntryPageComponent.class);
         bind(AuthorFormPageComponent.class);
-
-        // bind(TestService.class).in(Scopes.SINGLETON);
-
-        // TODO: discover with anotation
-        // bind(Router.class).to(BlogController.class);
-        // bind(HelloWorldRouter.class).toInstance(new HelloWorldRouter(null));
-
-        // add template components...... maybe discover with annotations.....
-        // UIComponentFactory.AddComponent("Header3", new Header3() );
-        // UIComponentFactory.AddComponent("HomePage", new HomePage() );
 
         // TODO: automatic binding application services
         bind(TestService.class).in(PersistenceModule.SQLiteDBScope);

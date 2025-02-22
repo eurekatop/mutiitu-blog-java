@@ -3,7 +3,7 @@ package com.mutiitu.dao;
 import com.google.inject.Inject;
 import com.mutiitu.dao.impl.EmpoyeeDaoImpl;
 import com.mutiitu.dao.impl.MigrateDaoImpl;
-import com.mutiitu.persistence.SQLiteDB;
+import com.mutiitu.persistence.DatabaseConfig;
 
 public class MigrateDatabaseImpl implements MigrateDatabase {
 
@@ -11,7 +11,7 @@ public class MigrateDatabaseImpl implements MigrateDatabase {
     }
 
     @Inject
-    SQLiteDB SQLiteDB;
+    DatabaseConfig SQLiteDB;
 
     // @Inject
     // MigrateDao migrateDao;

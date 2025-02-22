@@ -27,26 +27,15 @@ public class ApplicationStarter {
         this.injector = injector;
     }
 
-    public void searchForControllerAnnotatedClasses() {
+    public void searchForControllerAnnotatedClasses(String packageName) {
         var reflections = new Reflections(new ConfigurationBuilder()
-                .forPackage("mutiitu.blog.controllers") // TODO: refactor
+                .forPackage(packageName) // TODO: refactor
                 .setScanners(
                         Scanners.TypesAnnotated,
                         Scanners.MethodsAnnotated));
 
         var controllers = reflections.getTypesAnnotatedWith(Controller.class);
         var paths = reflections.getMethodsAnnotatedWith(Path.class);
-
-        // TODO: refactor
-        // System.out.println("-- Controllers: -----------------------------");
-        // for (Class<?> c : controllers) {
-        // System.out.println(c);
-        // var instance = injector.getInstance(c);
-        // if ( "HelloWorldRouter".equals(c.getSimpleName()) ){
-        // HelloWorldRouter a = (HelloWorldRouter) instance;
-        // a.aa();
-        // }
-        // }
 
         System.out.println("-- Methods: -----------------------------");
         for (Method method : paths) {
@@ -56,7 +45,6 @@ public class ApplicationStarter {
             
             var route = path.Value();
             // /home2/:param1/:param2
-
 
             if ( route.contains(":" )){
                 var parts = path.Value().split("/");
@@ -121,7 +109,7 @@ public class ApplicationStarter {
 
 
         // Search for controllers and register routes
-        searchForControllerAnnotatedClasses();
+        searchForControllerAnnotatedClasses("mutiitu.blog.controllers");
 
         // Setup Guice filter (handled via the GuicePlugin)
         javalin.before("/*", ctx -> {

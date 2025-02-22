@@ -4,14 +4,13 @@ import com.google.inject.Key;
 import com.google.inject.Provider;
 import com.google.inject.Scope;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 
 // TODO : BY REQUEST
-public class SQLiteDBScope implements Scope {
+public class ThreadLocalScope implements Scope {
     private final org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
 
     private final ThreadLocal<Map<Key<?>, Object>> storage = ThreadLocal.withInitial(HashMap::new);

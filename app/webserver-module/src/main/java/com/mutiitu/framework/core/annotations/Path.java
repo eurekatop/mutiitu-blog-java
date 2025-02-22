@@ -13,6 +13,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Path {
-    // Puedes agregar elementos (atributos) a tu anotación si es necesario
     String Value();
 }

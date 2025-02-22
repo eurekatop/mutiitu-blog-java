@@ -2,7 +2,7 @@ package com.mutiitu.core;
 
 import com.mutiitu.domain.BlogEntryModel;
 import com.mutiitu.persistence.BaseModel;
-import com.mutiitu.persistence.SQLiteDB;
+import com.mutiitu.persistence.DatabaseConfig;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +31,7 @@ public class ModelCrudDaoImpl<T extends BaseModel, T1 extends EntityMetamodel<T>
 
     private ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL);
 
-    SQLiteDB SQLiteDB;
+    DatabaseConfig SQLiteDB;
 
     protected QueryDsl queryDsl;
     protected DSLContext dslContext;
@@ -40,7 +40,7 @@ public class ModelCrudDaoImpl<T extends BaseModel, T1 extends EntityMetamodel<T>
     protected T1 entityMetaModel;
     protected T entityModel;
 
-    public ModelCrudDaoImpl(T1 entityMetaModel, SQLiteDB SQLiteDB) {
+    public ModelCrudDaoImpl(T1 entityMetaModel, DatabaseConfig SQLiteDB) {
         tx = SQLiteDB.getTransactionManager();
         this.entityMetaModel = entityMetaModel;
         this.SQLiteDB = SQLiteDB;
@@ -48,7 +48,7 @@ public class ModelCrudDaoImpl<T extends BaseModel, T1 extends EntityMetamodel<T>
         this.dslContext = SQLiteDB.getDslContext();
     }
 
-    public ModelCrudDaoImpl(T1 entityMetaModel, T entityModel, SQLiteDB SQLiteDB) {
+    public ModelCrudDaoImpl(T1 entityMetaModel, T entityModel, DatabaseConfig SQLiteDB) {
         tx = SQLiteDB.getTransactionManager();
         this.entityMetaModel = entityMetaModel;
         this.entityModel = entityModel;

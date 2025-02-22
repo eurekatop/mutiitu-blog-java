@@ -1,9 +1,7 @@
 package com.mutiitu.persistence;
 
-import java.sql.SQLException;
 import java.util.UUID;
 import javax.sql.DataSource;
-
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
@@ -19,7 +17,7 @@ import com.google.inject.Singleton;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Singleton
-public class SQLiteDB implements Config {
+public class DatabaseConfig implements Config {
     private final org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
 
     private final UUID uuid = UUID.randomUUID();
@@ -33,65 +31,39 @@ public class SQLiteDB implements Config {
 
     private final DSLContext dslContext;
 
-    public SQLiteDB() {
+    public DatabaseConfig() {
         dialect = new MysqlDialect();
 
-        // dataSource = new LocalTransactionDataSource(
-        // "jdbc:mariadb://mariadb:3306/test_mu", "root", "mypassword");
-
-        if (SQLiteDB.hikariDataSource == null) {
-            SQLiteDB.hikariDataSource = new HikariDataSource();
-            // SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://mariadb:3306/test_mu");
-            
-            // inside muttitu 
-            // SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://10.0.0.2:3306/test_mu");
-
-            
+        if (DatabaseConfig.hikariDataSource == null) {
+            DatabaseConfig.hikariDataSource = new HikariDataSource();
             
             // Get database URL from environment variable, defaulting to a fallback value if not set
-            String jdbcUrl = System.getenv("DB_URL");
+            String jdbcUrl = System.getenv("JDBC_URL");
             if (jdbcUrl == null || jdbcUrl.isEmpty()) {
                 jdbcUrl = "jdbc:mariadb://localhost:3306/test_mu";
             }
-            SQLiteDB.hikariDataSource.setJdbcUrl(jdbcUrl);          
+            DatabaseConfig.hikariDataSource.setJdbcUrl(jdbcUrl);          
             
             // Get database username from environment variable, defaulting to a fallback value if not set
             String username = System.getenv("DB_USERNAME");
             if (username == null || username.isEmpty()) {
-                username = "root";
+                username = "xxxxxxxxxxxxxxxx";
             }
-            SQLiteDB.hikariDataSource.setUsername(username);
+            DatabaseConfig.hikariDataSource.setUsername(username);
 
             // Get database password from environment variable, defaulting to a fallback value if not set
             String password = System.getenv("DB_PASSWORD");
             if (password == null || password.isEmpty()) {
-                password = "lampara.magica";
+                password = "xxxxxxxxxx.xxxxxxxxxxx";
             }
-            SQLiteDB.hikariDataSource.setPassword(password);
+            DatabaseConfig.hikariDataSource.setPassword(password);
             
-            ////SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://localhost:3306/test_mu");
-
-            // inside docker
-            SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://172.26.208.1:3306/test_mu"); 
-
-            // inside local host
-            SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://192.168.1.134:3306/test_mu"); 
-
-
-            //SQLiteDB.hikariDataSource.setUsername("root");
-            //SQLiteDB.hikariDataSource.setPassword("lampara.magica");
-
-            // inside local host
-            SQLiteDB.hikariDataSource.setJdbcUrl("jdbc:mariadb://192.168.1.134:3306/test_mu"); 
-
-
-
-            SQLiteDB.hikariDataSource.setMaximumPoolSize(20);
+            DatabaseConfig.hikariDataSource.setMaximumPoolSize(20);
 
         }
 
         // DOMA
-        dataSource = new LocalTransactionDataSource(SQLiteDB.hikariDataSource);
+        dataSource = new LocalTransactionDataSource(DatabaseConfig.hikariDataSource);
         transactionManager = new LocalTransactionManager(
                 dataSource.getLocalTransaction(getJdbcLogger(), TransactionIsolationLevel.READ_UNCOMMITTED));
 
@@ -100,7 +72,7 @@ public class SQLiteDB implements Config {
          dslContext.settings().setMapConstructorParameterNames(true);
 
         logger.info(Thread.currentThread().toString());
-        logger.info("################## SQLiteDB() !!!!!!!!!! CREATED " + uuid);
+        logger.info("################## DB !!!!!!!!!! " + uuid);
 
     }
 
@@ -115,7 +87,7 @@ public class SQLiteDB implements Config {
     }
 
     public DataSource getPoolDataSource() {
-        return SQLiteDB.hikariDataSource;
+        return DatabaseConfig.hikariDataSource;
     }
 
     public LocalTransactionManager getTransactionManager() {
