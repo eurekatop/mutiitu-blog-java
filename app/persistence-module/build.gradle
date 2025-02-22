@@ -1,10 +1,9 @@
 plugins {
     id 'java'
     //id "org.domaframework.doma.compile" version "2.0.0" apply true
-    id("org.domaframework.doma.compile") version "3.0.1"
+    id("org.domaframework.doma.compile") version "3.0.1" apply true
 
-    id "io.freefair.lombok" version "8.2.2"
-
+    id "io.freefair.lombok" version "8.12.1"
 }
 
 
@@ -13,6 +12,8 @@ compileJava {
     options.debug = true /// todo
     exclude 'app/spa/*'
 }
+
+
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -57,14 +58,10 @@ dependencies {
 
 // Apply a specific Java toolchain to ease working on different environments.
 java {
-    sourceCompatibility = "20"
-    targetCompatibility = "20"
+    sourceCompatibility = "21"
+    targetCompatibility = "21"
     
     toolchain {
-        languageVersion = JavaLanguageVersion.of(20)
+        languageVersion = JavaLanguageVersion.of(21)
     }
-}
-
-
-dependencies {
 }
