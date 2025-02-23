@@ -1,38 +1,18 @@
 package com.mutiitu.dao;
 
-import java.util.function.Function;
-
 import org.jooq.impl.DSL;
-import org.seasar.doma.jdbc.criteria.metamodel.EntityMetamodel;
-import org.seasar.doma.jdbc.criteria.query.SelectBuilder;
-import org.seasar.doma.jdbc.criteria.tuple.Row;
-import org.seasar.doma.jdbc.entity.EntityType;
-import org.seasar.doma.jdbc.entity.Property;
 import org.slf4j.LoggerFactory;
 import com.google.inject.Inject;
 import com.mutiitu.core.FieldMetadata;
 import com.mutiitu.core.FieldMetadataReader;
-import com.mutiitu.core.FieldSelector;
 import com.mutiitu.core.ModelCrudDaoImpl;
 import com.mutiitu.domain.AuthorModel_;
 import com.mutiitu.domain.BlogEntryModel;
 import com.mutiitu.domain.BlogEntryModel_;
 import com.mutiitu.persistence.DatabaseConfig;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
 //
-
 import org.jooq.*;
-import org.jooq.Record;
-import org.jooq.impl.DSL;
-
-import java.io.Serial;
-import java.io.Serializable;
-import java.lang.invoke.SerializedLambda;
-import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.Collectors;
 

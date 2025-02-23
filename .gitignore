@@ -38,4 +38,5 @@ app/rendering-module/bin/*
 **/.classpath
 **/.factorypath
 /secrets.sh
+/todo.txt
 #app/.gradle/*
