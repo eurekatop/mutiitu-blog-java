@@ -46,6 +46,7 @@ public class Home2Layout {
 
             List<BlogEntryInputDto> blogs = GetBlogs();
             context.put("blogs", blogs);
+            
 
             Writer writer = new StringWriter();
             compiledTemplate.evaluate(writer, context);

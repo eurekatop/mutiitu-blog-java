@@ -25,7 +25,6 @@ import mutiitu.blog.services.BlogEntryService;
 
 import com.mutiitu.annotations.Transactional;
 import com.mutiitu.dao.MigrateDatabase;
-import com.mutiitu.domain.BlogEntryModel;
 import com.mutiitu.framework.core.JavalinController;
 import com.mutiitu.framework.core.annotations.Controller;
 import com.mutiitu.framework.core.annotations.Method;

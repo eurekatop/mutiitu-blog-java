@@ -42,12 +42,7 @@ public class JavalinHandler implements Handler {
             var userRole = ctx.sessionAttribute("user-role");
             var userHash = ctx.sessionAttribute("user-hash");
 
-            // ctx.sessionAttribute("current-user", email);
-            // ctx.sessionAttribute("user-role", "admin");
-            // ctx.sessionAttribute("user-hash", "hash");
-
             if (!Arrays.asList(roles).contains(userRole) || currentUser == null || userHash == null) {
-                // userRole se encuentra en la lista de roles
                 logger.error("No access {}", ctx.url());
                 throw new Exception("");
             } else {

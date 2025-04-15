@@ -1,89 +1,75 @@
-<!DOCTYPE html>
-<html>
+<script type="module">
+  import { test, parseAsciiArt, fetchJson } from "../dist/bundle.js";
 
-<head>
-  <link rel="stylesheet" type="text/css" href="index.css">
-  <!-- script src="../dist/bundle.js"></script -->
-  <script type="module">
-    import { test, parseAsciiArt, fetchJson } from "../dist/bundle.js"
+  let targetX = 0;
+  let targetY = 300;
+  let oriSourceX = 0;
+  let oriSourceY = 300;
 
-    let count = 1
-    let oriSourceX = 0;
-    let oriSourceY = 300;
-    function main(coordinates) {
+  function main(coordinates) {
+    const appEl = document.getElementById("app");
 
-      const appEl = document.getElementById("app");
-      //const x = coordinates[0] * 8 + 0;
-      //const y = coordinates[1] * 14 + 0;
-      
-      const x = coordinates[0] * 6 + 0;
-      const y = coordinates[1] * 12 + 0;
+    const x = coordinates[0] * 6;
+    const y = coordinates[1] * 12;
+    const char = coordinates[2];
 
-      const char = coordinates[2]
+    const divElement = document.createElement("div");
+    const color = `rgb(${(Math.random() * 20 % 255 + 120)},${Math.random() * 255 % 255},${(Math.random() * 10 % 150) + 100})`;
+    divElement.classList.add("tween");
+    divElement.innerText = char;
+    divElement.style.top = `${oriSourceY}px`;
+    divElement.style.left = `${oriSourceX}px`;
+    divElement.style.color = color;
+    appEl.appendChild(divElement);
+    
 
-      const divElement = document.createElement("div");
-      const color = `rgb(${(Math.random() * 20 % 255+120)},${Math.random() * 255 % 255},${(Math.random() * 10 % 150) + 100})`
-      divElement.classList.add("tween");
-      divElement.innerText = char
-      divElement.style.top = `${oriSourceY}px`
-      divElement.style.left = `${oriSourceX}px`
-      divElement.style.color = color;
-      appEl.appendChild(divElement)
+    test(divElement, { x: oriSourceX, y: oriSourceY }, { x: x, y: y }, 200);
 
-      test(divElement, { x: oriSourceX, y: oriSourceY }, { x: x, y: y }, 200);
-
-      //const destElement = document.createElement("div");
-      //destElement.classList.add("dest");
-      //destElement.style.top = `${y}px`
-      //destElement.style.left = `${x}px`
-      //destElement.innerText = char
-      //appEl.appendChild(destElement)
-
-    }
-
-    function getParameterByName(name, url) {
-      if (!url) url = window.location.href;
-      name = name.replace(/[\[\]]/g, "\\$&");
-      var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-          results = regex.exec(url);
-      if (!results) return null;
-      if (!results[2]) return '';
-      return decodeURIComponent(results[2].replace(/\+/g, " "));
-    }
-
-    window.addEventListener("mousemove", function (event) {
-      oriSourceX = event.clientX;
-      oriSourceY = event.clientY + window.scrollY;
+    // Auto-scroll to keep target position in view
+    window.scrollTo({
+      top: oriSourceY - window.innerHeight / 2,
+      left: oriSourceX - window.innerWidth / 2,
+      behavior: "smooth"
     });
+  }
 
-    document.addEventListener("DOMContentLoaded", async () => {
-      let file = getParameterByName("f")
-      if ( !file ) file ="ascii-art.txt"
-      const asciiArt = await fetchJson(file)
+  function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
 
+  // Track mouse position as the "target" origin
+  window.addEventListener("mousemove", function (event) {
+    targetX = event.clientX;
+    targetY = event.clientY + window.scrollY;
+  });
 
-      const result = parseAsciiArt(asciiArt);
-      const numPoints = result.length;
-      let loop = 0;
+  // Smooth follow (like easing)
+  setInterval(() => {
+    oriSourceX += (targetX - oriSourceX) * 0.1;
+    oriSourceY += (targetY - oriSourceY) * 0.1;
+  }, 16); // ~60fps
 
-      setInterval(() => {
-        // batch 
-        for (let i = 0; i < 5; i++) {
-          if (loop > numPoints * 1)
-            return;
-          const coordinates = result[loop++ % numPoints]
-          main(coordinates)
+  document.addEventListener("DOMContentLoaded", async () => {
+    let file = getParameterByName("f");
+    if (!file) file = "ascii-art.txt";
+    const asciiArt = await fetchJson(file);
 
-        }
-      }, 300 / 5)
-    });
-  </script>
-</head>
+    const result = parseAsciiArt(asciiArt);
+    const numPoints = result.length;
+    let loop = 0;
 
-<body>
-  <div id="app">
-    <div class="box1"></div>
-  </div>
-</body>
-
-</html>
+    setInterval(() => {
+      for (let i = 0; i < 5; i++) {
+        if (loop > numPoints * 1) return;
+        const coordinates = result[loop++ % numPoints];
+        main(coordinates);
+      }
+    }, 300 / 25);
+  });
+</script>

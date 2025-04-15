@@ -1,0 +1,50 @@
+{% extends "mutiitu/blog/layouts/common/base.html" %}
+
+{% block headExtra %}
+  <script defer src="/layouts/home/HomeLayout.js"></script>
+
+  <title>Mutiitu</title>
+{% endblock %}
+
+{% block content %}
+<div id="wrapper">
+	<nav id="nav">
+		<a href="#home" class="icon solid fa-home"><span>/</span></a>
+	</nav>
+	
+	<!-- Contact -->
+	<article id="contact" class="panel">
+		<header>
+			<h2>Contacto</h2>
+		</header>
+		<form action="/contact/me" method="post">
+			<div>
+				<div class="row">
+					<div class="col-6 col-12-medium">
+						<input type="text" name="name" placeholder="Nombre" />
+					</div>
+					<div class="col-6 col-12-medium">
+						<input type="text" name="email" placeholder="Email" />
+					</div>
+					<div class="col-12">
+						<input type="text" name="subject" placeholder="Asunto" />
+					</div>
+					<div class="col-12">
+						<textarea name="message" placeholder="Mensaje" rows="6"></textarea>
+					</div>
+					<div class="col-12">
+						<input type="submit" value="Enviar" />
+					</div>
+				</div>
+			</div>
+		</form>
+		<a href="https://www.linkedin.com/in/francesclopezmario" target="_blank">
+			<img src="/layouts/home/images/LI-Bug.svg.original.svg" alt="LinkedIn" style="width: 3em;">
+		</a>
+	</article>
+	
+</div>
+
+{% endblock %}
+
+

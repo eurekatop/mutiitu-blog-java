@@ -25,6 +25,7 @@ import mutiitu.blog.components.home.HomePage;
 import mutiitu.blog.components.infinitescroll.InfiniteScrollUIComponent;
 import mutiitu.blog.components.markdown.MarkdownUIComponent;
 import mutiitu.blog.layouts.components.ComponentsLayout;
+import mutiitu.blog.layouts.home.ContactFormLayout;
 import mutiitu.blog.layouts.home.ContactMeLayout;
 import mutiitu.blog.layouts.home.HomeLayout;
 import mutiitu.blog.layouts.resume.ResumeLayout;
@@ -48,14 +49,15 @@ public class HomePageController extends JavalinController {
     @Inject
     HomeLayout homeLayout;
 
-    @Inject
-    ResumeLayout resumeLayout;
 
     @Inject
     ComponentsLayout componentsLayout;
 
     @Inject
     ContactMeLayout contactMeLayout;
+
+    @Inject
+    ContactFormLayout contactFormLayout;
 
 
     @Inject
@@ -80,13 +82,24 @@ public class HomePageController extends JavalinController {
     }
 
 
-
-    @Path(Value = "/resume")
+    @Path(Value = "/contact")
     @Method(Value = "GET")
-    public HttpResponse Resume() {
+    public HttpResponse Contact() {
 
         try {
-            return resumeLayout.render();
+            return contactMeLayout.render();
+        } catch (Exception ex) {
+            logger.error(null, ex);
+            return new JsonResponse(ex);
+        }
+    }
+
+    @Path(Value = "/contact/me")
+    @Method(Value = "GET")
+    public HttpResponse ContactMeGet() {
+
+        try {
+            return contactFormLayout.render();
         } catch (Exception ex) {
             logger.error(null, ex);
             return new JsonResponse(ex);

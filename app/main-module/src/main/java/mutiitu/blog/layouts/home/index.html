@@ -1,120 +1,22 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7W4HK1XNTG"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+{% extends "mutiitu/blog/layouts/common/base.html" %}
 
-  gtag('config', 'G-7W4HK1XNTG');
-</script>	
-		<title>Francesc López Marió - Fullstack developer</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<meta name="msvalidate.01" content="72F79C2A1E9BFCF2EEF36190A175AC53" />
-		<meta name="yandex-verification" content="e95298d4f88a7a5d" />
-		<link rel="stylesheet" href="/layouts/home/assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="/layouts/home/assets/css/noscript.css" /></noscript>
+{% block headExtra %}
+  <script defer src="/layouts/home/HomeLayout.js"></script>
 
-		<!-- TODO: BUNDLES with another system -->
-		<script defer src="https://unpkg.com/systemjs@6.14.2/dist/extras/amd.js"></script>
-		<script defer src="https://unpkg.com/systemjs@6.14.2/dist/system.js"></script>
+  <title>Mutiitu</title>
+{% endblock %}
+
+{% block content %}
+<div id="wrapper">
+	<nav id="nav">
+		<a href="#home" class="icon solid fa-home"><span>/</span></a>
+	</nav>
 	
-		<script defer src="/layouts/home/HomeLayout.js"></script>
+	<div id="footer" style="display:flex;flex-direction: row; width:100%;flex-wrap: wrap; justify-content: center;">
+		{% for blog in blogs %}
+			<my-card url="/articles/{{blog.id}}" title="{{blog.title}}" subtitle="{{blog.subtitle}}" content="" image-url="{{blog.image}}/resize/200/200"></my-card>
+		{% endfor %}
+	</div>
+</div>
 
-	</head>
-	<body class="is-preload" style="display:none;background-color: #0A0A0A;	">
-
-	
-		<!-- Wrapper-->
-			<div id="wrapper">
-
-				<!-- Nav -->
-					<nav id="nav">
-						<a href="#home" class="icon solid fa-home"><span>Bienvenidos</span></a>
-						<!-- a href="#work" class="icon solid fa-folder"><span>Work</span></a -->
-						<a href="/resume" class="icon solid fa-id-card"><span>Curriculum</span></a>
-						<a href="#articles" class="icon solid fa-folder-open"><span>Artículos</span></a>
-						<a href="#contact" class="icon solid fa-envelope"><span>Contacto</span></a>
-					</nav>
-
-				<!-- Main -->
-					<div id="main">
-
-						<!-- Me -->
-							<article id="home" class="panel intro">
-								<header>
-									<h1>Francesc López Marió</h1>
-									<p></p>
-								</header>
-								<a href="#work" class="jumplink pic" style="background-color: black;">
-									<span id="jumplink_01" class="arrow icon solid fa-chevron-right"><span>See my work</span></span>
-									<div id="div_iframe_01">
-										<iframe id="iframe_01" scrolling="no" src="/layouts/home/ascii-art/public"></iframe>
-									</div>
-								</a>
-							</article>
-
-						<!-- Work -->
-						<article id="articles" class="panel">
-							<header>
-								<div id="footer" style="display:flex;flex-direction: row; width:100%;flex-wrap: wrap; justify-content: center;">
-									{% for blog in blogs %}
-										<my-card url="/articles/{{blog.id}}" title="{{blog.title}}" subtitle="{{blog.subtitle}}" content="card.content"></my-card>
-									{% endfor %}
-								</div>								
-							</header>
-						</article>
-
-						<!-- Contact -->
-						<article id="contact" class="panel">
-								<header>
-									<h2>Contacto</h2>
-								</header>
-								<form action="/contact/me" method="post">
-									<div>
-										<div class="row">
-											<div class="col-6 col-12-medium">
-												<input type="text" name="name" placeholder="Nombre" />
-											</div>
-											<div class="col-6 col-12-medium">
-												<input type="text" name="email" placeholder="Email" />
-											</div>
-											<div class="col-12">
-												<input type="text" name="subject" placeholder="Asunto" />
-											</div>
-											<div class="col-12">
-												<textarea name="message" placeholder="Mensaje" rows="6"></textarea>
-											</div>
-											<div class="col-12">
-												<input type="submit" value="Enviar" />
-											</div>
-										</div>
-									</div>
-								</form>
-								<a href="https://www.linkedin.com/in/francesclopezmario" target="_blank">
-									<img src="/layouts/home/images/LI-Bug.svg.original.svg" alt="LinkedIn" style="width: 3em;">
-								</a>
-							</article>
-					</div>
-
-				<!-- Footer -->
-				<div id="footer" style="display:flex;flex-direction: row; width:100%;flex-wrap: wrap; justify-content: center;">
-					{% for blog in blogs %}
-						<my-card url="/articles/{{blog.id}}" title="{{blog.title}}" subtitle="{{blog.subtitle}}" content="" image-url="{{blog.image}}/resize/200/200"></my-card>
-					{% endfor %}
-				</div>
-			</div>
-
-
-	<!-- Scripts -->
-		<script src="/layouts/home/assets/js/jquery.min.js"></script>
-		<script src="/layouts/home/assets/js/browser.min.js"></script>
-		<script src="/layouts/home/assets/js/breakpoints.min.js"></script>
-		<script src="/layouts/home/assets/js/util.js"></script>
-		<script src="/layouts/home/assets/js/main.js"></script>
-
-	</body>
-</html>
+{% endblock %}

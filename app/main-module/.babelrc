@@ -3,19 +3,19 @@
     ["@babel/preset-env",
       {
         "useBuiltIns": "entry",
-        "corejs": "3.33.0",
-        "modules":"amd"
+        "corejs": "3.33.0"
+        //"modules":"amd"
       }]
   ],
-  //"plugins": [
-  //  [
-  //    "@babel/plugin-transform-modules-systemjs",
-  //    {
-  //      // outputs SystemJS.register(...)
-  //      "systemGlobal": "System"
-  //    }
-  //  ]
-  //],
+  "plugins": [
+    [
+      "@babel/plugin-transform-modules-systemjs",
+      {
+        // outputs SystemJS.register(...)
+        "systemGlobal": "System"
+      }
+    ]
+  ],
   "ignore": [
     "**/node_modules/**",
     "**/font-awesome/**"

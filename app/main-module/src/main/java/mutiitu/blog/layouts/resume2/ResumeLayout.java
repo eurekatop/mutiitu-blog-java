@@ -32,7 +32,7 @@ public class ResumeLayout {
         try {
 
             markdownUIComponent.init(content);
-            markdownUIComponent2.init(content2);
+            //markdownUIComponent2.init(content2);
             
             // "/mutiitu/blog/layouts/home/HomeLayout.html"
             // TODO: GC

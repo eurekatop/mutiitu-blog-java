@@ -11,16 +11,14 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ContactMeLayout {
+public class ContactFormLayout {
 
 
     public HttpResponse render() {
         try {
             PebbleEngine engine = new PebbleEngine.Builder().build();
-            PebbleTemplate compiledTemplate = engine.getTemplate("mutiitu/blog/layouts/home/ContactMe.html");
+            PebbleTemplate compiledTemplate = engine.getTemplate("mutiitu/blog/layouts/home/ContactForm.html");
             Map<String, Object> context = new HashMap<>();
-
-            context.put("name", "Mitchell");
 
             Writer writer = new StringWriter();
 
@@ -29,7 +27,6 @@ public class ContactMeLayout {
             return new HtmlResponse(output);
 
         } catch (Exception ex) {
-            // TODO: errors
             ex.printStackTrace();
             return new StringResponse("output");
         }

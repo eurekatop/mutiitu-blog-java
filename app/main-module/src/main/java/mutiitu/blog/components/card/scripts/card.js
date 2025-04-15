@@ -31,7 +31,7 @@ export class MuCard extends HTMLElement {
 
       alert() {
         dialog.setup({
-          theme: "your-theme",    // will be appended the `class` attribute of `body` tag, more themes please see https://github.com/bndynet/dialog-themes
+          theme: "your-theme-3",    // will be appended the `class` attribute of `body` tag, more themes please see https://github.com/bndynet/dialog-themes
           labelOK: "OK",
           labelCancel: "Cancel",
           animate: true,
