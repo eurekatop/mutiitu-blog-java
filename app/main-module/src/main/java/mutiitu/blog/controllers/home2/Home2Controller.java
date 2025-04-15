@@ -6,18 +6,12 @@ import com.google.inject.Inject;
 import com.mutiitu.framework.core.JavalinController;
 import com.mutiitu.framework.core.annotations.Method;
 import com.mutiitu.framework.core.annotations.Path;
-import com.mutiitu.framework.core.http.responses.HttpResponse;
-import com.mutiitu.framework.core.http.responses.JsonResponse;
 import com.mutiitu.framework.core.http.responses.StringResponse;
 
-import mutiitu.blog.layouts.home2.Home2Layout;
 import mutiitu.blog.services.BlogEntryService;
 
 public class Home2Controller extends JavalinController {
     private final org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
-
-    @Inject
-    Home2Layout home2Layout;
 
     @Inject
     BlogEntryService blogEntryService;
@@ -58,19 +52,5 @@ public class Home2Controller extends JavalinController {
 
         return new StringResponse(r + " " + param1 + " " + param2);
     }  
-
-    @Path(Value = "/home2/test")
-    @Method(Value = "GET")
-    public HttpResponse Home() {
-
-        try {
-            return home2Layout.render();
-        } catch (Exception ex) {
-            logger.error(null, ex);
-            return new JsonResponse(ex);
-        }
-    }  
-
-
     
 }

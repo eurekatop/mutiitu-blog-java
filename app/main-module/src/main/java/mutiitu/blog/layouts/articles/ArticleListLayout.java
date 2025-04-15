@@ -1,4 +1,4 @@
-package mutiitu.blog.layouts.home2;
+package mutiitu.blog.layouts.articles;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -20,25 +20,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Home2Layout {
-
-    //@Inject
-    //CardUIComponent cardUIComponent;
-    //@Inject
-    //MarkdownUIComponent markdownUIComponent;
-    //@Inject
-    //MarkdownUIComponent markdownUIComponent2;
-
+public class ArticleListLayout {
     @Inject
     BlogEntryService blogEntryService;
 
 
     public HttpResponse render() {
         try {
-
-            // "/mutiitu/blog/layouts/home/HomeLayout.html"
-            // TODO: GC
-
             PebbleEngine engine = new PebbleEngine.Builder().build();
             PebbleTemplate compiledTemplate = engine.getTemplate("mutiitu/blog/layouts/home2/index.html");
             Map<String, Object> context = new HashMap<>();
@@ -63,6 +51,7 @@ public class Home2Layout {
     @Transactional
     protected List<BlogEntryInputDto> GetBlogs(){
         var blogs = blogEntryService.GetBlogs(1000);
+
         //TODO: automapper
         Gson gson = new Gson();
         Type listType = new TypeToken<List<BlogEntryInputDto>>() {}.getType();

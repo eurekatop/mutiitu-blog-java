@@ -1,8 +1,4 @@
 package mutiitu.blog.controllers;
-
-import java.lang.reflect.Type;
-import java.util.List;
-
 import org.slf4j.LoggerFactory;
 
 import com.google.gson.Gson;
@@ -15,6 +11,7 @@ import com.mutiitu.framework.core.annotations.Path;
 import com.mutiitu.framework.core.http.responses.HttpResponse;
 import com.mutiitu.framework.core.http.responses.JsonResponse;
 import mutiitu.blog.layouts.articles.ArticleLayout;
+import mutiitu.blog.layouts.articles.ArticleListLayout;
 import mutiitu.blog.models.dto.BlogEntryInputDto;
 import mutiitu.blog.services.BlogEntryService;
 
@@ -25,6 +22,10 @@ public class ArticlesPageController extends JavalinController {
     // TODO: inject depenencies in function
     @Inject
     private BlogEntryService blogEntryService;
+
+    @Inject
+    ArticleListLayout home2Layout;
+
 
     @Transactional
     @Path(Value = "/articles")
@@ -51,5 +52,18 @@ public class ArticlesPageController extends JavalinController {
             return new JsonResponse(ex);
         }
     }
+
+
+    @Path(Value = "/posts/list")
+    @Method(Value = "GET")
+    public HttpResponse Home() {
+
+        try {
+            return home2Layout.render();
+        } catch (Exception ex) {
+            logger.error(null, ex);
+            return new JsonResponse(ex);
+        }
+    }  
 
 }
