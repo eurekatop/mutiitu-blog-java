@@ -114,9 +114,9 @@ public class JavalinHandler implements Handler {
                 ctx.result(((StringResponse) resultInvoke).data);
             }
             if (resultInvoke instanceof JsonResponse) {
-                // var data = ((JsonResponse) resultInvoke).toJsonString();
+                var data = ((JsonResponse) resultInvoke).data;
                 // ctx.json(data, JsonResponse.class);
-                ctx.json(resultInvoke);
+                ctx.json(data);
             }
         }
 

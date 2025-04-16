@@ -1,5 +1,6 @@
 package mutiitu.blog.services;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -73,6 +74,17 @@ public class BlogEntryService {
     public List<BlogEntryModel> GetBlogs(int count) {
         return BlogEntryDao.getBlogs(count);
     }
+
+    public List<Integer> SelectAllIds() {
+        var entity = new BlogEntryModel_();
+
+        List<String> fieldsToSelect = Arrays.asList(
+            entity.id.getName()
+        );
+        
+        return BlogEntryDao.getPartialDynamic(Integer.MAX_VALUE, fieldsToSelect, Integer.class);
+    }
+
 
     public void AddBlog(BlogEntryModel blogEntryModel) {
         var id = blogEntryModel.getId();

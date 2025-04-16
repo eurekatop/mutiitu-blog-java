@@ -64,26 +64,6 @@ public class BlogEntryDao extends ModelCrudDaoImpl<BlogEntryModel, BlogEntryMode
                 .fetch();
     }
 
-    public List<Object> getBlogsPartial(int count) {
-        //return queryDsl
-        //    .from(entityModel)
-        //    .where( c -> c.lt(entityModel.id, 4000))
-        //    .orderBy( c -> c.asc(entityModel.id))
-        //    .limit(count)
-        //    .selectAsRow(entityModel.id, entityModel.title, entityModel.resume, entityModel.subtitle)
-        //    .stream()
-        //    .map( row -> {
-        //        var dto = new BlogEntryPartialDto();
-        //        dto.id = row.get(entityModel.id);
-        //        dto.title = row.get(entityModel.title);
-        //        dto.resume = row.get(entityModel.resume);
-        //        dto.subtitle = row.get(entityModel.subtitle);
-        //        return dto;
-        //    }).toList();
-
-        return null;
-    }
-
     // to jooq
     public List<BlogEntryModel> getBlogsJooq(int count) {
 
@@ -198,7 +178,5 @@ public class BlogEntryDao extends ModelCrudDaoImpl<BlogEntryModel, BlogEntryMode
 
         return data;
     }
-
-
 
 }

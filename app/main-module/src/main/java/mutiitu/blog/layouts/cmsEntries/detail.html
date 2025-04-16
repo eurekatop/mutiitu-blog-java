@@ -1,0 +1,39 @@
+{% extends "mutiitu/blog/layouts/common/base.html" %}
+
+{% block headExtra %}
+{% endblock %}
+
+{% block content %}
+  <div style="display:flex;flex-direction: column; width:100%;flex-wrap: wrap; justify-content: center;">
+
+
+  {% if data.contentType is not empty %}
+    <div style="font-size: 0.9em; color: #666; margin-bottom: 0.5em;">
+      {{ data.contentType }}
+    </div>
+  {% endif %}
+
+  <h3>{{data.title}}</h3>
+  {% if data.createdAt is not empty %}
+  <div style="font-size: 0.85em; color: #999; margin-bottom: 1em;">
+    {{ data.createdAt }}
+  </div>
+  {% endif %}
+
+  {% if data.tags is not empty %}
+  <div style="margin-bottom: 1em;">
+    {% set tagList = data.tags.split(",") %}
+    {% for tag in tagList %}
+      <span style="display:inline-block; background:#eee; color:#333; padding:4px 8px; border-radius:4px; margin-right:5px; font-size: 0.9em;">
+        #{{ tag | trim }}
+      </span>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+
+  <mu-markdown document="{{data.content}}"></mu-markdown> 
+
+   </div>
+
+{% endblock %}

@@ -18,6 +18,7 @@ import mutiitu.blog.components.HeaderService;
 import mutiitu.blog.services.BlogEntryService;
 
 import com.mutiitu.annotations.Transactional;
+import com.mutiitu.domain.BlogEntryModel;
 import com.mutiitu.framework.core.JavalinController;
 import com.mutiitu.framework.core.annotations.Controller;
 import com.mutiitu.framework.core.annotations.Method;
@@ -33,9 +34,6 @@ public class HelloWorldController extends JavalinController {
 
     @Inject
     private Javalin javalin;
-
-    @Inject
-    private Header header;
     @Inject
     private Header2 header2;
 
@@ -65,11 +63,11 @@ public class HelloWorldController extends JavalinController {
             </html>
                 """;
 
-    @Transactional
-    @Path(Value = "/home")
-    public JsonResponse aa(int id) {
+    @Path(Value = "/aa")
+    @Method(Value = "GET")
+    public HttpResponse aa(int id) {
 
-        var result = blogEntryService.GetBydId(id);
+        BlogEntryModel result = blogEntryService.GetBydId(id);
 
         return new JsonResponse(result);
     }

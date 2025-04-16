@@ -28,8 +28,6 @@ import mutiitu.blog.layouts.components.ComponentsLayout;
 import mutiitu.blog.layouts.home.ContactFormLayout;
 import mutiitu.blog.layouts.home.ContactMeLayout;
 import mutiitu.blog.layouts.home.HomeLayout;
-import mutiitu.blog.layouts.resume.ResumeLayout;
-import mutiitu.blog.models.dto.BlogEntryInputDto;
 import mutiitu.blog.services.BlogEntryService;
 
 @Controller

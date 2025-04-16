@@ -68,14 +68,17 @@ public interface MigrateDao {
 
       CREATE TABLE IF NOT EXISTS CmsEntry (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        TITLE VARCHAR(50) NOT NULL,
+        TITLE VARCHAR(255) NOT NULL,
+        SLUG VARCHAR(255) NOT NULL UNIQUE,
+        EXCERPT TEXT,
         CONTENT LONGTEXT NOT NULL,
-        STATUS VARCHAR(50) NOT NULL,
+        STATUS VARCHAR(50) NOT NULL, -- e.g., 'draft', 'published', 'archived'
+        CONTENT_TYPE VARCHAR(50) NOT NULL, -- e.g., 'article', 'note', 'linklog', 'project'
+        TAGS TEXT, -- Comma-separated or use a relation table if normalized
+        THUMBNAIL VARCHAR(255),
         AUTHOR_ID INT,
-        DATE VARCHAR(50) NOT NULL,
-        EXCERPT VARCHAR(50) NOT NULL,
-        THUMBNAIL VARCHAR(50) NOT NULL,
-        SLUG VARCHAR(50) NOT NULL
+        CREATED_AT DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        UPDATED_AT DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
       );
       */
 

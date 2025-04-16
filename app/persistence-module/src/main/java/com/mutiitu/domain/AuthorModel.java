@@ -12,7 +12,6 @@ import org.seasar.doma.OriginalStates;
 import org.seasar.doma.Table;
 import org.seasar.doma.Transient;
 import com.google.gson.annotations.Expose;
-import com.mutiitu.domain.cms.CmsEntryModel;
 import com.mutiitu.persistence.BaseModel;
 import lombok.EqualsAndHashCode;
 

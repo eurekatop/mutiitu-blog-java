@@ -1,6 +1,6 @@
 package mutiitu.blog.models.dto;
 
-import com.mutiitu.domain.cms.CmsEntryModel;
+import com.mutiitu.domain.CmsEntryModel;
 
 public class CMSEntryInputDto extends CmsEntryModel {
     

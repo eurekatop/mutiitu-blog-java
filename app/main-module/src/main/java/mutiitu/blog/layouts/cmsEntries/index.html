@@ -1,0 +1,33 @@
+{% extends "mutiitu/blog/layouts/common/base.html" %}
+
+{% block headExtra %}
+  <title>Francesc López Marió - Fullstack developer</title>
+{% endblock %}
+
+{% block content %}
+  <div>
+    {% for entry in data %}
+      {% if entry.tags is not empty %}
+        {% set tagList = entry.tags.split(",") %}
+      {% endif %}
+
+      <article class="cms-entry">
+        <a class="blog-entry-title" href="/entry/{{ entry.slug }}" title="{{ entry.title }}">
+          <h3>{{ entry.title }}</h3>
+        </a>
+
+        <div class="cms-entry-excerpt">
+          <p>{{ entry.excerpt }}</p>
+        </div>
+
+        {% if tagList is not empty %}
+          <div class="cms-entry-tags">
+            {% for tag in tagList %}
+              <span class="tag">#{{ tag | trim }}</span>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </article>
+    {% endfor %}
+  </div>
+{% endblock %}
