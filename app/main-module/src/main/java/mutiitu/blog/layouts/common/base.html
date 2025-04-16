@@ -4,13 +4,14 @@
     {% include "mutiitu/blog/layouts/common/head.html" %}
     {% block headExtra %}{% endblock %}
   </head>
-  <body style="background-color: #0A0A0A;">
+  <body style="background-color: #0A0A0A; display: none;">
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PVJ6Z2CS&gtm_auth=QJEl4LNFIvcRYx6ReflDSQ&gtm_preview=env-1&gtm_cookies_win=x"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
-
+  <div id="splash">Loading...</div>
+  <div id="app" style="display: none;">
     {% include "mutiitu/blog/layouts/common/header.html" %}
     {% include "mutiitu/blog/layouts/common/menu.html" %}
 
@@ -19,6 +20,11 @@
     </main>
 
     {% include "mutiitu/blog/layouts/common/footer.html" %}
+
+  </div>
+
+
+
 
 
     <!-- Scripts -->

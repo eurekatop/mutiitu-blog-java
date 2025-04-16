@@ -32,8 +32,9 @@ public class ArticleLayout {
             var markdown = new MarkdownUIComponent();
 
             // TODO: GC
+            // TODO: title in CMS
             PebbleEngine engine = new PebbleEngine.Builder().build();
-            PebbleTemplate compiledTemplate = engine.getTemplate("mutiitu/blog/layouts/articles/index.html");
+            PebbleTemplate compiledTemplate = engine.getTemplate("mutiitu/blog/layouts/articles/article.html");
             Map<String, Object> context = new HashMap<>();
 
 
