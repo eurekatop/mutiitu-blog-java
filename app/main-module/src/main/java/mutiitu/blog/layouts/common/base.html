@@ -4,13 +4,23 @@
     {% include "mutiitu/blog/layouts/common/head.html" %}
     {% block headExtra %}{% endblock %}
   </head>
-  <body style="background-color: #0A0A0A; display: none;">
+  <body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PVJ6Z2CS&gtm_auth=QJEl4LNFIvcRYx6ReflDSQ&gtm_preview=env-1&gtm_cookies_win=x"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
-  <div id="splash">Loading...</div>
+  
+
+  
+  <div id="splash">
+    <div class="loader">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
+
   <div id="app" style="display: none;">
     {% include "mutiitu/blog/layouts/common/header.html" %}
     {% include "mutiitu/blog/layouts/common/menu.html" %}
@@ -31,7 +41,7 @@
 		<script src="/layouts/home/assets/js/jquery.min.js"></script>
 		<script src="/layouts/home/assets/js/browser.min.js"></script>
 		<script src="/layouts/home/assets/js/breakpoints.min.js"></script>
-		<script src="/layouts/home/assets/js/util.js"></script>
-		<script src="/layouts/home/assets/js/main.js"></script>
+		<!-- script src="/layouts/home/assets/js/util.js"></script -->
+		<!-- script src="/layouts/home/assets/js/main.js"></script -->
   </body>
 </html> 

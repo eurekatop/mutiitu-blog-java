@@ -9,8 +9,16 @@
 
 <script>
   window.addEventListener('load', () => {
-    document.getElementById('splash').style.display = 'none';
+    //document.getElementById('splash').style.display = 'none';
+
+    const splash = document.getElementById('splash');
+    splash.classList.add('fade-out');
+
     document.getElementById('app').style.display = 'block';
+
+    setTimeout(() => {
+    splash.remove(); // optional: remove it completely from the DOM
+  }, 500); // matches transition duration
   });
 </script>
   
