@@ -1,6 +1,9 @@
 {% extends "mutiitu/blog/layouts/common/base.html" %}
 
 {% block headExtra %}
+    <script type="application/ld+json">
+        {{ jsonLd | raw }}
+    </script>
 {% endblock %}
 
 {% block content %}

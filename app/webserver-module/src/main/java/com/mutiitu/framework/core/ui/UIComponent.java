@@ -22,13 +22,11 @@ public class UIComponent {
 
     protected UIComponent() {
         this.engine = new PebbleEngine.Builder().build();
-        // TODO:remove /java
         // get file template
         var fileTemplate = this.getClass().getCanonicalName();
         fileTemplate = "" + fileTemplate.replace('.', '/') + ".html"; // TOdo: file separator
         logger.info("fileTemplate ##############3 " + fileTemplate);
 
-        // this.compiledTemplate = engine.getTemplate("templates/home2.html");
         this.compiledTemplate = engine.getTemplate(fileTemplate);
     }
 
@@ -59,12 +57,7 @@ public class UIComponent {
             logger.info(field.getModifiers() + "");
             var className = field.getType().getSimpleName();
 
-            if (className != "UIComponentFactory" && field.getModifiers() == 1 || field.getModifiers() == 17) /*
-                                                                                                               * public
-                                                                                                               * ,
-                                                                                                               * public
-                                                                                                               * final
-                                                                                                               */ {
+            if (className != "UIComponentFactory" && field.getModifiers() == 1 || field.getModifiers() == 17) {
                 try {
                     var fieldName = field.getName();
                     var fieldValue = field.get(this);
@@ -89,10 +82,6 @@ public class UIComponent {
                     var fieldName = field.getName();
                     logger.info(fieldName);
                     logger.info(uiComponent.getClass().getCanonicalName());
-                    // var inst = (UiComopnentFactoryInterfaca) field.get(this);
-                    // var uiComponent = inst.inst();
-
-                    // logger.info (uiComponent.toString() );
 
                     this.context.put(fieldName, uiComponent);
                 } catch (Exception e) {

@@ -11,17 +11,13 @@ import com.mutiitu.framework.core.http.responses.StringResponse;
 import io.pebbletemplates.pebble.PebbleEngine;
 import io.pebbletemplates.pebble.template.PebbleTemplate;
 import mutiitu.blog.components.BlogEntryComponent;
-import mutiitu.blog.components.card.CardUIComponent;
 import mutiitu.blog.components.markdown.MarkdownUIComponent;
 import mutiitu.blog.models.dto.BlogEntryInputDto;
-import mutiitu.blog.services.BlogEntryService;
 
 import java.io.StringWriter;
 import java.io.Writer;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ArticleLayout {
@@ -47,6 +43,9 @@ public class ArticleLayout {
             
             markdown.init(blogEntryInputDto.content);
 
+            String jsonLd = generateJsonLd(blogEntryInputDto);
+
+            context.put("jsonLd", jsonLd);
             context.put("blog", blogEntryInputDto);
             context.put("blogEntryComponent", markdown);
 
@@ -67,5 +66,42 @@ public class ArticleLayout {
             return new StringResponse("output");
         }
     }
+
+    private String generateJsonLd(BlogEntryInputDto blogEntryInputDto) {
+
+        Gson gson = new Gson();
+        String escapedContent = gson.toJson(blogEntryInputDto.content);
+
+        // Create the JSON-LD structured data dynamically based on the blog entry
+        return String.format(
+            "{\n" +
+            "  \"@context\": \"https://schema.org\",\n" +
+            "  \"@type\": \"Article\",\n" +
+            "  \"headline\": \"%s\",\n" +
+            "  \"alternativeHeadline\": \"%s\",\n" +
+            "  \"articleBody\": \"%s\",\n" +
+            "  \"description\": \"%s\",\n" +
+            "  \"author\": {\n" +
+            "    \"@type\": \"Person\",\n" +
+            "    \"name\": \"%s\"\n" +
+            "  },\n" +
+            "  \"publisher\": {\n" +
+            "    \"@type\": \"Organization\",\n" +
+            "    \"name\": \"Mutiitu\",\n" +
+            "    \"logo\": {\n" +
+            "      \"@type\": \"ImageObject\",\n" +
+            "      \"url\": \"%s\"\n" +
+            "    }\n" +
+            "  },\n" +
+            "}", 
+            blogEntryInputDto.title, 
+            blogEntryInputDto.subtitle,
+            escapedContent,
+            blogEntryInputDto.resume,
+            blogEntryInputDto.authorId,
+            "https://mutiitu.com/logo.png" // Replace with your logo URL
+        );
+    }
+
 
 }
