@@ -66,7 +66,7 @@ public class CmsEntriesLayoutDetail {
             "      \"@type\": \"ImageObject\",\n" +
             "      \"url\": \"%s\"\n" +
             "    }\n" +
-            "  },\n" +
+            "  }\n" +
             "}", 
             cmsEntryModel.getTitle(), 
             escapedContent,

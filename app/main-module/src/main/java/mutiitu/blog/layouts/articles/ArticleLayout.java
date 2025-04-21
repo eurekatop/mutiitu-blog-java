@@ -93,7 +93,7 @@ public class ArticleLayout {
             "      \"@type\": \"ImageObject\",\n" +
             "      \"url\": \"%s\"\n" +
             "    }\n" +
-            "  },\n" +
+            "  }\n" +
             "}", 
             blogEntryInputDto.title, 
             blogEntryInputDto.subtitle,
