@@ -54,7 +54,7 @@ public class CmsEntriesLayoutDetail {
             "  \"@context\": \"https://schema.org\",\n" +
             "  \"@type\": \"Article\",\n" +
             "  \"headline\": \"%s\",\n" +
-            "  \"articleBody\": \"%s\",\n" +
+            "  \"articleBody\": %s,\n" +
             "  \"author\": {\n" +
             "    \"@type\": \"Person\",\n" +
             "    \"name\": \"%s\"\n" +

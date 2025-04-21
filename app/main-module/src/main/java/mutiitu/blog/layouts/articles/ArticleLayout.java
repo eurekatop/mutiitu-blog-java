@@ -80,7 +80,7 @@ public class ArticleLayout {
             "  \"@type\": \"Article\",\n" +
             "  \"headline\": \"%s\",\n" +
             "  \"alternativeHeadline\": \"%s\",\n" +
-            "  \"articleBody\": \"%s\",\n" +
+            "  \"articleBody\": %s,\n" +
             "  \"description\": \"%s\",\n" +
             "  \"author\": {\n" +
             "    \"@type\": \"Person\",\n" +
