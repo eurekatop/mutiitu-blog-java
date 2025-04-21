@@ -92,10 +92,10 @@ public class SiteMapController extends JavalinController {
         return new StringResponse(generateSitemap());
     }
 
-    @Path(Value = "/f3515de6c3394f55931e548afd3b42ba.txt")
+    @Path(Value = "/bingIndexNow")
     @Method(Value = "GET") 
     public StringResponse bingIndexNow() {
-        return new StringResponse("f3515de6c3394f55931e548afd3b42ba.txt");
+        return new StringResponse("f3515de6c3394f55931e548afd3b42ba");
     }
 
 
