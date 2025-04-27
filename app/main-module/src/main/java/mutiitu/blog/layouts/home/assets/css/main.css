@@ -232,6 +232,24 @@ header a + a {
 	  opacity: 0;
 	}
   }
+
+  .app-title {
+    color: #333;
+    text-align: left;
+    font-size: 0.7em;
+    font-weight: bold;
+    color: #333;
+    text-align: end;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.5rem;
+    font-family: 'Courier New', Courier, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #ff6b9e, #ff8e53);
+  }
+
   
   /* Modern Button with Kiss Effect */
   .kiss-button {
