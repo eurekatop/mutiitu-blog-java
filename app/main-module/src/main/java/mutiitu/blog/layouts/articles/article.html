@@ -12,12 +12,10 @@
             <div>
                 <a href="/">Volver</a>
             </div>
-                <h1>
+                <div class="title">
                     {{ blog.title }}
-                </h1>
-                <h2>
-                    {{ blog.subtitle }}
-                </h2>
+                </div>
+                <div class="subtitle">{{ blog.subtitle }}</div>
                 <div>
                 {{ blogEntryComponent | raw}}  
 			    </div>
