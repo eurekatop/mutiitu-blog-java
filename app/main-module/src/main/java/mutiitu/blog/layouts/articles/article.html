@@ -12,8 +12,14 @@
             <div>
                 <a href="/">Volver</a>
             </div>
+                <h1>
+                    {{ blogEntry.title }}
+                </h1>
+                <h2>
+                    {{ blogEntry.subtitle }}
+                </h2>
                 <div>
                 {{ blogEntryComponent | raw}}  
-			</div>
+			    </div>
         </div>
 {% endblock %}
