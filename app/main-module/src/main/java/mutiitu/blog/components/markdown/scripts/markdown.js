@@ -12,7 +12,7 @@ export class MuMarkdown extends HTMLElement {
         this.attachShadow({ mode: 'open' })
         
         loadCSSFrom(['https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css',
-        '/components/markdown/css/markdown.css',
+        '/mutiitu/components/markdown/css/markdown.css',
         'https://cdn.jsdelivr.net/npm/markdown-theme/themes/github.css'
         ], this.shadowRoot)
         
