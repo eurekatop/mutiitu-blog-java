@@ -52,7 +52,7 @@ public class SiteMapController extends JavalinController {
         List<Integer> blogsIds = blogEntryService.SelectAllIds();
         List<String> slugs = cmsEntryService.SelectAllSlugs();
 
-        String baseUrl = "https://blog.mutiitu.com";
+        String baseUrl = "https://www.eurekatop.com/" + System.getenv().getOrDefault("BASE_PATH", "");
 
         StringBuilder sitemap = new StringBuilder();
         sitemap.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
