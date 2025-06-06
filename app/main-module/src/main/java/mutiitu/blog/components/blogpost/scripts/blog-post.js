@@ -8,7 +8,7 @@ export class BlogPost extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' })
-        loadCSSFrom(['/css/global-style.css', '/components/blogpost/css/blog-post.css'], this.shadowRoot)
+        loadCSSFrom(['/mutiitu/css/global-style.css', '/components/blogpost/css/blog-post.css'], this.shadowRoot)
       }
     
       connectedCallback() {

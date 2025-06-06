@@ -1,5 +1,5 @@
 import { getAttributes, loadCSSFrom } from '/mutiitu/components/_framework/framework.js';
-// import global_stylesheet from "/css/global-style.css" // assert { type: "css" }
+// import global_stylesheet from "/mutiitu/css/global-style.css" // assert { type: "css" }
 // import card_stylesheet from "/components/infinitescroll/css/infinite-scroll.css" // assert { type: "css" }
 
 
@@ -11,7 +11,7 @@ export class InfiniteScroll extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' })
-        loadCSSFrom(['/css/global-style.css', '/components/infinitescroll/css/infinite-scroll.css'], this.shadowRoot)
+        loadCSSFrom(['/mutiitu/css/global-style.css', '/components/infinitescroll/css/infinite-scroll.css'], this.shadowRoot)
       }
     
       connectedCallback() {

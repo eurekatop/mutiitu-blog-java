@@ -7,8 +7,8 @@ export class MuGameOfLife extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' })
-        loadCSSFrom(['/css/global-style.css', 
-        '/components/card/css/card.css',
+        loadCSSFrom(['/mutiitu/css/global-style.css', 
+        '/mutiitu/components/card/css/card.css',
       'https://unpkg.com/@bndynet/dialog/dist/dialog.css'], this.shadowRoot)
 
         // Agrega un evento 'load' al elemento script que carga jQuery
