@@ -44,6 +44,7 @@ public class HomeLayout {
             PebbleEngine engine = new PebbleEngine.Builder().build();
             PebbleTemplate compiledTemplate = engine.getTemplate("mutiitu/blog/layouts/home/index.html");
             Map<String, Object> context = new HashMap<>();
+            context.put("BASE_PATH", System.getenv().getOrDefault("BASE_PATH", "/"));
 
 
             List<BlogEntryInputDto> blogs = GetBlogs();
@@ -51,6 +52,9 @@ public class HomeLayout {
 
             var items = new ArrayList<String>();
             context.put("items", items);
+
+
+            context.put("BASE_PATH", System.getenv().getOrDefault("BASE_PATH", "/"));
 
             Writer writer = new StringWriter();
             compiledTemplate.evaluate(writer, context);

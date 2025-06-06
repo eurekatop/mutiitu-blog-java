@@ -1,4 +1,4 @@
-import { getAttributes } from '/components/_framework/framework.js';
+import { getAttributes } from '/mutiitu/components/_framework/framework.js';
 
 export class BlogPost extends HTMLElement { 
     title = undefined;

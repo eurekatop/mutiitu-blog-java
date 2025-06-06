@@ -36,6 +36,7 @@ public class ComponentsLayout {
             //engine.getTemplate("mutiitu/blog/layouts/components/ComponentsLayout.html");
             engine.getTemplate("mutiitu/blog/layouts/components/ComponentsLayout.html");
             Map<String, Object> context = new HashMap<>();
+            context.put("BASE_PATH", System.getenv().getOrDefault("BASE_PATH", "/"));
             Writer writer = new StringWriter();
 
             compiledTemplate.evaluate(writer, context);

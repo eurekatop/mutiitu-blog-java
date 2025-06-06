@@ -90,11 +90,13 @@ public class CoreModule extends AbstractModule {
                         cfg.mimeTypes.add(ContentType.TEXT_CSS);
                         cfg.directory = String.format("%s/build/resources/public", executionPath);
                         cfg.location = Location.EXTERNAL;
+                        //cfg.hostedPath = "/mutiitu"; 
+                        cfg.hostedPath = "/" + System.getenv("BASE_PATH"); 
                     });
 
                     // json mapper
                     // ----------------------------------------------------------------------------------
-                    GsonBuilder gsonBuilder = new GsonBuilder();
+                    GsonBuilder gsonBuilder = new GsonBuilder(); 
 
                     gsonBuilder.registerTypeAdapter(ValidationException.class, new ValidationExceptionAdapter() );
 

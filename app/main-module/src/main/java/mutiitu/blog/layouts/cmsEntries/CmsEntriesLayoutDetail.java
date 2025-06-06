@@ -22,6 +22,7 @@ public class CmsEntriesLayoutDetail {
             PebbleEngine engine = new PebbleEngine.Builder().build();
             PebbleTemplate compiledTemplate = engine.getTemplate("mutiitu/blog/layouts/cmsEntries/detail.html");
             Map<String, Object> context = new HashMap<>();
+            context.put("BASE_PATH", System.getenv().getOrDefault("BASE_PATH", "/"));
 
             String jsonLd = generateJsonLd(data);
 

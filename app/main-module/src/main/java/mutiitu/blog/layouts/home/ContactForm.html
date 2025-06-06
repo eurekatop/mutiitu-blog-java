@@ -1,7 +1,7 @@
 {% extends "mutiitu/blog/layouts/common/base.html" %}
 
 {% block headExtra %}
-  <script defer src="/layouts/home/HomeLayout.js"></script>
+  <script defer src="/{{BASE_PATH}}/layouts/home/HomeLayout.js"></script>
 
 {% endblock %}
 
@@ -16,7 +16,7 @@
 		<header>
 			<h2>Contacto</h2>
 		</header>
-		<form action="/contact/me" method="post">
+		<form action="/{{BASE_PATH}}/contact/me" method="post">
 			<div>
 				<div class="row">
 					<div class="col-6 col-12-medium">

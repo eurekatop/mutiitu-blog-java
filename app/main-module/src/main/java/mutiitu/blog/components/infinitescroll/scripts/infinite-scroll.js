@@ -1,4 +1,4 @@
-import { getAttributes, loadCSSFrom } from '/components/_framework/framework.js';
+import { getAttributes, loadCSSFrom } from '/mutiitu/components/_framework/framework.js';
 // import global_stylesheet from "/css/global-style.css" // assert { type: "css" }
 // import card_stylesheet from "/components/infinitescroll/css/infinite-scroll.css" // assert { type: "css" }
 

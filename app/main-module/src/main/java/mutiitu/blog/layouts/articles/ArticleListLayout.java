@@ -30,6 +30,7 @@ public class ArticleListLayout {
             PebbleEngine engine = new PebbleEngine.Builder().build();
             PebbleTemplate compiledTemplate = engine.getTemplate("mutiitu/blog/layouts/home2/index.html");
             Map<String, Object> context = new HashMap<>();
+            context.put("BASE_PATH", System.getenv().getOrDefault("BASE_PATH", "/"));
 
 
             List<BlogEntryInputDto> blogs = GetBlogs();

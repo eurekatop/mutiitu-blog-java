@@ -39,6 +39,7 @@ public class ResumeLayout {
             PebbleEngine engine = new PebbleEngine.Builder().build();
             PebbleTemplate compiledTemplate = engine.getTemplate("mutiitu/blog/layouts/resume/ResumeLayout.html");
             Map<String, Object> context = new HashMap<>();
+            context.put("BASE_PATH", System.getenv().getOrDefault("BASE_PATH", "/"));
 
             var items = new ArrayList<String>();
             items.add("a ");

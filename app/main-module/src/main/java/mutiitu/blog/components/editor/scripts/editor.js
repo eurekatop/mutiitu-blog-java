@@ -1,6 +1,6 @@
-import { getAttributes } from '/components/_framework/framework.js';
+import { getAttributes } from '/mutiitu/components/_framework/framework.js';
 //import monacoEditor from 'https://cdn.jsdelivr.net/npm/monaco-editor@0.44.0/+esm'
-import * as monacoEditor from '/libs/systemJS/monaco-editor@0.44.0.js'
+import * as monacoEditor from '/mutiitu/libs/systemJS/monaco-editor@0.44.0.js'
 
 
 

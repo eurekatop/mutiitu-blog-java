@@ -1,4 +1,4 @@
-import { getAttributes, loadCSSFrom } from '/components/_framework/framework.js';
+import { getAttributes, loadCSSFrom } from '/mutiitu/components/_framework/framework.js';
 //import * as $ from 'https://www.unpkg.com/jquery@3.7.1/dist/jquery.js'
 import * as gameOfLife from './qbit-gameoflife.js';
 

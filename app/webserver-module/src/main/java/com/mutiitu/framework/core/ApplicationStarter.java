@@ -86,10 +86,10 @@ public class ApplicationStarter {
 
             switch (httpVerb) {
                 case "GET":
-                    javalin.get(route, handler);
+                    javalin.get(System.getenv("BASE_PATH") +  "/" +  route, handler);
                     break;
                 case "POST":
-                    javalin.post(route, handler);
+                    javalin.post(System.getenv("BASE_PATH") +  "/" +  route, handler);
                     break;
             }
 

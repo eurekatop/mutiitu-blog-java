@@ -1,4 +1,4 @@
-import { getAttributes, loadCSSFrom} from '/components/_framework/framework.js';
+import { getAttributes, loadCSSFrom} from '/mutiitu/components/_framework/framework.js';
 import * as editor from 'https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js'
 
 

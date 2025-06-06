@@ -1,5 +1,5 @@
-import { getAttributes, loadCSSFrom } from '/components/_framework/framework.js';
-import * as dialog from '/components/tmp-components/dialog.js'
+import { getAttributes, loadCSSFrom } from '/mutiitu/components/_framework/framework.js';
+import * as dialog from '/mutiitu/components/tmp-components/dialog.js'
 
 export class MuCard extends HTMLElement {
     constructor() {

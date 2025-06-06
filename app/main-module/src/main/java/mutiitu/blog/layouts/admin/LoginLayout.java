@@ -20,6 +20,7 @@ public class LoginLayout {
             PebbleTemplate compiledTemplate = engine.getTemplate("mutiitu/blog/layouts/admin/LoginLayout.html");
 
             Map<String, Object> context = new HashMap<>();
+            context.put("BASE_PATH", System.getenv().getOrDefault("BASE_PATH", "/"));
             context.put("name", "Mitchell");
 
 

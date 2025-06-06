@@ -1,4 +1,4 @@
-import { getAttributes, loadCSSFrom } from '/components/_framework/framework.js';
+import { getAttributes, loadCSSFrom } from '/mutiitu/components/_framework/framework.js';
 
 // TODO: ESM modules
 //import MarkdownIt from 'https://cdn.jsdelivr.net/npm/markdown-it@13.0.2/+esm'

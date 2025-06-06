@@ -36,6 +36,7 @@ public class ArticleLayout {
             PebbleEngine engine = new PebbleEngine.Builder().build();
             PebbleTemplate compiledTemplate = engine.getTemplate("mutiitu/blog/layouts/articles/article.html");
             Map<String, Object> context = new HashMap<>();
+            context.put("BASE_PATH", System.getenv().getOrDefault("BASE_PATH", "/"));
 
 
             System.out.println(blogEntryInputDto.content);

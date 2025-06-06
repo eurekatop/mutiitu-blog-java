@@ -1,7 +1,7 @@
-System.import('/components/card/scripts/card.js');
-System.import('/components/markdown/scripts/markdown.js')  
+System.import('/mutiitu/components/card/scripts/card.js');
+System.import('/mutiitu/components/markdown/scripts/markdown.js')  
 
-System.import('/components/gameoflife/scripts/gameoflife.js').then ( (module) => {
+System.import('/mutiitu/components/gameoflife/scripts/gameoflife.js').then ( (module) => {
     console.log ( module )
     window.module = module;
 })

@@ -1,7 +1,7 @@
 {% extends "mutiitu/blog/layouts/common/base.html" %}
 
 {% block headExtra %}
-  <script defer src="/layouts/home/HomeLayout.js"></script>
+  <script defer src="/{{BASE_PATH}}/layouts/home/HomeLayout.js"></script>
 
 {% endblock %}
 
@@ -13,7 +13,7 @@
 	
 	<div id="footer" style="display:flex;flex-direction: row; width:100%;flex-wrap: wrap; justify-content: center;">
 		{% for blog in blogs %}
-			<my-card url="/articles/{{blog.id}}" title="{{blog.title}}" subtitle="{{blog.subtitle}}" content="" image-url="{{blog.image}}/resize/200/200"></my-card>
+			<my-card url="/{{BASE_PATH}}/articles/{{blog.id}}" title="{{blog.title}}" subtitle="{{blog.subtitle}}" content="" image-url="{{blog.image}}/resize/200/200"></my-card>
 		{% endfor %}
 	</div>
 </div>

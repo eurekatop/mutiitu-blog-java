@@ -106,6 +106,7 @@ public class HelloWorldController extends JavalinController {
             PebbleTemplate compiledTemplate = engine.getTemplate("java/mutiitu/blog/components/addhtml.html");
 
             Map<String, Object> context = new HashMap<>();
+            context.put("BASE_PATH", System.getenv().getOrDefault("BASE_PATH", "/"));
 
             var items = new ArrayList<String>();
             items.add("a ");
