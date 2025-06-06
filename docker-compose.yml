@@ -12,7 +12,7 @@ services:
     user: developer
     entrypoint: sh /_dev/app/entrypoint.sh
     environment:
-      DB_URL: jdbc:mariadb://localhost:3306/test_mu
+      JDBC_URL: jdbc:mariadb://server01.mutiitu.com:3306/test_mu
       DB_USERNAME: root
       DB_PASSWORD: mypassword
       MYSQL_DATABASE: test_mu

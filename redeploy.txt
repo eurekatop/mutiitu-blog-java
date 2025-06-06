@@ -1,0 +1,13 @@
+git pull
+docker-compose rm -f my-java-app
+docker-compose build my-java-app
+docker-compose up -d --no-deps --build my-java-app
+docker logs -f  mutiitu-blog-java_my-java-app_1 
+
+
+----------
+docker-compose rm -f my-java-app
+docker image rm mutiitu-blog-java_my-java-app
+docker-compose build --no-cache my-java-app
+docker-compose up -d my-java-app 
+docker logs -f  mutiitu-blog-java_my-java-app_1
